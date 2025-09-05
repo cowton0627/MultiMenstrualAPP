@@ -177,3 +177,98 @@ struct CalendarScreen: View {
     }
 }
 
+
+//import SwiftUI
+//
+//struct CalendarScreen: View {
+//    @Environment(\.managedObjectContext) private var ctx
+//    let person: Person
+//
+//    // 這邊用 optional 初始化，再在 .task 裡處理
+//    @StateObject private var vmHolder = CalendarVMHolder()
+//
+//    var body: some View {
+//        Group {
+//            if let vm = vmHolder.vm {
+//                content(vm: vm)
+//                    .navigationTitle(vm.state.title)
+//                    .toolbar {
+//                        ToolbarItem(placement: .primaryAction) {
+//                            NavigationLink("編輯") { PersonSettingsView(person: person) }
+//                        }
+//                    }
+//                    .sheet(isPresented: Binding(get: { vm.state.showEditor },
+//                                                set: { vm.state.showEditor = $0 })) {
+//                        NavigationView {
+//                            RecordEditorView(person: person,
+//                                             defaultStart: vm.state.editorStart,
+//                                             defaultEnd: vm.state.editorEnd,
+//                                             editing: vm.state.editing)
+//                            .navigationBarTitleDisplayMode(.inline)
+//                        }
+//                        .environment(\.managedObjectContext, ctx)
+//                    }
+//                    .confirmationDialog("選擇要編輯的紀錄",
+//                                        isPresented: Binding(get: { vm.state.showPicker },
+//                                                             set: { vm.state.showPicker = $0 }),
+//                                        titleVisibility: .visible) {
+//                        ForEach(vm.state.candidates, id: \.objectID) { rec in
+//                            let s = (rec.startDate ?? Date.distantPast).stripTime()
+//                            let e = rec.endDate?.stripTime()
+//                            Button(dateRangeTitle(start: s, end: e)) {
+//                                vm.send(.pickRecord(rec))
+//                            }
+//                        }
+//                        Button("取消", role: .cancel) { vm.send(.closePicker) }
+//                    }
+//            } else {
+//                ProgressView("載入中...")
+//            }
+//        }
+//        .task {
+//            if vmHolder.vm == nil {
+//                let vm = CalendarViewModel(ctx: ctx, person: person)
+//                vmHolder.vm = vm
+//                vm.send(.appear)
+//            }
+//        }
+//    }
+//
+//    private func content(vm: CalendarViewModel) -> some View {
+//        VStack(spacing: 0) {
+//            ElegantCalendarView(
+//                visibleMonth: .init(
+//                    get: { vm.state.visibleMonth },
+//                    set: { vm.send(.setVisibleMonth($0)) }
+//                ),
+//                periodRanges: vm.state.ranges,
+//                predictedWindows: vm.state.predicted,
+//                theme: CalendarTheme(),
+//                firstWeekday: 2
+//            ) { tappedDate in
+//                vm.send(.tapDay(tappedDate))
+//            }
+//
+//            Button {
+//                vm.send(.tapAdd)
+//            } label: {
+//                Label("新增一次經期紀錄", systemImage: "plus.circle.fill")
+//            }
+//            .padding(.vertical, 12)
+//        }
+//    }
+//
+//    private func dateRangeTitle(start: Date, end: Date?) -> String {
+//        let f = DateFormatter()
+//        f.locale = Locale(identifier: "zh_TW")
+//        f.dateFormat = "MM/dd"
+//        if let e = end { return "\(f.string(from: start)) - \(f.string(from: e))" }
+//        return "\(f.string(from: start)) - 進行中"
+//    }
+//}
+//
+//// MARK: - VM 包裝器（for @StateObject）
+//final class CalendarVMHolder: ObservableObject {
+//    @Published var vm: CalendarViewModel? = nil
+//}
+//

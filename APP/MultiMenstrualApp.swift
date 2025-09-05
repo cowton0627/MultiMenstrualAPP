@@ -36,7 +36,7 @@ struct MultiMenstrualApp: App {
 
     var body: some Scene {
         WindowGroup {
-            MultiProfilesView()
+            MultiProfilesView(ctx: persistence.container.viewContext)
                 .environment(\.managedObjectContext, 
                               persistence.container.viewContext)
         }

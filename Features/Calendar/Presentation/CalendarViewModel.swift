@@ -47,7 +47,9 @@ final class CalendarViewModel: NSObject, ObservableObject {
     private var frc: NSFetchedResultsController<PeriodRecord>!
 
     // 暴露不可變狀態（View 只讀取）
-    @Published private(set) var state = UiState()
+//    @Published private(set) var state = UiState()
+    @Published var state = UiState()
+
 
     init(ctx: NSManagedObjectContext, person: Person) {
         self.ctx = ctx
