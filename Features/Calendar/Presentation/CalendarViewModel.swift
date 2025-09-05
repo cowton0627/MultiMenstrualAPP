@@ -5,22 +5,12 @@
 //  Created by Chun-Li Cheng on 2025/9/5.
 //
 
-import Foundation
-
 import SwiftUI
 import CoreData
 
-@available(iOS 17.0, *)
-extension CalendarViewModel: NSFetchedResultsControllerDelegate {
-    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        // Core Data 有變動 → 重新計算 UiState
-        recompute()
-    }
-}
-
-@available(iOS 17.0, *)
-@Observable
-final class CalendarViewModel: NSObject {
+//@available(iOS 17.0, *)
+//@Observable
+final class CalendarViewModel: NSObject, ObservableObject {
     // MARK: - UiState
     struct UiState: Equatable {
         var visibleMonth: Date = Date().startOfMonth()
@@ -57,7 +47,7 @@ final class CalendarViewModel: NSObject {
     private var frc: NSFetchedResultsController<PeriodRecord>!
 
     // 暴露不可變狀態（View 只讀取）
-    private(set) var state = UiState()
+    @Published private(set) var state = UiState()
 
     init(ctx: NSManagedObjectContext, person: Person) {
         self.ctx = ctx
@@ -172,3 +162,10 @@ final class CalendarViewModel: NSObject {
     }
 }
 
+//@available(iOS 17.0, *)
+extension CalendarViewModel: NSFetchedResultsControllerDelegate {
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        // Core Data 有變動 → 重新計算 UiState
+        recompute()
+    }
+}
