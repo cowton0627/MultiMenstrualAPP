@@ -8,7 +8,7 @@
 import SwiftUI
 
 /// 漸層背景，柔和溫暖的粉紫 → 蜜桃 → 奶油
-struct WarmPastelBackground: View {
+struct MainBackground: View {
     var body: some View {
         LinearGradient(
             colors: [

@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct RecordEditorView: View {
+struct RecordPeriodView: View {
     @Environment(\.managedObjectContext) private var ctx
     @Environment(\.dismiss) private var dismiss
 
