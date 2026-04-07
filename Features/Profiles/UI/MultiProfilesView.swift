@@ -8,21 +8,37 @@
 import SwiftUI
 import CoreData
 
+/// 多人資訊管理頁
 struct MultiProfilesView: View {
     @Environment(\.managedObjectContext) private var ctx
-    @FetchRequest(
-        sortDescriptors: [NSSortDescriptor(keyPath: \Person.createdAt, 
-                                           ascending: true)],
-        animation: .default
-    )
-    private var people: FetchedResults<Person>
+//    @FetchRequest(
+//        sortDescriptors: [NSSortDescriptor(keyPath: \Person.createdAt, 
+//                                           ascending: true)],
+//        animation: .default
+//    )
+//    private var people: FetchedResults<Person>
+    
+    @FetchRequest private var people: FetchedResults<Person>
+    init() {
+        _people = FetchRequest<Person>(
+            sortDescriptors: [NSSortDescriptor(keyPath: \Person.createdAt,
+                                               ascending: true)],
+            animation: .default
+        )
+    }
+
 
     @State private var showingAdd = false
+    
+//    @StateObject private var vm: ProfilesViewModel
+//    init(context: NSManagedObjectContext) {
+//        _vm = StateObject(wrappedValue: ProfilesViewModel(context: context))
+//    }
 
     var body: some View {
         NavigationView {
             ZStack {
-                WarmPastelBackground() // 客製化背景
+                MainBackground() // 客製化背景
 
                 List {
                     ForEach(people) { p in
@@ -31,26 +47,21 @@ struct MultiProfilesView: View {
                         } label: {
                             HStack(spacing: 12) {
                                 Circle()
-                                    .fill(Color(hex: p.colorHex ?? "#FF6B6B"))
+                                    .fill(p.uiColor)
                                     .frame(width: 14, height: 14)
 
                                 Text(p.name ?? "未命名")
-                                    .font(.body)              // 動態字級
-                                    .fontWeight(.medium)      // 權重分開設
+                                    .font(.body)
+                                    .fontWeight(.medium)
                                     .foregroundColor(.primary)
-                            }
-                            .padding(.vertical, 6)
+                            }.padding(.vertical, 6)
                         }
-                        // 霧面半透明列底，讓漸層可透出
                         .listRowBackground(Color.white.opacity(0.28))
-                    }
-                    .onDelete { idx in
-                        idx.map { people[$0] }.forEach(ctx.delete)
-                        try? ctx.save()
+                        // 霧面半透明列底，讓漸層可透出
                     }
                 }
                 .listStyle(.insetGrouped)
-                .applyTransparentListBackground()   // 加這段才能用客製化背景色
+                .applyTransparentListBackground()   // 加這段才可套用客製化背景色
             }
             .navigationTitle("經期管理")
             .toolbar {
@@ -61,6 +72,7 @@ struct MultiProfilesView: View {
             .sheet(isPresented: $showingAdd) {
                 AddPersonSheet()
                     .environment(\.managedObjectContext, ctx)
+//                AddPersonSheet(vm: vm)
             }
         }
     }
@@ -79,8 +91,10 @@ private struct TransparentListBackground: ViewModifier {
                     UITableViewCell.appearance().backgroundColor = .clear
                 }
                 .onDisappear {
-                    UITableView.appearance().backgroundColor = .systemGroupedBackground
-                    UITableViewCell.appearance().backgroundColor = .secondarySystemGroupedBackground
+                    UITableView.appearance().backgroundColor = 
+                        .systemGroupedBackground
+                    UITableViewCell.appearance().backgroundColor =
+                        .secondarySystemGroupedBackground
                 }
         }
     }
@@ -92,5 +106,4 @@ private extension View {
         modifier(TransparentListBackground())
     }
 }
-
 
