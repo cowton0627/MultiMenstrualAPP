@@ -1,5 +1,5 @@
 //
-//  WarmPastelBackground.swift
+//  MainBackground.swift
 //  MultiMenstrualAPP
 //
 //  Created by Chun-Li Cheng on 2025/9/1.
@@ -23,3 +23,4 @@ struct MainBackground: View {
         .ignoresSafeArea()
     }
 }
+

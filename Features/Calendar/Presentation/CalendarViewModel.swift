@@ -25,7 +25,7 @@ final class CalendarViewModel: NSObject, ObservableObject {
         var candidates: [PeriodRecord] = []
         var picked: PeriodRecord? = nil
 
-        var title: String = "對象"
+        var title: String = "無名"
     }
 
     enum Intent {
@@ -55,7 +55,7 @@ final class CalendarViewModel: NSObject, ObservableObject {
         self.ctx = ctx
         self.person = person
         super.init()
-        state.title = person.name ?? "對象"
+        state.title = person.name ?? "無名"
         configureFRC()
     }
 

@@ -1,5 +1,5 @@
 //
-//  RecordEditorView.swift
+//  RecordPeriodView.swift
 //  MultiMenstrualAPP
 //
 //  Created by Chun-Li Cheng on 2025/8/27.
@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// 個人月曆頁之下方新增紀錄頁
 struct RecordPeriodView: View {
     @Environment(\.managedObjectContext) private var ctx
     @Environment(\.dismiss) private var dismiss
@@ -66,21 +67,22 @@ struct RecordPeriodView: View {
         }
         .navigationTitle("經期紀錄")
         .toolbar {
-            ToolbarItem(placement: .cancellationAction) { Button("取消") { dismiss() } }
+            ToolbarItem(placement: .cancellationAction) {
+                Button("取消") { dismiss() }
+            }
             ToolbarItem(placement: .confirmationAction) {
                 Button("儲存") { save() }
                 .disabled(!canSave)
             }
         }
-        // 底部工具列：在某些機型/情境下上面按鈕不好點，這個一定看得到也點得到
+        // 底部工具列
 //        .toolbar {
 //            ToolbarItemGroup(placement: .bottomBar) {
 //                Button("取消") { dismiss() }
 //                Spacer()
 //                Button { save() } label: {
 //                    Label("儲存", systemImage: "checkmark.circle.fill")
-//                }
-//                .disabled(!canSave)
+//                }.disabled(!canSave)
 //            }
 //        }
     }

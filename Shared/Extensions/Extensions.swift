@@ -10,9 +10,20 @@ import SwiftUI
 extension Person {
     var sortedRecords: [PeriodRecord] {
         (records as? Set<PeriodRecord> ?? [])
-            .sorted { ($0.startDate ?? .distantPast) < ($1.startDate ?? .distantPast) }
+            .sorted {
+                ($0.startDate ?? .distantPast) < ($1.startDate ?? .distantPast)
+            }
+    }
+    
+    var uiColor: Color {
+        if let hex = colorHex, !hex.isEmpty {
+            return Color(hex: hex)
+        } else {
+            return Color(hex: "#FF6B6B")    // 統一 fallback
+        }
     }
 }
+
 
 enum BrandFont {
     static let name = "jf-openhuninn-2.1"   // 你印到的 PostScript name

@@ -1,5 +1,5 @@
 //
-//  MultiProfilesViewModel.swift
+//  ProfilesViewModel.swift
 //  MultiMenstrualAPP
 //
 //  Created by Chun-Li Cheng on 2025/9/5.
@@ -10,7 +10,6 @@ import CoreData
 
 final class ProfilesViewModel: ObservableObject {
     @Published var people: [Person] = []
-
     private let ctx: NSManagedObjectContext
 
     init(context: NSManagedObjectContext) {
@@ -20,14 +19,15 @@ final class ProfilesViewModel: ObservableObject {
 
     func fetchPeople() {
         let request = Person.fetchRequest()
-        request.sortDescriptors = [NSSortDescriptor(keyPath: \Person.createdAt, ascending: true)]
+        request.sortDescriptors = 
+        [NSSortDescriptor(keyPath: \Person.createdAt, ascending: true)]
+        
         do {
             people = try ctx.fetch(request)
-        } catch {
-            print("Fetch error:", error)
-        }
+        } catch { print("Fetch error:", error) }
     }
     
+    /// 新增人物
     func addPerson(name: String, colorHex: String) {
         let p = Person(context: ctx)
         p.id = UUID()
@@ -37,13 +37,10 @@ final class ProfilesViewModel: ObservableObject {
         do {
             try ctx.save()
             fetchPeople()
-        } catch {
-            print("Save error:", error)
-        }
-//        try? ctx.save()
-//        fetchPeople()
+        } catch { print("Save error:", error) }
     }
 
+    /// 刪除人物
     func delete(at offsets: IndexSet) {
         for index in offsets {
             ctx.delete(people[index])
@@ -51,12 +48,9 @@ final class ProfilesViewModel: ObservableObject {
         do {
             try ctx.save()
             fetchPeople()
-        } catch {
-            print("Delete error:", error)
-        }
-//        try? ctx.save()
-//        fetchPeople() // 更新畫面
+        } catch { print("Delete error:", error) }
     }
 
     
 }
+

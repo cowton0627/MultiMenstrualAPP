@@ -45,7 +45,7 @@ struct ElegantCalendarView: View {
         self.calendar = cal
     }
     
-    private var header: some View {
+    private var yearMonthHeader: some View {
         HStack {
             Button {
                 impact(.rigid)
@@ -83,44 +83,86 @@ struct ElegantCalendarView: View {
         .padding(.bottom, 6)
     }
     
+    private var weekdaysRow: some View {
+        let symbols = weekdaySymbols(startingAt: firstWeekday)
+        return LazyVGrid(
+                columns: Array(repeating: GridItem(.flexible(), spacing: 0),
+                               count: 7),
+                spacing: 0
+            ) {
+                ForEach(Array(symbols.enumerated()),
+                        id: \.element)
+                { offset, s in
+                    let weekdayIndex = (firstWeekday + offset - 1) % 7 + 1
+                    Text(s)
+                        .font(theme.fontWeekday)
+                        .foregroundColor(
+                            (weekdayIndex == 1 || weekdayIndex == 7) ?
+                                .red : theme.weekdayColor
+                        ) // 週日週六顯紅色
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 4)
+                }
+            }
+//            .padding(.horizontal, theme.contentPadding)
+        
+//        return HStack(spacing: 0) {
+//            ForEach(Array(symbols.enumerated()), id: \.element) { 
+//                offset, s in
+//                let weekdayIndex = (firstWeekday + offset - 1) % 7 + 1
+//                Text(s)
+//                    .font(theme.fontWeekday)
+//                    .foregroundColor((weekdayIndex == 1 || weekdayIndex == 7) ? .red : theme.weekdayColor)
+//                    .frame(maxWidth: .infinity)
+//                    .padding(.vertical, 4) }
+//        }.padding(.horizontal, theme.contentPadding)
+    }
+    
     var body: some View {
-        VStack(spacing: 0) {
-            header
-            weekdaysRow
-            Divider().background(theme.gridSeparator)
+        ZStack {
+            CalendarBackground()
 
-            TabView(selection: $pageMonth) {
-                ForEach(monthStride(centeredAt: visibleMonth,
-                                    count: 9),
-                        id: \.self) { month in
-                    monthGrid(month)
+            VStack(spacing: 0) {
+                yearMonthHeader
+                weekdaysRow
+
+                TabView(selection: $pageMonth) {
+                    ForEach(monthStride(centeredAt: visibleMonth, count: 3),
+                            id: \.self) { month in
+                        VStack(spacing: 0) {
+                            monthGrid(month)
+                                .padding(.horizontal, theme.contentPadding)
+                                .padding(.top, 2) // 與星期列保持最小距離
+                        }
+                        .frame(maxWidth: .infinity,
+                               maxHeight: .infinity,
+                               alignment: .top)
                         .tag(month)
-                        .padding(.horizontal, theme.contentPadding)
+                    }
                 }
-            }
-            .tabViewStyle(.page(indexDisplayMode: .never))
-            .onChange(of: pageMonth) { newValue in
-                impact(.light)
-                withAnimation(
-                    .spring(response: 0.32, dampingFraction: 0.88)
-                ) {
-                    visibleMonth = newValue.startOfMonth()
+                .tabViewStyle(.page(indexDisplayMode: .never))
+                .onChange(of: pageMonth) { newValue in
+                    impact(.light)
+                    withAnimation(
+                        .spring(response: 0.32, dampingFraction: 0.88)
+                    ) {
+                        visibleMonth = newValue.startOfMonth()
+                    }
                 }
+                .frame(maxHeight: .infinity)
             }
-            .frame(maxHeight: .infinity)
-            .background(theme.background)
         }
-        .background(theme.background.ignoresSafeArea())
     }
 
 
     @ViewBuilder
     private func monthGrid(_ month: Date) -> some View {
         let days = monthDays(month)
-        LazyVGrid(columns: Array(repeating: GridItem(.flexible(),
-                                                     spacing: 6),
-                                 count: 7),
-                  spacing: 6) {
+        LazyVGrid(
+            columns: Array(repeating: GridItem(.flexible(), spacing: 6),
+                           count: 7),
+            spacing: 6
+        ) {
             ForEach(days, id: \.self) { day in
                 DayCell(
                     date: day,
@@ -137,34 +179,7 @@ struct ElegantCalendarView: View {
         .padding(.vertical, 10)
     }
     
-//    private var weekdaysRow: some View {
-//        let symbols = weekdaySymbols(startingAt: firstWeekday)
-//        return HStack {
-//            ForEach(symbols, id: \.self) { s in
-//                Text(s)
-//                    .font(theme.fontWeekday)
-//                    .foregroundColor(theme.weekdayColor)
-//                    .frame(maxWidth: .infinity)
-//                    .padding(.vertical, 4)
-//            }
-//        }
-//        .padding(.horizontal, theme.contentPadding)
-//    }
     
-    private var weekdaysRow: some View {
-        let symbols = weekdaySymbols(startingAt: firstWeekday)
-        return HStack {
-            ForEach(Array(symbols.enumerated()), id: \.element) { offset, s in
-                let weekdayIndex = (firstWeekday + offset - 1) % 7 + 1
-                Text(s)
-                    .font(theme.fontWeekday)
-                    .foregroundColor((weekdayIndex == 1 || weekdayIndex == 7) ? .red : theme.weekdayColor) // 1=Sunday, 7=Saturday
-                    .frame(maxWidth: .infinity)
-                    .padding(.vertical, 4)
-            }
-        }
-        .padding(.horizontal, theme.contentPadding)
-    }
 
 
     // MARK: - Overlays（多人色帶 + 預測虛線）
@@ -181,7 +196,9 @@ struct ElegantCalendarView: View {
 
     private func predictedOverlay(for day: Date) -> Color? {
         for p in predictedWindows {
-            if day.isWithin(p.range.lowerBound, p.range.upperBound, calendar: calendar) {
+            if day.isWithin(p.range.lowerBound, 
+                            p.range.upperBound,
+                            calendar: calendar) {
                 return p.color
             }
         }
@@ -231,7 +248,9 @@ struct ElegantCalendarView: View {
 
     private func weekdaySymbols(startingAt first: Int) -> [String] {
         var syms = ["日","一","二","三","四","五","六"]
-        if first == 2 { syms = ["一","二","三","四","五","六","日"] }  // 週一為首
+        if first == 2 {
+            syms = ["一","二","三","四","五","六","日"]
+        }  // 週一為首
         return syms
     }
 
@@ -246,22 +265,28 @@ struct ElegantCalendarView: View {
         let month: Date
         let today: Date
         let theme: CalendarTheme
-        let inPeriodOverlays: [Color]    // 這天有哪些人的經期覆蓋
-        let predictedOverlay: Color?     // 這天是否落在預測窗
+        let inPeriodOverlays: [Color]   // 這天有哪些人的經期覆蓋
+        let predictedOverlay: Color?    // 這天是否落在預測窗
 
         var body: some View {
             let inCurrentMonth = date.isSameMonth(as: month)
             let isToday = date == today
 
             ZStack {
-                // 預測期虛線框
+                // 預測下次經期虛線框
                 if let predicted = predictedOverlay {
-                    RoundedRectangle(cornerRadius: theme.selectionCorner)
-                        .stroke(style: StrokeStyle(lineWidth: 1, dash: [4,4]))
-                        .foregroundColor(predicted.opacity(0.8))
+                    DottedCircle()
+                        .stroke(style: StrokeStyle(lineWidth: 2, 
+                                                   lineCap: .round,
+                                                   dash: [2, 3]))
+                        .foregroundColor(predicted.opacity(0.7))
+                        .frame(width: 30, height: 30)
+//                    RoundedRectangle(cornerRadius: theme.selectionCorner)
+//                        .stroke(style: StrokeStyle(lineWidth: 1, dash: [4,4]))
+//                        .foregroundColor(predicted.opacity(0.8))
                 }
 
-                // 經期色帶（多人：用多層半透明）
+                // 經期上色（多人：用多層半透明）
                 if !inPeriodOverlays.isEmpty {
                     RoundedRectangle(cornerRadius: theme.selectionCorner)
                         .fill(
@@ -275,18 +300,16 @@ struct ElegantCalendarView: View {
                 VStack(spacing: 4) {
                     Text("\(Calendar.current.component(.day, from: date))")
                         .font(theme.fontDay)
-                        .foregroundColor(inCurrentMonth ? theme.dayText : theme.outMonthText)
+                        .foregroundColor(inCurrentMonth ? 
+                                         theme.dayText : theme.outMonthText)
                         .padding(.top, 6)
-
                     // 多人小點點（最多 3 個）
-                    HStack(spacing: 3) {
-                        ForEach(inPeriodOverlays.prefix(3), id: \.self) { c in
-                            Circle().fill(c).frame(width: 5, height: 5)
-                        }
-                    }
-                    .padding(.bottom, 6)
+//                    HStack(spacing: 3) {
+//                        ForEach(inPeriodOverlays.prefix(3), id: \.self) { c in
+//                            Circle().fill(c).frame(width: 5, height: 5)
+//                        }
+//                    }.padding(.bottom, 6)
                 }
-
                 // 今日細圈
                 if isToday {
                     RoundedRectangle(cornerRadius: theme.selectionCorner)
@@ -305,6 +328,17 @@ struct ElegantCalendarView: View {
             if cs.count == 1 { return cs }
             if cs.count == 2 { return [cs[0], cs[1]] }
             return [cs[0], cs[1], cs[2]]
+        }
+    }
+    
+    // 虛線圓
+    private struct DottedCircle: Shape {
+        func path(in rect: CGRect) -> Path {
+            let r = min(rect.width, rect.height) / 2
+            return Path(ellipseIn: CGRect(x: rect.midX - r, 
+                                          y: rect.midY - r,
+                                          width: r*2,
+                                          height: r*2))
         }
     }
 

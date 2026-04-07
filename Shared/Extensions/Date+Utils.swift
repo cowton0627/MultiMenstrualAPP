@@ -39,7 +39,9 @@ extension Date {
         return a.year == b.year && a.month == b.month
     }
 
-    func isWithin(_ start: Date, _ end: Date, calendar cal: Calendar = .current) -> Bool {
+    func isWithin(_ start: Date,
+                  _ end: Date,
+                  calendar cal: Calendar = .current) -> Bool {
         let d = stripTime(cal)
         return d >= start.stripTime(cal) && d <= end.stripTime(cal)
     }

@@ -16,13 +16,14 @@ struct MultiMenstrualApp: App {
         let fontName = "jf-openhuninn-2.1"   // 你的 PostScript name
 
         // 做動態字級對應的 UIFont
-        let inlineBase = UIFont(name: fontName, size: 17)!
-        let largeBase  = UIFont(name: fontName, size: 34)!  // 大標題預設 34pt
-        let inlineFont = UIFontMetrics(forTextStyle: .headline).scaledFont(for: inlineBase)
-        let largeFont  = UIFontMetrics(forTextStyle: .largeTitle).scaledFont(for: largeBase)
+        let inline = UIFont(name: fontName, size: 17)!
+        let large  = UIFont(name: fontName, size: 34)!
+        let inlineFont = UIFontMetrics(forTextStyle: .headline).scaledFont(for: inline)
+        let largeFont  = UIFontMetrics(forTextStyle: .largeTitle).scaledFont(for: large)
 
         let ap = UINavigationBarAppearance()
-        ap.configureWithTransparentBackground() // 或 configureWithDefaultBackground()
+        ap.configureWithTransparentBackground() 
+        // 或 configureWithDefaultBackground()
 
         ap.titleTextAttributes      = [.font: inlineFont]
         ap.largeTitleTextAttributes = [.font: largeFont]
@@ -36,9 +37,13 @@ struct MultiMenstrualApp: App {
 
     var body: some Scene {
         WindowGroup {
-            MultiProfilesView(ctx: persistence.container.viewContext)
-                .environment(\.managedObjectContext, 
+            RootView()
+                .environment(\.managedObjectContext,
                               persistence.container.viewContext)
+//            MultiProfilesView()
+//                .environment(\.managedObjectContext,
+//                              persistence.container.viewContext)
+//            MultiProfilesView(context: persistence.container.viewContext)
         }
     }
 }

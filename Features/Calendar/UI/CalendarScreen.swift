@@ -16,12 +16,12 @@ struct CalendarScreen: View {
     // 1) 月起點（會被日曆內左右切換更新）
     @State private var visibleMonth = Date().startOfMonth()
 
-    // 2) 控制新增/編輯 sheet
+    // 2) 控制編輯、新增 sheet
     @State private var showEditor = false
     @State private var editorPresetStart = Date().stripTime()
     @State private var editorPresetEnd = Date().stripTime().addDays(5)
-    @State private var editingRecord: PeriodRecord? = nil   // 不為 nil 時代表「編輯模式」
-
+    // 不為 nil 時代表「編輯模式」
+    @State private var editingRecord: PeriodRecord? = nil
     // 多筆選擇（同一天若撞到多筆）
     @State private var showPicker = false
     @State private var candidates: [PeriodRecord] = []
@@ -37,17 +37,21 @@ struct CalendarScreen: View {
         self.person = person
         // 只抓這個人的紀錄並依開始日排序
         let req: NSFetchRequest<PeriodRecord> = PeriodRecord.fetchRequest()
-        req.sortDescriptors = [NSSortDescriptor(key: "startDate", ascending: true)]
+        req.sortDescriptors = [NSSortDescriptor(key: "startDate", 
+                                                ascending: true)]
         req.predicate = NSPredicate(format: "person == %@", person)
         _myRecords = FetchRequest(fetchRequest: req, animation: .default)
     }
+    
+//    @StateObject private var vm: ProfilesViewModel
 
     var body: some View {
         let recs = Array(myRecords)
         let ranges = makeRanges(from: Array(myRecords))
         let preds  = makePredictedWindows(from: Array(myRecords))
-
+            
         VStack(spacing: 0) {
+                
             ElegantCalendarView(
                 visibleMonth: $visibleMonth,
                 periodRanges: ranges,
@@ -76,60 +80,63 @@ struct CalendarScreen: View {
                     editorPresetStart = tappedDate.stripTime()
                     editorPresetEnd   = tappedDate.stripTime().addDays(5)
                     showEditor = true
+                    }
                 }
-            }
 
-            Button {
-                editingRecord = nil
-                editorPresetStart = Date().stripTime()
-                editorPresetEnd   = editorPresetStart.addDays(5)
-                showEditor = true
-            } label: {
-                Label("新增一次經期紀錄", systemImage: "plus.circle.fill")
-            }
-            .padding(.vertical, 12)
+//            Button {
+//                editingRecord = nil
+//                editorPresetStart = Date().stripTime()
+//                editorPresetEnd   = editorPresetStart.addDays(5)
+//                showEditor = true
+//            } label: {
+//                Label("新增一次經期紀錄", systemImage: "plus.circle.fill")
+//            }.padding(.vertical, 12)
         }
-        .navigationTitle(person.name ?? "對象")
+        .navigationTitle(person.name ?? "無名")
         .toolbar {
             ToolbarItem(placement: .primaryAction) {
-                NavigationLink("編輯") { PersonSettingsView(person: person) }
+                NavigationLink("編輯") {
+                    PersonSettingsView(person: person) 
+//                    { vm.fetchPeople() }
+                }
             }
         }
         // 多筆時的挑選對話框（iOS 15 可用）
-        .confirmationDialog("選擇要編輯的紀錄",
-                            isPresented: $showPicker,
-                            titleVisibility: .visible) {
-            ForEach(candidates, id: \.objectID) { rec in
-                let s = rec.startDate?.stripTime() ?? Date.distantPast
-                let e = rec.endDate?.stripTime()
-                Button(dateRangeTitle(start: s, end: e)) {
-                    // 帶入被選那筆的預設值並進編輯
-                    editingRecord = rec
-                    editorPresetStart = s
-                    editorPresetEnd   = (e ?? s.addDays(5))
-                    showEditor = true
-                }
-            }
-            Button("取消", role: .cancel) {}
-        }
-        // 開啟編輯器；儲存後 FetchRequest 會自動更新，日曆立即反映
+//        .confirmationDialog("選擇要編輯的紀錄",
+//                            isPresented: $showPicker,
+//                            titleVisibility: .visible) {
+//            ForEach(candidates, id: \.objectID) { rec in
+//                let s = rec.startDate?.stripTime() ?? Date.distantPast
+//                let e = rec.endDate?.stripTime()
+//                Button(dateRangeTitle(start: s, end: e)) {
+//                    editingRecord = rec // 帶入被選那筆的預設值並進編輯
+//                    editorPresetStart = s
+//                    editorPresetEnd   = (e ?? s.addDays(5))
+//                    showEditor = true }
+//            }
+//            Button("取消", role: .cancel) {}
+//        }
         .sheet(isPresented: $showEditor) {
-            NavigationView {   // iOS 16 請改用 NavigationStack
-                RecordEditorView(person: person,
+            NavigationView {    // iOS 16 請改用 NavigationStack
+                RecordPeriodView(person: person,
                                  defaultStart: editorPresetStart,
                                  defaultEnd: editorPresetEnd,
                                  editing: editingRecord)
                 .navigationBarTitleDisplayMode(.inline)
-            }
-            .environment(\.managedObjectContext, ctx)
+            }.environment(\.managedObjectContext, ctx)
         }
+        // 開啟編輯器；儲存後 FetchRequest 會自動更新，日曆立即反映
     }
 
+    
     // MARK: - Helpers
-    private func records(on day: Date, in recs: [PeriodRecord]) -> [PeriodRecord] {
+    private func records(on day: Date,
+                         in recs: [PeriodRecord]) -> [PeriodRecord] {
         let d = day.stripTime()
+        
         return recs.filter { r in
             guard let s = r.startDate?.stripTime() else { return false }
+            
             if let e = r.endDate?.stripTime() {
                 return d >= s && d <= e
             } else {
@@ -177,98 +184,20 @@ struct CalendarScreen: View {
     }
 }
 
+struct CalendarTheme {
+    var background = Color(UIColor.systemBackground)
+    var monthTitleColor = Color.primary
+    var weekdayColor = Color.secondary
+    var todayRing = Color.accentColor
+    var gridSeparator = Color.secondary.opacity(0.12)
+    var dayText = Color.primary
+    var outMonthText = Color.secondary.opacity(0.5)
+    var predictedDash = Color.orange
+    var selectionCorner: CGFloat = 8
+    var dayMinHeight: CGFloat = 44
+    var contentPadding: CGFloat = 16
+    var fontDay = Font.system(.subheadline, design: .rounded).weight(.semibold)
+    var fontMonth = Font.system(.title2, design: .rounded).weight(.bold)
+    var fontWeekday = Font.system(.caption2, design: .rounded).weight(.semibold)
+}
 
-//import SwiftUI
-//
-//struct CalendarScreen: View {
-//    @Environment(\.managedObjectContext) private var ctx
-//    let person: Person
-//
-//    // 這邊用 optional 初始化，再在 .task 裡處理
-//    @StateObject private var vmHolder = CalendarVMHolder()
-//
-//    var body: some View {
-//        Group {
-//            if let vm = vmHolder.vm {
-//                content(vm: vm)
-//                    .navigationTitle(vm.state.title)
-//                    .toolbar {
-//                        ToolbarItem(placement: .primaryAction) {
-//                            NavigationLink("編輯") { PersonSettingsView(person: person) }
-//                        }
-//                    }
-//                    .sheet(isPresented: Binding(get: { vm.state.showEditor },
-//                                                set: { vm.state.showEditor = $0 })) {
-//                        NavigationView {
-//                            RecordEditorView(person: person,
-//                                             defaultStart: vm.state.editorStart,
-//                                             defaultEnd: vm.state.editorEnd,
-//                                             editing: vm.state.editing)
-//                            .navigationBarTitleDisplayMode(.inline)
-//                        }
-//                        .environment(\.managedObjectContext, ctx)
-//                    }
-//                    .confirmationDialog("選擇要編輯的紀錄",
-//                                        isPresented: Binding(get: { vm.state.showPicker },
-//                                                             set: { vm.state.showPicker = $0 }),
-//                                        titleVisibility: .visible) {
-//                        ForEach(vm.state.candidates, id: \.objectID) { rec in
-//                            let s = (rec.startDate ?? Date.distantPast).stripTime()
-//                            let e = rec.endDate?.stripTime()
-//                            Button(dateRangeTitle(start: s, end: e)) {
-//                                vm.send(.pickRecord(rec))
-//                            }
-//                        }
-//                        Button("取消", role: .cancel) { vm.send(.closePicker) }
-//                    }
-//            } else {
-//                ProgressView("載入中...")
-//            }
-//        }
-//        .task {
-//            if vmHolder.vm == nil {
-//                let vm = CalendarViewModel(ctx: ctx, person: person)
-//                vmHolder.vm = vm
-//                vm.send(.appear)
-//            }
-//        }
-//    }
-//
-//    private func content(vm: CalendarViewModel) -> some View {
-//        VStack(spacing: 0) {
-//            ElegantCalendarView(
-//                visibleMonth: .init(
-//                    get: { vm.state.visibleMonth },
-//                    set: { vm.send(.setVisibleMonth($0)) }
-//                ),
-//                periodRanges: vm.state.ranges,
-//                predictedWindows: vm.state.predicted,
-//                theme: CalendarTheme(),
-//                firstWeekday: 2
-//            ) { tappedDate in
-//                vm.send(.tapDay(tappedDate))
-//            }
-//
-//            Button {
-//                vm.send(.tapAdd)
-//            } label: {
-//                Label("新增一次經期紀錄", systemImage: "plus.circle.fill")
-//            }
-//            .padding(.vertical, 12)
-//        }
-//    }
-//
-//    private func dateRangeTitle(start: Date, end: Date?) -> String {
-//        let f = DateFormatter()
-//        f.locale = Locale(identifier: "zh_TW")
-//        f.dateFormat = "MM/dd"
-//        if let e = end { return "\(f.string(from: start)) - \(f.string(from: e))" }
-//        return "\(f.string(from: start)) - 進行中"
-//    }
-//}
-//
-//// MARK: - VM 包裝器（for @StateObject）
-//final class CalendarVMHolder: ObservableObject {
-//    @Published var vm: CalendarViewModel? = nil
-//}
-//
