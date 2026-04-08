@@ -43,7 +43,7 @@ struct MultiProfilesView: View {
                 List {
                     ForEach(people) { p in
                         NavigationLink {
-                            CalendarScreen(person: p)
+                            CalendarScreen(person: p, context: ctx)
                         } label: {
                             HStack(spacing: 12) {
                                 Circle()
@@ -70,9 +70,7 @@ struct MultiProfilesView: View {
                 }
             }
             .sheet(isPresented: $showingAdd) {
-                AddPersonSheet()
-                    .environment(\.managedObjectContext, ctx)
-//                AddPersonSheet(vm: vm)
+                AddPersonSheet(context: ctx)
             }
         }
     }
@@ -106,4 +104,3 @@ private extension View {
         modifier(TransparentListBackground())
     }
 }
-

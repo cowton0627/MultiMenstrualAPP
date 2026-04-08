@@ -8,10 +8,7 @@
 import SwiftUI
 import CoreData
 
-//@available(iOS 17.0, *)
-//@Observable
 final class CalendarViewModel: NSObject, ObservableObject {
-    // MARK: - UiState
     struct UiState: Equatable {
         var visibleMonth: Date = Date().startOfMonth()
         var ranges: [PeriodRange] = []
@@ -39,20 +36,17 @@ final class CalendarViewModel: NSObject, ObservableObject {
     }
 
     // MARK: - DI
-    private let ctx: NSManagedObjectContext
+    let context: NSManagedObjectContext
     private let person: Person
-    private let ongoingFallbackDays = 5
+    private let recordHitResolver = RecordHitResolver()
+    private let periodRangeMapper = PeriodRangeMapper()
 
-    // FRC 讓 Core Data 更新自動推進 UiState
     private var frc: NSFetchedResultsController<PeriodRecord>!
 
-    // 暴露不可變狀態（View 只讀取）
-//    @Published private(set) var state = UiState()
-    @Published var state = UiState()
-
+    @Published private(set) var state = UiState()
 
     init(ctx: NSManagedObjectContext, person: Person) {
-        self.ctx = ctx
+        self.context = ctx
         self.person = person
         super.init()
         state.title = person.name ?? "無名"
@@ -114,7 +108,7 @@ final class CalendarViewModel: NSObject, ObservableObject {
         req.sortDescriptors = [NSSortDescriptor(key: "startDate", ascending: true)]
         req.predicate = NSPredicate(format: "person == %@", person)
         frc = NSFetchedResultsController(fetchRequest: req,
-                                         managedObjectContext: ctx,
+                                         managedObjectContext: context,
                                          sectionNameKeyPath: nil,
                                          cacheName: nil)
         frc.delegate = self
@@ -126,48 +120,20 @@ final class CalendarViewModel: NSObject, ObservableObject {
     }
 
     private func records(on day: Date) -> [PeriodRecord] {
-        let d = day.stripTime()
-        return allRecords().filter { r in
-            guard let s = r.startDate?.stripTime() else { return false }
-            if let e = r.endDate?.stripTime() {
-                return d >= s && d <= e
-            } else { return d >= s } // 進行中視為持續
-        }
+        recordHitResolver.records(on: day, in: allRecords())
     }
 
     private func recompute() {
         let recs = allRecords()
-        state.ranges = makeRanges(from: recs)
-        state.predicted = makePredictedWindows(from: recs)
-    }
-
-    private func makeRanges(from recs: [PeriodRecord]) -> [PeriodRange] {
-        let color = Color(hex: person.colorHex ?? "#FF6B6B")
-        return recs.compactMap { r in
-            guard let s = r.startDate?.stripTime() else { return nil }
-            let e = (r.endDate ?? s.addDays(ongoingFallbackDays)).stripTime()
-            guard e >= s else { return nil }
-            return PeriodRange(personId: person.id ?? UUID(),
-                               personName: person.name ?? "未命名",
-                               color: color, start: s, end: e)
-        }
-    }
-
-    private func makePredictedWindows(from recs: [PeriodRecord]) -> [PredictedWindow] {
-        let predictor = CyclePredictor(records: recs)
-        guard let next = predictor.predictedNextStart else { return [] }
-        let left  = next.addDays(-2).stripTime()
-        let right = next.addDays( 2).stripTime()
-        return [PredictedWindow(personId: person.id ?? UUID(),
-                                color: Color(hex: person.colorHex ?? "#FF6B6B"),
-                                range: left...right)]
+        state.title = person.name ?? "無名"
+        state.ranges = periodRangeMapper.makeRanges(from: recs, person: person)
+        state.predicted = periodRangeMapper.makePredictedWindows(from: recs,
+                                                                 person: person)
     }
 }
 
-//@available(iOS 17.0, *)
 extension CalendarViewModel: NSFetchedResultsControllerDelegate {
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        // Core Data 有變動 → 重新計算 UiState
         recompute()
     }
 }

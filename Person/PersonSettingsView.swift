@@ -10,41 +10,34 @@ import CoreData
 
 /// 個人月曆頁之編輯跳頁
 struct PersonSettingsView: View {
-    @Environment(\.managedObjectContext) private var ctx
     @Environment(\.dismiss) private var dismiss
 
     @ObservedObject var person: Person
-//    var onDeleted: () -> Void
-
-    @State private var name: String
-    @State private var color: Color
+    @StateObject private var vm: PersonSettingsViewModel
     @State private var showDeleteAlert = false
 
-    init(person: Person
-//         , onDeleted: @escaping () -> Void
-    ) {
+    init(person: Person, context: NSManagedObjectContext) {
         self.person = person
-//        self.onDeleted = onDeleted
-        _name  = State(initialValue: person.name ?? "")
-        _color = State(initialValue: Color(hex: person.colorHex ?? "#FF6B6B"))
+        _vm = StateObject(wrappedValue: PersonSettingsViewModel(person: person,
+                                                                context: context))
     }
 
     var body: some View {
         Form {
             Section(header: Text("基本資料")) {
-                TextField("姓名", text: $name)
+                TextField("姓名", text: $vm.name)
                     .font(.system(.headline, design: .monospaced))
-                    .foregroundColor(Color.init(hex: color.toHexString()))
+                    .foregroundColor(Color.init(hex: vm.color.toHexString()))
 
                 ColorPicker("當前顏色",
-                            selection: $color,
+                            selection: $vm.color,
                             supportsOpacity: false)
 
                 HStack {
                     Text("HEX色碼")
                     Spacer()
                     // Text 沒有 .monospaced() 修飾器；要在 Font 上套 monospaced
-                    Text(color.toHexString())
+                    Text(vm.color.toHexString())
                         .font(.system(.body, design: .monospaced))
                         .foregroundColor(.secondary)
                 }
@@ -63,11 +56,10 @@ struct PersonSettingsView: View {
         .toolbar {
             ToolbarItem(placement: .cancellationAction) {
                 Button("取消") { dismiss() }
-//                Button("") { dismiss() }
             }
             ToolbarItem(placement: .confirmationAction) {
                 Button("儲存") { savePerson() }
-                    .disabled(name.trimmingCharacters(in: .whitespaces).isEmpty)
+                    .disabled(!vm.canSave)
             }
         }
         .alert(Text("確定要刪除？"), isPresented: $showDeleteAlert) {
@@ -81,21 +73,16 @@ struct PersonSettingsView: View {
 
     
     private func savePerson() {
-        person.name = name
-        person.colorHex = color.toHexString()
         do {
-            try ctx.save()
+            try vm.save()
             dismiss()
         } catch { print("Save error:", error) }
     }
 
     private func deletePerson() {
-        ctx.delete(person)
         do {
-            try ctx.save()
-//            onDeleted()   // 通知上一層 pop
-            dismiss()     // 關閉設定頁
+            try vm.delete()
+            dismiss()
         } catch { print("Delete error:", error) }
     }
 }
-

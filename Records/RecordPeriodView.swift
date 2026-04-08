@@ -6,63 +6,39 @@
 //
 
 import SwiftUI
+import CoreData
 
 /// 個人月曆頁之下方新增紀錄頁
 struct RecordPeriodView: View {
-    @Environment(\.managedObjectContext) private var ctx
     @Environment(\.dismiss) private var dismiss
 
-    let person: Person
-    let defaultStart: Date
-    let defaultEnd: Date
-    var editing: PeriodRecord? = nil    // 新增：編輯中的物件
+    @StateObject private var vm: RecordPeriodViewModel
     var onSaved: (_ start: Date, _ end: Date?) -> Void = { _,_  in }
     
-//    @State var endDate = Date().addDays(5)
-    @State private var startDate = Date()
-    @State private var endDate = Date()
-    @State private var inProgress: Bool = false   // 有打勾就把 endDate 存成 nil
-    @State private var notes = ""
-    
     init(person: Person,
+         context: NSManagedObjectContext,
          defaultStart: Date,
          defaultEnd: Date,
          editing: PeriodRecord? = nil) {
-        self.person = person
-        self.defaultStart = defaultStart
-        self.defaultEnd = defaultEnd
-        self.editing = editing
-        // 根據是否為編輯模式帶初值
-        if let r = editing {
-            _startDate = State(initialValue: r.startDate?.stripTime() ?? defaultStart)
-            _endDate   = State(initialValue: (r.endDate ?? defaultEnd).stripTime())
-            _inProgress = State(initialValue: r.endDate == nil)
-            _notes = State(initialValue: r.notes ?? "")
-        } else {
-            _startDate = State(initialValue: defaultStart.stripTime())
-            _endDate   = State(initialValue: defaultEnd.stripTime())
-        }
-//        _startDate = State(initialValue: defaultStart)
-//        _endDate   = State(initialValue: defaultEnd)
-    }
-    
-    // 只要「尚未結束」或 「end >= start」就允許儲存
-    private var canSave: Bool {
-        inProgress || endDate.stripTime() >= startDate.stripTime()
+        _vm = StateObject(wrappedValue: RecordPeriodViewModel(person: person,
+                                                              defaultStart: defaultStart,
+                                                              defaultEnd: defaultEnd,
+                                                              editing: editing,
+                                                              context: context))
     }
 
     var body: some View {
         Form {
             Section(header: Text("日期")) {
-                DatePicker("開始", selection: $startDate, displayedComponents: .date)
-                DatePicker("結束", selection: $endDate,
-                           in: startDate...,
+                DatePicker("開始", selection: $vm.startDate, displayedComponents: .date)
+                DatePicker("結束", selection: $vm.endDate,
+                           in: vm.startDate...,
                            displayedComponents: .date)
-                .disabled(inProgress)
-                Toggle("尚未結束", isOn: $inProgress)
+                .disabled(vm.inProgress)
+                Toggle("尚未結束", isOn: $vm.inProgress)
             }
             Section(header: Text("備註")) {
-                TextField("可填寫症狀、用藥等", text: $notes)
+                TextField("可填寫症狀、用藥等", text: $vm.notes)
             }
         }
         .navigationTitle("經期紀錄")
@@ -72,35 +48,15 @@ struct RecordPeriodView: View {
             }
             ToolbarItem(placement: .confirmationAction) {
                 Button("儲存") { save() }
-                .disabled(!canSave)
+                .disabled(!vm.canSave)
             }
         }
-        // 底部工具列
-//        .toolbar {
-//            ToolbarItemGroup(placement: .bottomBar) {
-//                Button("取消") { dismiss() }
-//                Spacer()
-//                Button { save() } label: {
-//                    Label("儲存", systemImage: "checkmark.circle.fill")
-//                }.disabled(!canSave)
-//            }
-//        }
     }
     
     private func save() {
-        // 強制滿足資料模型：必填 person（Optional = NO）
-        let r: PeriodRecord = editing ?? PeriodRecord(context: ctx)
-        if editing == nil {
-            r.id = UUID()
-            r.person = person
-        }
-        r.startDate = startDate.stripTime()
-        r.endDate = inProgress ? nil : endDate.stripTime()
-        r.notes = notes
-
         do {
-            try ctx.save()
-            onSaved(r.startDate!, r.endDate)
+            let record = try vm.save()
+            onSaved(record.startDate!, record.endDate)
             dismiss()
         } catch {
             assertionFailure("Save record failed: \(error)")

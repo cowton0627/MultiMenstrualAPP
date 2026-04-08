@@ -14,10 +14,12 @@ struct MultiMenstrualApp: App {
     
     init() {
         let fontName = "jf-openhuninn-2.1"   // 你的 PostScript name
+        let fallbackInline = UIFont.preferredFont(forTextStyle: .headline)
+        let fallbackLarge = UIFont.preferredFont(forTextStyle: .largeTitle)
 
-        // 做動態字級對應的 UIFont
-        let inline = UIFont(name: fontName, size: 17)!
-        let large  = UIFont(name: fontName, size: 34)!
+        // 測試或資源異常時退回系統字型，避免 app 啟動直接崩潰
+        let inline = UIFont(name: fontName, size: 17) ?? fallbackInline
+        let large  = UIFont(name: fontName, size: 34) ?? fallbackLarge
         let inlineFont = UIFontMetrics(forTextStyle: .headline).scaledFont(for: inline)
         let largeFont  = UIFontMetrics(forTextStyle: .largeTitle).scaledFont(for: large)
 
