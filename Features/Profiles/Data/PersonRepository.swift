@@ -22,6 +22,22 @@ final class PersonRepository {
         return (try? context.fetch(request)) ?? []
     }
 
+    func fetchAllSummaries() -> [PersonSummary] {
+        fetchAll().map(PersonSummary.init(person:))
+    }
+
+    func fetchPerson(objectID: NSManagedObjectID) -> Person? {
+        try? context.existingObject(with: objectID) as? Person
+    }
+
+    func fetchSummary(objectID: NSManagedObjectID) -> PersonSummary? {
+        fetchPerson(objectID: objectID).map(PersonSummary.init(person:))
+    }
+
+    func fetchProfile(objectID: NSManagedObjectID) -> PersonProfile? {
+        fetchPerson(objectID: objectID).map(PersonProfile.init(person:))
+    }
+
     @discardableResult
     func add(name: String, colorHex: String) throws -> Person {
         let p = Person(context: context)

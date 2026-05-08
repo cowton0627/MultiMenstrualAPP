@@ -17,7 +17,7 @@ struct RootView: View {
                 SplashView()
                     .transition(.opacity)
             } else {
-                MultiProfilesView()
+                AppRootView()
             }
         }
         .onAppear {
@@ -37,4 +37,3 @@ struct RootView: View {
         }
     }
 }
-

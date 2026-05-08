@@ -12,8 +12,11 @@ import CoreData
 struct AddPersonSheet: View {
     @Environment(\.dismiss) private var dismiss
     @StateObject private var vm: AddPersonViewModel
+    private let onSaved: (() -> Void)?
 
-    init(context: NSManagedObjectContext) {
+    init(context: NSManagedObjectContext,
+         onSaved: (() -> Void)? = nil) {
+        self.onSaved = onSaved
         _vm = StateObject(wrappedValue: AddPersonViewModel(context: context))
     }
     
@@ -87,6 +90,7 @@ struct AddPersonSheet: View {
                     Button("儲存") {
                         do {
                             try vm.save()
+                            onSaved?()
                             dismiss()
                         } catch {
                             print("Save person error:", error)

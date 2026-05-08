@@ -13,13 +13,15 @@ struct RecordPeriodView: View {
     @Environment(\.dismiss) private var dismiss
 
     @StateObject private var vm: RecordPeriodViewModel
-    var onSaved: (_ start: Date, _ end: Date?) -> Void = { _,_  in }
+    private let onSaved: (_ start: Date, _ end: Date?) -> Void
     
     init(person: Person,
          context: NSManagedObjectContext,
          defaultStart: Date,
          defaultEnd: Date,
-         editing: PeriodRecord? = nil) {
+         editing: PeriodRecord? = nil,
+         onSaved: @escaping (_ start: Date, _ end: Date?) -> Void = { _,_  in }) {
+        self.onSaved = onSaved
         _vm = StateObject(wrappedValue: RecordPeriodViewModel(person: person,
                                                               defaultStart: defaultStart,
                                                               defaultEnd: defaultEnd,

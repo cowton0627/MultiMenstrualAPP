@@ -11,20 +11,20 @@ import CoreData
 /// 多人資訊管理頁
 struct MultiProfilesView: View {
     @Environment(\.managedObjectContext) private var ctx
-//    @FetchRequest(
-//        sortDescriptors: [NSSortDescriptor(keyPath: \Person.createdAt, 
-//                                           ascending: true)],
-//        animation: .default
-//    )
-//    private var people: FetchedResults<Person>
-    
-    @FetchRequest private var people: FetchedResults<Person>
-    init() {
-        _people = FetchRequest<Person>(
-            sortDescriptors: [NSSortDescriptor(keyPath: \Person.createdAt,
-                                               ascending: true)],
-            animation: .default
-        )
+    @StateObject private var vm: ProfilesViewModel
+    private let onTapAdd: (() -> Void)?
+    private let onSelectPerson: ((PersonSummary) -> Void)?
+    private let reloadToken: UUID
+
+    init(onTapAdd: (() -> Void)? = nil,
+         onSelectPerson: ((PersonSummary) -> Void)? = nil,
+         reloadToken: UUID = UUID(),
+         context: NSManagedObjectContext? = nil) {
+        self.onTapAdd = onTapAdd
+        self.onSelectPerson = onSelectPerson
+        self.reloadToken = reloadToken
+        let resolvedContext = context ?? PersistenceController.shared.container.viewContext
+        _vm = StateObject(wrappedValue: ProfilesViewModel(context: resolvedContext))
     }
 
 
@@ -36,42 +36,63 @@ struct MultiProfilesView: View {
 //    }
 
     var body: some View {
-        NavigationView {
-            ZStack {
-                MainBackground() // 客製化背景
+        ZStack {
+            MainBackground() // 客製化背景
 
-                List {
-                    ForEach(people) { p in
-                        NavigationLink {
-                            CalendarScreen(person: p, context: ctx)
-                        } label: {
-                            HStack(spacing: 12) {
-                                Circle()
-                                    .fill(p.uiColor)
-                                    .frame(width: 14, height: 14)
-
-                                Text(p.name ?? "未命名")
-                                    .font(.body)
-                                    .fontWeight(.medium)
-                                    .foregroundColor(.primary)
-                            }.padding(.vertical, 6)
+            List {
+                ForEach(vm.people) { person in
+                    Button {
+                        if let onSelectPerson {
+                            onSelectPerson(person)
                         }
-                        .listRowBackground(Color.white.opacity(0.28))
-                        // 霧面半透明列底，讓漸層可透出
+                    } label: {
+                        HStack(spacing: 12) {
+                            Circle()
+                                .fill(Color(hex: person.colorHex))
+                                .frame(width: 14, height: 14)
+
+                            Text(person.displayName)
+                                .font(.body)
+                                .fontWeight(.medium)
+                                .foregroundColor(.primary)
+
+                            Spacer()
+
+                            Image(systemName: "chevron.right")
+                                .font(.footnote.weight(.semibold))
+                                .foregroundColor(.secondary)
+                        }
+                        .padding(.vertical, 6)
                     }
-                }
-                .listStyle(.insetGrouped)
-                .applyTransparentListBackground()   // 加這段才可套用客製化背景色
-            }
-            .navigationTitle("經期管理")
-            .toolbar {
-                ToolbarItem(placement: .primaryAction) {
-                    Button { showingAdd = true } label: { Image(systemName: "plus") }
+                    .buttonStyle(.plain)
+                    .listRowBackground(Color.white.opacity(0.28))
                 }
             }
-            .sheet(isPresented: $showingAdd) {
-                AddPersonSheet(context: ctx)
+            .listStyle(.insetGrouped)
+            .applyTransparentListBackground()   // 加這段才可套用客製化背景色
+        }
+        .navigationTitle("經期管理")
+        .toolbar {
+            ToolbarItem(placement: .primaryAction) {
+                Button {
+                    if let onTapAdd {
+                        onTapAdd()
+                    } else {
+                        showingAdd = true
+                    }
+                } label: {
+                    Image(systemName: "plus")
+                }
             }
+        }
+        .sheet(isPresented: $showingAdd) {
+            AddPersonSheet(context: ctx) {
+                vm.fetchPeople()
+            }
+        }
+        .onAppear(perform: vm.fetchPeople)
+        .onChange(of: reloadToken) { _ in
+            vm.fetchPeople()
         }
     }
 }
