@@ -1,0 +1,834 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		919708292E67CB790098A613 /* RecordPeriodView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 919708072E67CB790098A613 /* RecordPeriodView.swift */; };
+		9197082A2E67CB790098A613 /* MultiMenstrualApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 919708092E67CB790098A613 /* MultiMenstrualApp.swift */; };
+		9197082B2E67CB790098A613 /* MultiPeriod.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9197080B2E67CB790098A613 /* MultiPeriod.xcdatamodeld */; };
+		9197082C2E67CB790098A613 /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9197080E2E67CB790098A613 /* PersistenceController.swift */; };
+		9197082D2E67CB790098A613 /* PersonSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 919708102E67CB790098A613 /* PersonSettingsView.swift */; };
+		9197082E2E67CB790098A613 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 919708122E67CB790098A613 /* Assets.xcassets */; };
+		919708302E67CB790098A613 /* jf-openhuninn-2.1.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 919708152E67CB790098A613 /* jf-openhuninn-2.1.ttf */; };
+		919708312E67CB790098A613 /* ElegantCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 919708182E67CB790098A613 /* ElegantCalendarView.swift */; };
+		919708322E67CB790098A613 /* CalendarScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 919708192E67CB790098A613 /* CalendarScreen.swift */; };
+		919708332E67CB790098A613 /* CyclePredictor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9197081A2E67CB790098A613 /* CyclePredictor.swift */; };
+		919708342E67CB790098A613 /* PeriodRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9197081B2E67CB790098A613 /* PeriodRange.swift */; };
+		919708382E67CB790098A613 /* MainBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 919708222E67CB790098A613 /* MainBackground.swift */; };
+		919708392E67CB790098A613 /* Color+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 919708242E67CB790098A613 /* Color+Hex.swift */; };
+		9197083A2E67CB790098A613 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 919708252E67CB790098A613 /* Extensions.swift */; };
+		9197083B2E67CB790098A613 /* Date+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 919708262E67CB790098A613 /* Date+Utils.swift */; };
+		9197083C2E67CB790098A613 /* ReminderScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 919708282E67CB790098A613 /* ReminderScheduler.swift */; };
+		9198F1082E8520DC00A513EF /* MultiProfilesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9197081F2E67CB790098A613 /* MultiProfilesView.swift */; };
+		9198F10A2E85212E00A513EF /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9198F1092E85212E00A513EF /* RootView.swift */; };
+		91E000012FFB100000A513EF /* AppRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E000002FFB100000A513EF /* AppRootView.swift */; };
+		91E000032FFB100100A513EF /* AppRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E000022FFB100100A513EF /* AppRoute.swift */; };
+		9198F10C2E85214E00A513EF /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9198F10B2E85214E00A513EF /* SplashView.swift */; };
+		9198F1132E8524D300A513EF /* LottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9198F1122E8524D300A513EF /* LottieView.swift */; };
+		9198F11F2E8527C100A513EF /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 9198F11E2E8527C100A513EF /* Lottie */; };
+		9198F1202E852B1100A513EF /* AddPersonSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9197081E2E67CB790098A613 /* AddPersonSheet.swift */; };
+		9198F1222E8660AE00A513EF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9198F1212E8660AE00A513EF /* LaunchScreen.storyboard */; };
+		91C5E3D82E6A6C8F00247655 /* CalendarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91C5E3D72E6A6C8F00247655 /* CalendarViewModel.swift */; };
+		91C5E3DE2E6A7A0900247655 /* ProfilesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91C5E3DD2E6A7A0900247655 /* ProfilesViewModel.swift */; };
+		91C5E3E02E6A7A3300247655 /* PersonRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91C5E3DF2E6A7A3300247655 /* PersonRepository.swift */; };
+		91C5E3E22E6A7E5200247655 /* AddPersonViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91C5E3E12E6A7E5200247655 /* AddPersonViewModel.swift */; };
+		91E000052FFB100200A513EF /* PersonSummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E000042FFB100200A513EF /* PersonSummary.swift */; };
+		91C5E4072E70263300247655 /* CalendarBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91C5E4062E70263300247655 /* CalendarBackground.swift */; };
+		91D7A0012FB2AA1000A513EF /* PersonSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91D7A0002FB2AA1000A513EF /* PersonSettingsViewModel.swift */; };
+		91D7A0032FB2AA1100A513EF /* PeriodRecordRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91D7A0022FB2AA1100A513EF /* PeriodRecordRepository.swift */; };
+		91D7A0052FB2AA1200A513EF /* RecordPeriodViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91D7A0042FB2AA1200A513EF /* RecordPeriodViewModel.swift */; };
+		91D7A0072FB2AA1300A513EF /* RecordHitResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91D7A0062FB2AA1300A513EF /* RecordHitResolver.swift */; };
+		91D7A0092FB2AA1400A513EF /* PeriodRangeMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91D7A0082FB2AA1400A513EF /* PeriodRangeMapper.swift */; };
+		91D7A00C2FB2DF8600A513EF /* CyclePredictorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91D7A00A2FB2DF8600A513EF /* CyclePredictorTests.swift */; };
+		91D7A00D2FB2DF8600A513EF /* RecordHitResolverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91D7A00B2FB2DF8600A513EF /* RecordHitResolverTests.swift */; };
+		91D7A0102FB2DFD400A513EF /* PeriodRangeMapperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91D7A00E2FB2DFD400A513EF /* PeriodRangeMapperTests.swift */; };
+		91D7A0112FB2DFD400A513EF /* TestCoreDataFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91D7A00F2FB2DFD400A513EF /* TestCoreDataFactory.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		91D7A0142FB2E08900A513EF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 919707BA2E5ECBBD0098A613 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 919707C12E5ECBBD0098A613;
+			remoteInfo = MultiMenstrualAPP;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		919707C22E5ECBBD0098A613 /* MultiMenstrualAPP.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MultiMenstrualAPP.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		91D7A0132FB2E08900A513EF /* MultiMenstrualAPPTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MultiMenstrualAPPTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		919708072E67CB790098A613 /* RecordPeriodView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordPeriodView.swift; sourceTree = "<group>"; };
+		919708092E67CB790098A613 /* MultiMenstrualApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiMenstrualApp.swift; sourceTree = "<group>"; };
+		9197080C2E67CB790098A613 /* MultiPeriod.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MultiPeriod.xcdatamodel; sourceTree = "<group>"; };
+		9197080E2E67CB790098A613 /* PersistenceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersistenceController.swift; sourceTree = "<group>"; };
+		919708102E67CB790098A613 /* PersonSettingsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonSettingsView.swift; sourceTree = "<group>"; };
+		919708122E67CB790098A613 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		919708142E67CB790098A613 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		919708152E67CB790098A613 /* jf-openhuninn-2.1.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "jf-openhuninn-2.1.ttf"; sourceTree = "<group>"; };
+		919708182E67CB790098A613 /* ElegantCalendarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ElegantCalendarView.swift; sourceTree = "<group>"; };
+		919708192E67CB790098A613 /* CalendarScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarScreen.swift; sourceTree = "<group>"; };
+		9197081A2E67CB790098A613 /* CyclePredictor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CyclePredictor.swift; sourceTree = "<group>"; };
+		9197081B2E67CB790098A613 /* PeriodRange.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PeriodRange.swift; sourceTree = "<group>"; };
+		9197081E2E67CB790098A613 /* AddPersonSheet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddPersonSheet.swift; sourceTree = "<group>"; };
+		9197081F2E67CB790098A613 /* MultiProfilesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiProfilesView.swift; sourceTree = "<group>"; };
+		919708222E67CB790098A613 /* MainBackground.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainBackground.swift; sourceTree = "<group>"; };
+		919708242E67CB790098A613 /* Color+Hex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Color+Hex.swift"; sourceTree = "<group>"; };
+		919708252E67CB790098A613 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		919708262E67CB790098A613 /* Date+Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Date+Utils.swift"; sourceTree = "<group>"; };
+		919708282E67CB790098A613 /* ReminderScheduler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReminderScheduler.swift; sourceTree = "<group>"; };
+		9198F1092E85212E00A513EF /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
+		91E000002FFB100000A513EF /* AppRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRootView.swift; sourceTree = "<group>"; };
+		91E000022FFB100100A513EF /* AppRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRoute.swift; sourceTree = "<group>"; };
+		9198F10B2E85214E00A513EF /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
+		9198F1122E8524D300A513EF /* LottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieView.swift; sourceTree = "<group>"; };
+		9198F1212E8660AE00A513EF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		91C5E3D22E67D8E900247655 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		91C5E3D72E6A6C8F00247655 /* CalendarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewModel.swift; sourceTree = "<group>"; };
+		91C5E3DD2E6A7A0900247655 /* ProfilesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilesViewModel.swift; sourceTree = "<group>"; };
+		91C5E3DF2E6A7A3300247655 /* PersonRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonRepository.swift; sourceTree = "<group>"; };
+		91C5E3E12E6A7E5200247655 /* AddPersonViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPersonViewModel.swift; sourceTree = "<group>"; };
+		91E000042FFB100200A513EF /* PersonSummary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiMenstrualAPP/Features/Profiles/Domain/PersonSummary.swift; sourceTree = SOURCE_ROOT; };
+		91C5E4062E70263300247655 /* CalendarBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarBackground.swift; sourceTree = "<group>"; };
+		91D7A0002FB2AA1000A513EF /* PersonSettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonSettingsViewModel.swift; sourceTree = "<group>"; };
+		91D7A0022FB2AA1100A513EF /* PeriodRecordRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeriodRecordRepository.swift; sourceTree = "<group>"; };
+		91D7A0042FB2AA1200A513EF /* RecordPeriodViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordPeriodViewModel.swift; sourceTree = "<group>"; };
+		91D7A0062FB2AA1300A513EF /* RecordHitResolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordHitResolver.swift; sourceTree = "<group>"; };
+		91D7A0082FB2AA1400A513EF /* PeriodRangeMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeriodRangeMapper.swift; sourceTree = "<group>"; };
+		91D7A00A2FB2DF8600A513EF /* CyclePredictorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CyclePredictorTests.swift; sourceTree = "<group>"; };
+		91D7A00B2FB2DF8600A513EF /* RecordHitResolverTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordHitResolverTests.swift; sourceTree = "<group>"; };
+		91D7A00E2FB2DFD400A513EF /* PeriodRangeMapperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeriodRangeMapperTests.swift; sourceTree = "<group>"; };
+		91D7A00F2FB2DFD400A513EF /* TestCoreDataFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCoreDataFactory.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		919707BF2E5ECBBD0098A613 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9198F11F2E8527C100A513EF /* Lottie in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		91D7A0172FB2E08900A513EF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		919707B92E5ECBBD0098A613 = {
+			isa = PBXGroup;
+			children = (
+				919708052E67CB790098A613 /* MultiMenstrualAPP */,
+				919707C32E5ECBBD0098A613 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		919707C32E5ECBBD0098A613 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				919707C22E5ECBBD0098A613 /* MultiMenstrualAPP.app */,
+				91D7A0132FB2E08900A513EF /* MultiMenstrualAPPTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		919708052E67CB790098A613 /* MultiMenstrualAPP */ = {
+			isa = PBXGroup;
+			children = (
+				91C5E3D22E67D8E900247655 /* Info.plist */,
+				919708082E67CB790098A613 /* APP */,
+				919708162E67CB790098A613 /* Features */,
+				9197080F2E67CB790098A613 /* Person */,
+				919708062E67CB790098A613 /* Records */,
+				919708202E67CB790098A613 /* Shared */,
+				919708112E67CB790098A613 /* Resources */,
+				91D7A0122FB2E07300A513EF /* MultiMenstrualAPPTests */,
+			);
+			path = MultiMenstrualAPP;
+			sourceTree = "<group>";
+		};
+		91D7A0122FB2E07300A513EF /* MultiMenstrualAPPTests */ = {
+			isa = PBXGroup;
+			children = (
+				91D7A00A2FB2DF8600A513EF /* CyclePredictorTests.swift */,
+				91D7A00B2FB2DF8600A513EF /* RecordHitResolverTests.swift */,
+				91D7A00E2FB2DFD400A513EF /* PeriodRangeMapperTests.swift */,
+				91D7A00F2FB2DFD400A513EF /* TestCoreDataFactory.swift */,
+			);
+			path = MultiMenstrualAPPTests;
+			sourceTree = "<group>";
+		};
+		919708062E67CB790098A613 /* Records */ = {
+			isa = PBXGroup;
+			children = (
+				91D7A0022FB2AA1100A513EF /* PeriodRecordRepository.swift */,
+				919708072E67CB790098A613 /* RecordPeriodView.swift */,
+				91D7A0042FB2AA1200A513EF /* RecordPeriodViewModel.swift */,
+			);
+			path = Records;
+			sourceTree = "<group>";
+		};
+		919708082E67CB790098A613 /* APP */ = {
+			isa = PBXGroup;
+			children = (
+				919708092E67CB790098A613 /* MultiMenstrualApp.swift */,
+				9197080D2E67CB790098A613 /* Persistence */,
+				9197080A2E67CB790098A613 /* CoreData */,
+			);
+			path = APP;
+			sourceTree = "<group>";
+		};
+		9197080A2E67CB790098A613 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				9197080B2E67CB790098A613 /* MultiPeriod.xcdatamodeld */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
+		9197080D2E67CB790098A613 /* Persistence */ = {
+			isa = PBXGroup;
+			children = (
+				9197080E2E67CB790098A613 /* PersistenceController.swift */,
+			);
+			path = Persistence;
+			sourceTree = "<group>";
+		};
+		9197080F2E67CB790098A613 /* Person */ = {
+			isa = PBXGroup;
+			children = (
+				919708102E67CB790098A613 /* PersonSettingsView.swift */,
+				91D7A0002FB2AA1000A513EF /* PersonSettingsViewModel.swift */,
+			);
+			path = Person;
+			sourceTree = "<group>";
+		};
+		919708112E67CB790098A613 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				919708122E67CB790098A613 /* Assets.xcassets */,
+				919708152E67CB790098A613 /* jf-openhuninn-2.1.ttf */,
+				919708132E67CB790098A613 /* Preview Content */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		919708132E67CB790098A613 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				919708142E67CB790098A613 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		919708162E67CB790098A613 /* Features */ = {
+			isa = PBXGroup;
+			children = (
+				9197081D2E67CB790098A613 /* Profiles */,
+				919708172E67CB790098A613 /* Calendar */,
+			);
+			path = Features;
+			sourceTree = "<group>";
+		};
+		919708172E67CB790098A613 /* Calendar */ = {
+			isa = PBXGroup;
+			children = (
+				91C5E3D32E6A6C4200247655 /* UI */,
+				91C5E3D42E6A6C5000247655 /* Presentation */,
+				91C5E3D52E6A6C5B00247655 /* Domain */,
+				91C5E3D62E6A6C6500247655 /* Data */,
+				9197081B2E67CB790098A613 /* PeriodRange.swift */,
+				9197081A2E67CB790098A613 /* CyclePredictor.swift */,
+			);
+			path = Calendar;
+			sourceTree = "<group>";
+		};
+		9197081D2E67CB790098A613 /* Profiles */ = {
+			isa = PBXGroup;
+			children = (
+				91C5E3D92E6A798400247655 /* UI */,
+				91C5E3DA2E6A798800247655 /* Presentation */,
+				91C5E3DB2E6A799700247655 /* Domin */,
+				91C5E3DC2E6A79A500247655 /* Data */,
+			);
+			path = Profiles;
+			sourceTree = "<group>";
+		};
+		919708202E67CB790098A613 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				919708212E67CB790098A613 /* UI */,
+				919708232E67CB790098A613 /* Extensions */,
+				919708272E67CB790098A613 /* Services */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		919708212E67CB790098A613 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				9198F1212E8660AE00A513EF /* LaunchScreen.storyboard */,
+				919708222E67CB790098A613 /* MainBackground.swift */,
+				91C5E4062E70263300247655 /* CalendarBackground.swift */,
+				91E000022FFB100100A513EF /* AppRoute.swift */,
+				91E000002FFB100000A513EF /* AppRootView.swift */,
+				9198F1092E85212E00A513EF /* RootView.swift */,
+				9198F10B2E85214E00A513EF /* SplashView.swift */,
+				9198F1122E8524D300A513EF /* LottieView.swift */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		919708232E67CB790098A613 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				919708242E67CB790098A613 /* Color+Hex.swift */,
+				919708262E67CB790098A613 /* Date+Utils.swift */,
+				919708252E67CB790098A613 /* Extensions.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		919708272E67CB790098A613 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				919708282E67CB790098A613 /* ReminderScheduler.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		91C5E3D32E6A6C4200247655 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				919708192E67CB790098A613 /* CalendarScreen.swift */,
+				919708182E67CB790098A613 /* ElegantCalendarView.swift */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		91C5E3D42E6A6C5000247655 /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				91C5E3D72E6A6C8F00247655 /* CalendarViewModel.swift */,
+			);
+			path = Presentation;
+			sourceTree = "<group>";
+		};
+		91C5E3D52E6A6C5B00247655 /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				91D7A0082FB2AA1400A513EF /* PeriodRangeMapper.swift */,
+				91D7A0062FB2AA1300A513EF /* RecordHitResolver.swift */,
+			);
+			path = Domain;
+			sourceTree = "<group>";
+		};
+		91C5E3D62E6A6C6500247655 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		91C5E3D92E6A798400247655 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				9197081F2E67CB790098A613 /* MultiProfilesView.swift */,
+				9197081E2E67CB790098A613 /* AddPersonSheet.swift */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		91C5E3DA2E6A798800247655 /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				91C5E3DD2E6A7A0900247655 /* ProfilesViewModel.swift */,
+				91C5E3E12E6A7E5200247655 /* AddPersonViewModel.swift */,
+			);
+			path = Presentation;
+			sourceTree = "<group>";
+		};
+		91C5E3DB2E6A799700247655 /* Domin */ = {
+			isa = PBXGroup;
+			children = (
+				91E000042FFB100200A513EF /* PersonSummary.swift */,
+			);
+			path = Domin;
+			sourceTree = "<group>";
+		};
+		91C5E3DC2E6A79A500247655 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				91C5E3DF2E6A7A3300247655 /* PersonRepository.swift */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		919707C12E5ECBBD0098A613 /* MultiMenstrualAPP */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 919707D02E5ECBC80098A613 /* Build configuration list for PBXNativeTarget "MultiMenstrualAPP" */;
+			buildPhases = (
+				919707BE2E5ECBBD0098A613 /* Sources */,
+				919707BF2E5ECBBD0098A613 /* Frameworks */,
+				919707C02E5ECBBD0098A613 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MultiMenstrualAPP;
+			packageProductDependencies = (
+				9198F11E2E8527C100A513EF /* Lottie */,
+			);
+			productName = MultiMenstrualAPP;
+			productReference = 919707C22E5ECBBD0098A613 /* MultiMenstrualAPP.app */;
+			productType = "com.apple.product-type.application";
+		};
+		91D7A0152FB2E08900A513EF /* MultiMenstrualAPPTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 91D7A01D2FB2E08900A513EF /* Build configuration list for PBXNativeTarget "MultiMenstrualAPPTests" */;
+			buildPhases = (
+				91D7A0162FB2E08900A513EF /* Sources */,
+				91D7A0172FB2E08900A513EF /* Frameworks */,
+				91D7A0182FB2E08900A513EF /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				91D7A01A2FB2E08900A513EF /* PBXTargetDependency */,
+			);
+			name = MultiMenstrualAPPTests;
+			packageProductDependencies = (
+			);
+			productName = MultiMenstrualAPPTests;
+			productReference = 91D7A0132FB2E08900A513EF /* MultiMenstrualAPPTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		919707BA2E5ECBBD0098A613 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1520;
+				LastUpgradeCheck = 1520;
+				TargetAttributes = {
+					919707C12E5ECBBD0098A613 = {
+						CreatedOnToolsVersion = 15.2;
+					};
+					91D7A0152FB2E08900A513EF = {
+						CreatedOnToolsVersion = 15.2;
+						TestTargetID = 919707C12E5ECBBD0098A613;
+					};
+				};
+			};
+			buildConfigurationList = 919707BD2E5ECBBD0098A613 /* Build configuration list for PBXProject "MultiMenstrualAPP" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 919707B92E5ECBBD0098A613;
+			packageReferences = (
+				9198F11D2E8527C100A513EF /* XCRemoteSwiftPackageReference "lottie-ios" */,
+			);
+			productRefGroup = 919707C32E5ECBBD0098A613 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				919707C12E5ECBBD0098A613 /* MultiMenstrualAPP */,
+				91D7A0152FB2E08900A513EF /* MultiMenstrualAPPTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		91D7A0182FB2E08900A513EF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		919707C02E5ECBBD0098A613 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9198F1222E8660AE00A513EF /* LaunchScreen.storyboard in Resources */,
+				919708302E67CB790098A613 /* jf-openhuninn-2.1.ttf in Resources */,
+				9197082E2E67CB790098A613 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		91D7A0162FB2E08900A513EF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				91D7A00C2FB2DF8600A513EF /* CyclePredictorTests.swift in Sources */,
+				91D7A00D2FB2DF8600A513EF /* RecordHitResolverTests.swift in Sources */,
+				91D7A0102FB2DFD400A513EF /* PeriodRangeMapperTests.swift in Sources */,
+				91D7A0112FB2DFD400A513EF /* TestCoreDataFactory.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		919707BE2E5ECBBD0098A613 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				919708322E67CB790098A613 /* CalendarScreen.swift in Sources */,
+				91D7A0092FB2AA1400A513EF /* PeriodRangeMapper.swift in Sources */,
+				91E000012FFB100000A513EF /* AppRootView.swift in Sources */,
+				91E000032FFB100100A513EF /* AppRoute.swift in Sources */,
+				9198F10A2E85212E00A513EF /* RootView.swift in Sources */,
+				9198F1132E8524D300A513EF /* LottieView.swift in Sources */,
+				919708332E67CB790098A613 /* CyclePredictor.swift in Sources */,
+				91D7A0072FB2AA1300A513EF /* RecordHitResolver.swift in Sources */,
+				9198F1202E852B1100A513EF /* AddPersonSheet.swift in Sources */,
+				9197083B2E67CB790098A613 /* Date+Utils.swift in Sources */,
+				9197082D2E67CB790098A613 /* PersonSettingsView.swift in Sources */,
+				91D7A0012FB2AA1000A513EF /* PersonSettingsViewModel.swift in Sources */,
+				91C5E3E02E6A7A3300247655 /* PersonRepository.swift in Sources */,
+				919708382E67CB790098A613 /* MainBackground.swift in Sources */,
+				919708312E67CB790098A613 /* ElegantCalendarView.swift in Sources */,
+				91C5E4072E70263300247655 /* CalendarBackground.swift in Sources */,
+				91C5E3D82E6A6C8F00247655 /* CalendarViewModel.swift in Sources */,
+				91D7A0032FB2AA1100A513EF /* PeriodRecordRepository.swift in Sources */,
+				919708292E67CB790098A613 /* RecordPeriodView.swift in Sources */,
+				91D7A0052FB2AA1200A513EF /* RecordPeriodViewModel.swift in Sources */,
+				91C5E3E22E6A7E5200247655 /* AddPersonViewModel.swift in Sources */,
+				91E000052FFB100200A513EF /* PersonSummary.swift in Sources */,
+				9197083C2E67CB790098A613 /* ReminderScheduler.swift in Sources */,
+				9197082B2E67CB790098A613 /* MultiPeriod.xcdatamodeld in Sources */,
+				919708342E67CB790098A613 /* PeriodRange.swift in Sources */,
+				9197082C2E67CB790098A613 /* PersistenceController.swift in Sources */,
+				9197082A2E67CB790098A613 /* MultiMenstrualApp.swift in Sources */,
+				9198F10C2E85214E00A513EF /* SplashView.swift in Sources */,
+				9197083A2E67CB790098A613 /* Extensions.swift in Sources */,
+				91C5E3DE2E6A7A0900247655 /* ProfilesViewModel.swift in Sources */,
+				919708392E67CB790098A613 /* Color+Hex.swift in Sources */,
+				9198F1082E8520DC00A513EF /* MultiProfilesView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		91D7A01A2FB2E08900A513EF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 919707C12E5ECBBD0098A613 /* MultiMenstrualAPP */;
+			targetProxy = 91D7A0142FB2E08900A513EF /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		919707CE2E5ECBC80098A613 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		919707CF2E5ECBC80098A613 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		919707D12E5ECBC80098A613 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"MultiMenstrualAPP/Resources/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = MultiMenstrualAPP/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "羽時";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = cowton0627.MultiMenstrualAPP;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		919707D22E5ECBC80098A613 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"MultiMenstrualAPP/Resources/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = MultiMenstrualAPP/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "羽時";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = cowton0627.MultiMenstrualAPP;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		91D7A01B2FB2E08900A513EF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = cowton0627.MultiMenstrualAPPTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MultiMenstrualAPP.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/MultiMenstrualAPP";
+			};
+			name = Debug;
+		};
+		91D7A01C2FB2E08900A513EF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = cowton0627.MultiMenstrualAPPTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MultiMenstrualAPP.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/MultiMenstrualAPP";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		919707BD2E5ECBBD0098A613 /* Build configuration list for PBXProject "MultiMenstrualAPP" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				919707CE2E5ECBC80098A613 /* Debug */,
+				919707CF2E5ECBC80098A613 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		919707D02E5ECBC80098A613 /* Build configuration list for PBXNativeTarget "MultiMenstrualAPP" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				919707D12E5ECBC80098A613 /* Debug */,
+				919707D22E5ECBC80098A613 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		91D7A01D2FB2E08900A513EF /* Build configuration list for PBXNativeTarget "MultiMenstrualAPPTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				91D7A01B2FB2E08900A513EF /* Debug */,
+				91D7A01C2FB2E08900A513EF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		9198F11D2E8527C100A513EF /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-ios.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.5.2;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		9198F11E2E8527C100A513EF /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9198F11D2E8527C100A513EF /* XCRemoteSwiftPackageReference "lottie-ios" */;
+			productName = Lottie;
+		};
+/* End XCSwiftPackageProductDependency section */
+
+/* Begin XCVersionGroup section */
+		9197080B2E67CB790098A613 /* MultiPeriod.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				9197080C2E67CB790098A613 /* MultiPeriod.xcdatamodel */,
+			);
+			currentVersion = 9197080C2E67CB790098A613 /* MultiPeriod.xcdatamodel */;
+			path = MultiPeriod.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 919707BA2E5ECBBD0098A613 /* Project object */;
+}
