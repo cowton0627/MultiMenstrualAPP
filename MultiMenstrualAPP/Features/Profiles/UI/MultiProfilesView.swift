@@ -16,24 +16,17 @@ struct MultiProfilesView: View {
     private let onSelectPerson: ((PersonSummary) -> Void)?
     private let reloadToken: UUID
 
-    init(onTapAdd: (() -> Void)? = nil,
+    init(context: NSManagedObjectContext,
+         onTapAdd: (() -> Void)? = nil,
          onSelectPerson: ((PersonSummary) -> Void)? = nil,
-         reloadToken: UUID = UUID(),
-         context: NSManagedObjectContext? = nil) {
+         reloadToken: UUID = UUID()) {
         self.onTapAdd = onTapAdd
         self.onSelectPerson = onSelectPerson
         self.reloadToken = reloadToken
-        let resolvedContext = context ?? PersistenceController.shared.container.viewContext
-        _vm = StateObject(wrappedValue: ProfilesViewModel(context: resolvedContext))
+        _vm = StateObject(wrappedValue: ProfilesViewModel(context: context))
     }
 
-
     @State private var showingAdd = false
-    
-//    @StateObject private var vm: ProfilesViewModel
-//    init(context: NSManagedObjectContext) {
-//        _vm = StateObject(wrappedValue: ProfilesViewModel(context: context))
-//    }
 
     var body: some View {
         ZStack {

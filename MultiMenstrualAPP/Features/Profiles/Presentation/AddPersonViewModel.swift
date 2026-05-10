@@ -10,12 +10,12 @@ import CoreData
 
 final class AddPersonViewModel: ObservableObject {
     @Published var name = ""
-    @Published var color: Color = Color(hex: "#FF6B6B")
-    @Published var colorHex = "#FF6B6B"
+    @Published var color: Color = Color(hex: Person.defaultColorHex)
+    @Published var colorHex = Person.defaultColorHex
     @Published var hexError: String?
 
     let swatches: [String] = [
-        "#FF6B6B", "#FF9F0A", "#FFB020", "#34C759",
+        Person.defaultColorHex, "#FF9F0A", "#FFB020", "#34C759",
         "#5AC8FA", "#007AFF", "#AF52DE", "#FF2D55"
     ]
 

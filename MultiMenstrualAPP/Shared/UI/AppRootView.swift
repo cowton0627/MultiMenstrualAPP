@@ -68,6 +68,8 @@ struct AppRootView: View {
 }
 
 private struct ProfilesFlowView: View {
+    @Environment(\.managedObjectContext) private var context
+
     let reloadToken: UUID
     let onTapAdd: () -> Void
     let onRequestRecordEditor: (RecordEditorSheetContext) -> Void
@@ -77,6 +79,7 @@ private struct ProfilesFlowView: View {
     var body: some View {
         ZStack {
             MultiProfilesView(
+                context: context,
                 onTapAdd: onTapAdd,
                 onSelectPerson: { person in
                     route = .calendar(person.id)

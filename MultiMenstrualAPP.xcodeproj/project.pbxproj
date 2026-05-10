@@ -265,7 +265,6 @@
 				91C5E3D92E6A798400247655 /* UI */,
 				91C5E3DA2E6A798800247655 /* Presentation */,
 				91C5E3DB2E6A799700247655 /* Domain */,
-				91C5E3DC2E6A79A500247655 /* Data */,
 			);
 			path = Profiles;
 			sourceTree = "<group>";
@@ -276,6 +275,7 @@
 				919708212E67CB790098A613 /* UI */,
 				919708232E67CB790098A613 /* Extensions */,
 				919708272E67CB790098A613 /* Services */,
+				91C5E3DC2E6A79A500247655 /* Persistence */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -368,12 +368,12 @@
 			path = Domain;
 			sourceTree = "<group>";
 		};
-		91C5E3DC2E6A79A500247655 /* Data */ = {
+		91C5E3DC2E6A79A500247655 /* Persistence */ = {
 			isa = PBXGroup;
 			children = (
 				91C5E3DF2E6A7A3300247655 /* PersonRepository.swift */,
 			);
-			path = Data;
+			path = Persistence;
 			sourceTree = "<group>";
 		};
 		91F000A12FFC100100A513EF /* Insights */ = {

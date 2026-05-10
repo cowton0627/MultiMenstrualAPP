@@ -19,7 +19,7 @@ final class PersonSettingsViewModel: ObservableObject {
         self.person = person
         self.repository = PersonRepository(context: context)
         self.name = person.name ?? ""
-        self.color = Color(hex: person.colorHex ?? "#FF6B6B")
+        self.color = Color(hex: person.colorHex ?? Person.defaultColorHex)
     }
 
     var canSave: Bool {

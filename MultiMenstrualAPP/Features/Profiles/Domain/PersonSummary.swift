@@ -31,7 +31,7 @@ extension PersonSummary {
 
         self.objectID = person.objectID
         self.displayName = person.name ?? "未命名"
-        self.colorHex = person.colorHex ?? "#FF6B6B"
+        self.colorHex = person.colorHex ?? Person.defaultColorHex
         self.recordCount = records.count
         self.latestStartDate = records
             .compactMap { $0.startDate }
@@ -45,6 +45,6 @@ extension PersonProfile {
         self.objectID = person.objectID
         self.personID = person.id ?? UUID()
         self.displayName = person.name ?? "未命名"
-        self.colorHex = person.colorHex ?? "#FF6B6B"
+        self.colorHex = person.colorHex ?? Person.defaultColorHex
     }
 }

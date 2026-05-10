@@ -64,7 +64,7 @@ struct ExportPayload: Codable {
 
             person.id = profileID
             person.name = profile.name.trimmingCharacters(in: .whitespacesAndNewlines)
-            person.colorHex = Color.tryFromHex(profile.colorHex) == nil ? "#FF6B6B" : profile.colorHex
+            person.colorHex = Color.tryFromHex(profile.colorHex) == nil ? Person.defaultColorHex : profile.colorHex
             person.createdAt = profile.createdAtDate() ?? person.createdAt ?? Date()
 
             for exportRecord in profile.periodRecords {
@@ -115,7 +115,7 @@ struct ExportProfile: Codable {
 
         self.id = (person.id ?? UUID()).uuidString
         self.name = person.name ?? ""
-        self.colorHex = person.colorHex ?? "#FF6B6B"
+        self.colorHex = person.colorHex ?? Person.defaultColorHex
         self.createdAt = person.createdAt.map(ExportFormat.isoDateTimeFormatter.string(from:))
         self.periodRecords = records.map(ExportPeriodRecord.init(record:))
     }

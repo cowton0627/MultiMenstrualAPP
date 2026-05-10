@@ -8,19 +8,20 @@
 import SwiftUI
 
 extension Person {
+    static let defaultColorHex = "#FF6B6B"
+
     var sortedRecords: [PeriodRecord] {
         (records as? Set<PeriodRecord> ?? [])
             .sorted {
                 ($0.startDate ?? .distantPast) < ($1.startDate ?? .distantPast)
             }
     }
-    
+
     var uiColor: Color {
         if let hex = colorHex, !hex.isEmpty {
             return Color(hex: hex)
-        } else {
-            return Color(hex: "#FF6B6B")    // 統一 fallback
         }
+        return Color(hex: Person.defaultColorHex)
     }
 }
 

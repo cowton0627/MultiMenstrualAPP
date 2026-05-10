@@ -16,7 +16,7 @@ enum TestCoreDataFactory {
     @discardableResult
     static func makePerson(in context: NSManagedObjectContext,
                            name: String = "Tester",
-                           colorHex: String = "#FF6B6B") -> Person {
+                           colorHex: String = Person.defaultColorHex) -> Person {
         let person = NSEntityDescription.insertNewObject(forEntityName: "Person",
                                                          into: context) as! Person
         person.id = UUID()
