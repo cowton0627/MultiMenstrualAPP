@@ -52,6 +52,7 @@
 		91F000C32FFC100100A513EF /* ExportPayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F000B32FFC100100A513EF /* ExportPayload.swift */; };
 		91F000C42FFC100100A513EF /* SettingsHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F000B42FFC100100A513EF /* SettingsHomeView.swift */; };
 		91F000C52FFC100100A513EF /* ErrorAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F000B52FFC100100A513EF /* ErrorAlert.swift */; };
+		91F000C62FFC100100A513EF /* CalendarViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F000B62FFC100100A513EF /* CalendarViewModelTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -113,6 +114,7 @@
 		91F000B32FFC100100A513EF /* ExportPayload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportPayload.swift; sourceTree = "<group>"; };
 		91F000B42FFC100100A513EF /* SettingsHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsHomeView.swift; sourceTree = "<group>"; };
 		91F000B52FFC100100A513EF /* ErrorAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorAlert.swift; sourceTree = "<group>"; };
+		91F000B62FFC100100A513EF /* CalendarViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewModelTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -171,6 +173,7 @@
 				91D7A00B2FB2DF8600A513EF /* RecordHitResolverTests.swift */,
 				91D7A00E2FB2DFD400A513EF /* PeriodRangeMapperTests.swift */,
 				91D7A00F2FB2DFD400A513EF /* TestCoreDataFactory.swift */,
+				91F000B62FFC100100A513EF /* CalendarViewModelTests.swift */,
 			);
 			path = MultiMenstrualAPPTests;
 			sourceTree = "<group>";
@@ -533,6 +536,7 @@
 				91D7A00D2FB2DF8600A513EF /* RecordHitResolverTests.swift in Sources */,
 				91D7A0102FB2DFD400A513EF /* PeriodRangeMapperTests.swift in Sources */,
 				91D7A0112FB2DFD400A513EF /* TestCoreDataFactory.swift in Sources */,
+				91F000C62FFC100100A513EF /* CalendarViewModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
