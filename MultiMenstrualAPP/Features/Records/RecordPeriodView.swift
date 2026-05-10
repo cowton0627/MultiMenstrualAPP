@@ -22,11 +22,13 @@ struct RecordPeriodView: View {
          editing: PeriodRecordSnapshot? = nil,
          onSaved: @escaping () -> Void = {}) {
         self.onSaved = onSaved
-        _vm = StateObject(wrappedValue: RecordPeriodViewModel(person: person,
-                                                              defaultStart: defaultStart,
-                                                              defaultEnd: defaultEnd,
-                                                              editing: editing,
-                                                              context: context))
+        _vm = StateObject(wrappedValue: RecordPeriodViewModel(
+            person: person,
+            defaultStart: defaultStart,
+            defaultEnd: defaultEnd,
+            editing: editing,
+            repository: PeriodRecordRepository(context: context)
+        ))
     }
 
     var body: some View {

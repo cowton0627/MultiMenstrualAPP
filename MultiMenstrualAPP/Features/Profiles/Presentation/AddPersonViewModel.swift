@@ -19,10 +19,10 @@ final class AddPersonViewModel: ObservableObject {
         "#5AC8FA", "#007AFF", "#AF52DE", "#FF2D55"
     ]
 
-    private let repository: PersonRepository
+    private let repository: PersonRepositoryProtocol
 
-    init(context: NSManagedObjectContext) {
-        self.repository = PersonRepository(context: context)
+    init(repository: PersonRepositoryProtocol) {
+        self.repository = repository
     }
 
     func selectSwatch(hex: String) {

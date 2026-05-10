@@ -27,17 +27,23 @@ struct PeriodRecordSnapshot: Equatable {
     }
 }
 
-final class PeriodRecordRepository {
+protocol PeriodRecordRepositoryProtocol {
+    func save(input: PeriodRecordInput,
+              personObjectID: NSManagedObjectID,
+              editingObjectID: NSManagedObjectID?) throws
+    func fetchSnapshot(objectID: NSManagedObjectID) -> PeriodRecordSnapshot?
+}
+
+final class PeriodRecordRepository: PeriodRecordRepositoryProtocol {
     private let context: NSManagedObjectContext
 
     init(context: NSManagedObjectContext) {
         self.context = context
     }
 
-    @discardableResult
     func save(input: PeriodRecordInput,
               personObjectID: NSManagedObjectID,
-              editingObjectID: NSManagedObjectID? = nil) throws -> PeriodRecord {
+              editingObjectID: NSManagedObjectID? = nil) throws {
         guard let person = try? context.existingObject(with: personObjectID) as? Person else {
             throw RepositoryError.notFound
         }
@@ -53,14 +59,13 @@ final class PeriodRecordRepository {
         record.notes = input.notes.trimmingCharacters(in: .whitespacesAndNewlines)
 
         try context.save()
-        return record
-    }
-
-    func fetchRecord(objectID: NSManagedObjectID) -> PeriodRecord? {
-        try? context.existingObject(with: objectID) as? PeriodRecord
     }
 
     func fetchSnapshot(objectID: NSManagedObjectID) -> PeriodRecordSnapshot? {
         fetchRecord(objectID: objectID).map(PeriodRecordSnapshot.init(record:))
+    }
+
+    private func fetchRecord(objectID: NSManagedObjectID) -> PeriodRecord? {
+        try? context.existingObject(with: objectID) as? PeriodRecord
     }
 }

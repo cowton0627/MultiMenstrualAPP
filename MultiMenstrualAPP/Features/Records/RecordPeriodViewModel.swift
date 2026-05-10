@@ -16,16 +16,16 @@ final class RecordPeriodViewModel: ObservableObject {
 
     private let personObjectID: NSManagedObjectID
     private let editingObjectID: NSManagedObjectID?
-    private let repository: PeriodRecordRepository
+    private let repository: PeriodRecordRepositoryProtocol
 
     init(person: PersonProfile,
          defaultStart: Date,
          defaultEnd: Date,
          editing: PeriodRecordSnapshot? = nil,
-         context: NSManagedObjectContext) {
+         repository: PeriodRecordRepositoryProtocol) {
         self.personObjectID = person.objectID
         self.editingObjectID = editing?.objectID
-        self.repository = PeriodRecordRepository(context: context)
+        self.repository = repository
 
         if let snapshot = editing {
             self.startDate = snapshot.startDate ?? defaultStart.stripTime()

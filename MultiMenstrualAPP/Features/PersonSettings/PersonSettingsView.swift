@@ -16,8 +16,10 @@ struct PersonSettingsView: View {
     @State private var showDeleteAlert = false
 
     init(profile: PersonProfile, context: NSManagedObjectContext) {
-        _vm = StateObject(wrappedValue: PersonSettingsViewModel(profile: profile,
-                                                                context: context))
+        _vm = StateObject(wrappedValue: PersonSettingsViewModel(
+            profile: profile,
+            repository: PersonRepository(context: context)
+        ))
     }
 
     var body: some View {

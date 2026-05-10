@@ -13,11 +13,11 @@ final class PersonSettingsViewModel: ObservableObject {
     @Published var color: Color
 
     private let objectID: NSManagedObjectID
-    private let repository: PersonRepository
+    private let repository: PersonRepositoryProtocol
 
-    init(profile: PersonProfile, context: NSManagedObjectContext) {
+    init(profile: PersonProfile, repository: PersonRepositoryProtocol) {
         self.objectID = profile.objectID
-        self.repository = PersonRepository(context: context)
+        self.repository = repository
         self.name = profile.displayName
         self.color = Color(hex: profile.colorHex)
     }

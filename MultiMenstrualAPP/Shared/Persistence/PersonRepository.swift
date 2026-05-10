@@ -18,51 +18,39 @@ enum RepositoryError: LocalizedError {
     }
 }
 
-final class PersonRepository {
+protocol PersonRepositoryProtocol {
+    func fetchAllSummaries() -> [PersonSummary]
+    func fetchProfile(objectID: NSManagedObjectID) -> PersonProfile?
+    func add(name: String, colorHex: String) throws
+    func update(objectID: NSManagedObjectID, name: String, colorHex: String) throws
+    func delete(objectID: NSManagedObjectID) throws
+}
+
+final class PersonRepository: PersonRepositoryProtocol {
     private let context: NSManagedObjectContext
 
     init(context: NSManagedObjectContext) {
         self.context = context
     }
 
-    func fetchAll() -> [Person] {
+    func fetchAllSummaries() -> [PersonSummary] {
         let request: NSFetchRequest<Person> = Person.fetchRequest()
         request.sortDescriptors = [
             NSSortDescriptor(keyPath: \Person.createdAt, ascending: true)
         ]
-        return (try? context.fetch(request)) ?? []
-    }
-
-    func fetchAllSummaries() -> [PersonSummary] {
-        fetchAll().map(PersonSummary.init(person:))
-    }
-
-    func fetchPerson(objectID: NSManagedObjectID) -> Person? {
-        try? context.existingObject(with: objectID) as? Person
-    }
-
-    func fetchSummary(objectID: NSManagedObjectID) -> PersonSummary? {
-        fetchPerson(objectID: objectID).map(PersonSummary.init(person:))
+        return ((try? context.fetch(request)) ?? []).map(PersonSummary.init(person:))
     }
 
     func fetchProfile(objectID: NSManagedObjectID) -> PersonProfile? {
         fetchPerson(objectID: objectID).map(PersonProfile.init(person:))
     }
 
-    @discardableResult
-    func add(name: String, colorHex: String) throws -> Person {
-        let p = Person(context: context)
-        p.id = UUID()
-        p.name = name.trimmingCharacters(in: .whitespacesAndNewlines)
-        p.colorHex = colorHex
-        p.createdAt = Date()
-        try context.save()
-        return p
-    }
-
-    func update(_ person: Person, name: String, colorHex: String) throws {
+    func add(name: String, colorHex: String) throws {
+        let person = Person(context: context)
+        person.id = UUID()
         person.name = name.trimmingCharacters(in: .whitespacesAndNewlines)
         person.colorHex = colorHex
+        person.createdAt = Date()
         try context.save()
     }
 
@@ -70,11 +58,8 @@ final class PersonRepository {
         guard let person = fetchPerson(objectID: objectID) else {
             throw RepositoryError.notFound
         }
-        try update(person, name: name, colorHex: colorHex)
-    }
-
-    func delete(_ person: Person) throws {
-        context.delete(person)
+        person.name = name.trimmingCharacters(in: .whitespacesAndNewlines)
+        person.colorHex = colorHex
         try context.save()
     }
 
@@ -82,13 +67,11 @@ final class PersonRepository {
         guard let person = fetchPerson(objectID: objectID) else {
             throw RepositoryError.notFound
         }
-        try delete(person)
+        context.delete(person)
+        try context.save()
     }
 
-    func delete(offsets: IndexSet, from people: [Person]) throws {
-        for index in offsets {
-            context.delete(people[index])
-        }
-        try context.save()
+    private func fetchPerson(objectID: NSManagedObjectID) -> Person? {
+        try? context.existingObject(with: objectID) as? Person
     }
 }

@@ -17,7 +17,9 @@ struct AddPersonSheet: View {
     init(context: NSManagedObjectContext,
          onSaved: (() -> Void)? = nil) {
         self.onSaved = onSaved
-        _vm = StateObject(wrappedValue: AddPersonViewModel(context: context))
+        _vm = StateObject(wrappedValue: AddPersonViewModel(
+            repository: PersonRepository(context: context)
+        ))
     }
     
     var body: some View {
