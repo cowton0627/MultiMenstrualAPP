@@ -12,13 +12,11 @@ struct AppRootView: View {
     @Environment(\.managedObjectContext) private var context
 
     @State private var activeSheet: AppSheet?
-    @State private var profilesReloadToken = UUID()
 
     var body: some View {
         TabView {
             NavigationView {
                 ProfilesFlowView(
-                    reloadToken: profilesReloadToken,
                     onTapAdd: {
                         activeSheet = .addPerson
                     },
@@ -41,9 +39,7 @@ struct AppRootView: View {
             }
 
             NavigationView {
-                SettingsHomeView {
-                    profilesReloadToken = UUID()
-                }
+                SettingsHomeView()
             }
             .navigationViewStyle(.stack)
             .tabItem {
@@ -54,9 +50,7 @@ struct AppRootView: View {
         .sheet(item: $activeSheet) { sheet in
             switch sheet {
             case .addPerson:
-                AddPersonSheet(context: context) {
-                    profilesReloadToken = UUID()
-                }
+                AddPersonSheet(context: context)
             case .recordEditor(let editor):
                 RecordEditorSheetView(
                     context: context,
@@ -70,7 +64,6 @@ struct AppRootView: View {
 private struct ProfilesFlowView: View {
     @Environment(\.managedObjectContext) private var context
 
-    let reloadToken: UUID
     let onTapAdd: () -> Void
     let onRequestRecordEditor: (RecordEditorSheetContext) -> Void
 
@@ -83,8 +76,7 @@ private struct ProfilesFlowView: View {
                 onTapAdd: onTapAdd,
                 onSelectPerson: { person in
                     route = .calendar(person.id)
-                },
-                reloadToken: reloadToken
+                }
             )
 
             NavigationLink(

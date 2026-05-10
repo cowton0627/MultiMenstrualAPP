@@ -10,8 +10,6 @@ import UniformTypeIdentifiers
 struct SettingsHomeView: View {
     @Environment(\.managedObjectContext) private var context
 
-    let onDataChanged: () -> Void
-
     @State private var exportDocument = JSONBackupDocument(text: "{}")
     @State private var showingExporter = false
     @State private var showingExportConfirmation = false
@@ -137,7 +135,6 @@ struct SettingsHomeView: View {
             let payload = try JSONDecoder().decode(ExportPayload.self, from: data)
             let summary = try payload.importInto(context: context)
             try context.save()
-            onDataChanged()
             importMessage = "已匯入 \(summary.profileCount) 個人物與 \(summary.recordCount) 筆經期紀錄。"
         } catch {
             transferError = DataTransferError(title: "匯入失敗", message: error.localizedDescription)

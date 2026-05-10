@@ -14,15 +14,12 @@ struct MultiProfilesView: View {
     @StateObject private var vm: ProfilesViewModel
     private let onTapAdd: (() -> Void)?
     private let onSelectPerson: ((PersonSummary) -> Void)?
-    private let reloadToken: UUID
 
     init(context: NSManagedObjectContext,
          onTapAdd: (() -> Void)? = nil,
-         onSelectPerson: ((PersonSummary) -> Void)? = nil,
-         reloadToken: UUID = UUID()) {
+         onSelectPerson: ((PersonSummary) -> Void)? = nil) {
         self.onTapAdd = onTapAdd
         self.onSelectPerson = onSelectPerson
-        self.reloadToken = reloadToken
         _vm = StateObject(wrappedValue: ProfilesViewModel(context: context))
     }
 
@@ -82,13 +79,7 @@ struct MultiProfilesView: View {
             }
         }
         .sheet(isPresented: $showingAdd) {
-            AddPersonSheet(context: ctx) {
-                vm.fetchPeople()
-            }
-        }
-        .onAppear(perform: vm.fetchPeople)
-        .onChange(of: reloadToken) { _ in
-            vm.fetchPeople()
+            AddPersonSheet(context: ctx)
         }
     }
 }
