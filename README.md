@@ -111,7 +111,9 @@ python3 scripts/gen_app_icon.py
 ## 知識文件
 
 - [`DECISIONS.md`](./DECISIONS.md) — 架構選擇的「為什麼」
-- [`docs/roadmap.md`](./docs/roadmap.md) — 後續整理規劃
+- [`docs/roadmap.md`](./docs/roadmap.md) — 已完成 + 後續整理規劃
+- [`bugs.md`](./bugs.md) — 踩過的坑（症狀 / 根因 / 解法）
+- [`runbook.md`](./runbook.md) — Build / test / icon / pbxproj / CI 等操作流程
 - `.github/ISSUE_TEMPLATE/` — issue 模板
 
 ## Repository
