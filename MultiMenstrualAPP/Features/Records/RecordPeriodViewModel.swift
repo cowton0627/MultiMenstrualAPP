@@ -14,8 +14,8 @@ final class RecordPeriodViewModel: ObservableObject {
     @Published var inProgress: Bool
     @Published var notes: String
 
-    private let personObjectID: NSManagedObjectID
-    private let editingObjectID: NSManagedObjectID?
+    private let personID: PersonID
+    private let editingID: PeriodRecordID?
     private let repository: PeriodRecordRepositoryProtocol
 
     init(person: PersonProfile,
@@ -23,8 +23,8 @@ final class RecordPeriodViewModel: ObservableObject {
          defaultEnd: Date,
          editing: PeriodRecordSnapshot? = nil,
          repository: PeriodRecordRepositoryProtocol) {
-        self.personObjectID = person.objectID
-        self.editingObjectID = editing?.objectID
+        self.personID = person.id
+        self.editingID = editing?.id
         self.repository = repository
 
         if let snapshot = editing {
@@ -51,8 +51,8 @@ final class RecordPeriodViewModel: ObservableObject {
                 endDate: inProgress ? nil : endDate,
                 notes: notes
             ),
-            personObjectID: personObjectID,
-            editingObjectID: editingObjectID
+            personID: personID,
+            editingID: editingID
         )
     }
 }

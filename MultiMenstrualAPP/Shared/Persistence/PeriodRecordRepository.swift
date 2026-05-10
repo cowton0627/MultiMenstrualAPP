@@ -14,15 +14,13 @@ struct PeriodRecordInput {
 }
 
 struct PeriodRecordSnapshot: Identifiable, Equatable {
-    let objectID: NSManagedObjectID
+    let id: PeriodRecordID
     let startDate: Date?
     let endDate: Date?
     let notes: String
 
-    var id: NSManagedObjectID { objectID }
-
     init(record: PeriodRecord) {
-        self.objectID = record.objectID
+        self.id = PeriodRecordID(record.objectID)
         self.startDate = record.startDate?.stripTime()
         self.endDate = record.endDate?.stripTime()
         self.notes = record.notes ?? ""
@@ -31,9 +29,9 @@ struct PeriodRecordSnapshot: Identifiable, Equatable {
 
 protocol PeriodRecordRepositoryProtocol {
     func save(input: PeriodRecordInput,
-              personObjectID: NSManagedObjectID,
-              editingObjectID: NSManagedObjectID?) throws
-    func fetchSnapshot(objectID: NSManagedObjectID) -> PeriodRecordSnapshot?
+              personID: PersonID,
+              editingID: PeriodRecordID?) throws
+    func fetchSnapshot(id: PeriodRecordID) -> PeriodRecordSnapshot?
 }
 
 final class PeriodRecordRepository: PeriodRecordRepositoryProtocol {
@@ -44,12 +42,12 @@ final class PeriodRecordRepository: PeriodRecordRepositoryProtocol {
     }
 
     func save(input: PeriodRecordInput,
-              personObjectID: NSManagedObjectID,
-              editingObjectID: NSManagedObjectID? = nil) throws {
-        guard let person = try? context.existingObject(with: personObjectID) as? Person else {
+              personID: PersonID,
+              editingID: PeriodRecordID? = nil) throws {
+        guard let person = try? context.existingObject(with: personID.raw) as? Person else {
             throw RepositoryError.notFound
         }
-        let editing = editingObjectID.flatMap { fetchRecord(objectID: $0) }
+        let editing = editingID.flatMap { fetchRecord(objectID: $0.raw) }
         let record = editing ?? PeriodRecord(context: context)
         if editing == nil {
             record.id = UUID()
@@ -63,8 +61,8 @@ final class PeriodRecordRepository: PeriodRecordRepositoryProtocol {
         try context.save()
     }
 
-    func fetchSnapshot(objectID: NSManagedObjectID) -> PeriodRecordSnapshot? {
-        fetchRecord(objectID: objectID).map(PeriodRecordSnapshot.init(record:))
+    func fetchSnapshot(id: PeriodRecordID) -> PeriodRecordSnapshot? {
+        fetchRecord(objectID: id.raw).map(PeriodRecordSnapshot.init(record:))
     }
 
     private func fetchRecord(objectID: NSManagedObjectID) -> PeriodRecord? {

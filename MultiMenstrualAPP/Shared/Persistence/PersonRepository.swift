@@ -25,10 +25,10 @@ struct PersonAttributes {
 
 protocol PersonRepositoryProtocol {
     func fetchAllSummaries() -> [PersonSummary]
-    func fetchProfile(objectID: NSManagedObjectID) -> PersonProfile?
+    func fetchProfile(id: PersonID) -> PersonProfile?
     func add(_ attributes: PersonAttributes) throws
-    func update(objectID: NSManagedObjectID, attributes: PersonAttributes) throws
-    func delete(objectID: NSManagedObjectID) throws
+    func update(id: PersonID, attributes: PersonAttributes) throws
+    func delete(id: PersonID) throws
 }
 
 final class PersonRepository: PersonRepositoryProtocol {
@@ -46,8 +46,8 @@ final class PersonRepository: PersonRepositoryProtocol {
         return ((try? context.fetch(request)) ?? []).map(PersonSummary.init(person:))
     }
 
-    func fetchProfile(objectID: NSManagedObjectID) -> PersonProfile? {
-        fetchPerson(objectID: objectID).map(PersonProfile.init(person:))
+    func fetchProfile(id: PersonID) -> PersonProfile? {
+        fetchPerson(objectID: id.raw).map(PersonProfile.init(person:))
     }
 
     func add(_ attributes: PersonAttributes) throws {
@@ -59,8 +59,8 @@ final class PersonRepository: PersonRepositoryProtocol {
         try context.save()
     }
 
-    func update(objectID: NSManagedObjectID, attributes: PersonAttributes) throws {
-        guard let person = fetchPerson(objectID: objectID) else {
+    func update(id: PersonID, attributes: PersonAttributes) throws {
+        guard let person = fetchPerson(objectID: id.raw) else {
             throw RepositoryError.notFound
         }
         person.name = attributes.name.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -68,8 +68,8 @@ final class PersonRepository: PersonRepositoryProtocol {
         try context.save()
     }
 
-    func delete(objectID: NSManagedObjectID) throws {
-        guard let person = fetchPerson(objectID: objectID) else {
+    func delete(id: PersonID) throws {
+        guard let person = fetchPerson(objectID: id.raw) else {
             throw RepositoryError.notFound
         }
         context.delete(person)

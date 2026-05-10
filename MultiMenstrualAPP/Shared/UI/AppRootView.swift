@@ -99,7 +99,7 @@ private struct ProfilesFlowView: View {
         switch route {
         case .calendar(let personID):
             CalendarFlowView(
-                personObjectID: personID,
+                personID: personID,
                 onRequestRecordEditor: onRequestRecordEditor
             )
         case .personSettings:
@@ -113,7 +113,7 @@ private struct ProfilesFlowView: View {
 private struct CalendarFlowView: View {
     @Environment(\.managedObjectContext) private var context
 
-    let personObjectID: NSManagedObjectID
+    let personID: PersonID
     let onRequestRecordEditor: (RecordEditorSheetContext) -> Void
 
     @State private var route: AppRoute?
@@ -125,7 +125,7 @@ private struct CalendarFlowView: View {
                     person: person,
                     context: context,
                     onTapEditPerson: {
-                        route = .personSettings(personObjectID)
+                        route = .personSettings(personID)
                     },
                     onRequestRecordEditor: onRequestRecordEditor
                 )
@@ -158,14 +158,14 @@ private struct CalendarFlowView: View {
     }
 
     private var personProfile: PersonProfile? {
-        repository.fetchProfile(objectID: personObjectID)
+        repository.fetchProfile(id: personID)
     }
 
     @ViewBuilder
     private var settingsDestination: some View {
         switch route {
-        case .personSettings(let personID):
-            if let profile = repository.fetchProfile(objectID: personID) {
+        case .personSettings(let id):
+            if let profile = repository.fetchProfile(id: id) {
                 PersonSettingsView(profile: profile, context: context)
             } else {
                 Text("找不到人物資料")
@@ -211,11 +211,11 @@ private struct RecordEditorSheetView: View {
     }
 
     private var personProfile: PersonProfile? {
-        personRepo.fetchProfile(objectID: editor.personObjectID)
+        personRepo.fetchProfile(id: editor.personID)
     }
 
     private var snapshot: PeriodRecordSnapshot? {
-        guard let objectID = editor.recordObjectID else { return nil }
-        return recordRepo.fetchSnapshot(objectID: objectID)
+        guard let recordID = editor.recordID else { return nil }
+        return recordRepo.fetchSnapshot(id: recordID)
     }
 }

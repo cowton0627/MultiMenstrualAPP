@@ -6,11 +6,10 @@
 //
 
 import Foundation
-import CoreData
 
 enum AppRoute: Hashable {
-    case calendar(NSManagedObjectID)
-    case personSettings(NSManagedObjectID)
+    case calendar(PersonID)
+    case personSettings(PersonID)
 }
 
 enum AppSheet: Identifiable {
@@ -29,8 +28,8 @@ enum AppSheet: Identifiable {
 
 struct RecordEditorSheetContext: Identifiable {
     let id = UUID()
-    let personObjectID: NSManagedObjectID
-    let recordObjectID: NSManagedObjectID?
+    let personID: PersonID
+    let recordID: PeriodRecordID?
     let defaultStart: Date
     let defaultEnd: Date
 }

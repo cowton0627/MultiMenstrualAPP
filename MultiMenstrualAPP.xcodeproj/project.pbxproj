@@ -58,6 +58,7 @@
 		91F000C92FFC100100A513EF /* ExportPayloadTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F000B92FFC100100A513EF /* ExportPayloadTests.swift */; };
 		91F000CA2FFC100100A513EF /* PersonSettingsViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F000BA2FFC100100A513EF /* PersonSettingsViewModelTests.swift */; };
 		91F000CB2FFC100100A513EF /* ProfilesViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F000BB2FFC100100A513EF /* ProfilesViewModelTests.swift */; };
+		91F000CC2FFC100100A513EF /* EntityIDs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F000BC2FFC100100A513EF /* EntityIDs.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -125,6 +126,7 @@
 		91F000B92FFC100100A513EF /* ExportPayloadTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportPayloadTests.swift; sourceTree = "<group>"; };
 		91F000BA2FFC100100A513EF /* PersonSettingsViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonSettingsViewModelTests.swift; sourceTree = "<group>"; };
 		91F000BB2FFC100100A513EF /* ProfilesViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilesViewModelTests.swift; sourceTree = "<group>"; };
+		91F000BC2FFC100100A513EF /* EntityIDs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityIDs.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -393,6 +395,7 @@
 			children = (
 				91C5E3DF2E6A7A3300247655 /* PersonRepository.swift */,
 				91D7A0022FB2AA1100A513EF /* PeriodRecordRepository.swift */,
+				91F000BC2FFC100100A513EF /* EntityIDs.swift */,
 			);
 			path = Persistence;
 			sourceTree = "<group>";
@@ -601,6 +604,7 @@
 				91F000C32FFC100100A513EF /* ExportPayload.swift in Sources */,
 				91F000C42FFC100100A513EF /* SettingsHomeView.swift in Sources */,
 				91F000C52FFC100100A513EF /* ErrorAlert.swift in Sources */,
+				91F000CC2FFC100100A513EF /* EntityIDs.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -29,6 +29,7 @@
 
 - **為什麼**：未來測 view model 時可以塞 fake；同時也是「外部能呼叫什麼」的 documented contract。
 - **故意限制**：protocol 不暴露 `Person` / `PeriodRecord` entity（例如 `fetchPerson(objectID:) -> Person?` 是 `private`），呼叫端只能拿到 read model，避免再次把 entity 漏出去。
+- **ID 也包過一層**：`PersonID` / `PeriodRecordID` newtype 包住 `NSManagedObjectID`（定義在 `Shared/Persistence/EntityIDs.swift`）。`AppRoute`、`RecordEditorSheetContext`、`PersonProfile.id` 等只看到 newtype，不看到 Core Data 型別。`raw` 屬性是 module-internal、僅給 persistence 層解包用。
 - **寫入用 input struct**：`add(_ attributes: PersonAttributes)` / `update(objectID:, attributes:)` / `save(input: PeriodRecordInput, ...)`。把 add 與 update 餵的東西收成 struct 而不是散參數，介面對稱、未來加欄位也只動一個 type。
 - **VM init 收 protocol**：`init(repository: PersonRepositoryProtocol)`。view 在 init 時自己建 concrete 並餵進去；測試可以 inject fake 而不必 mock NSManagedObjectContext。
 

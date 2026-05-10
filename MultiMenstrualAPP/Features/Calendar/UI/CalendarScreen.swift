@@ -89,8 +89,8 @@ struct CalendarScreen: View {
                     handleAction(
                         .openEditor(
                             RecordEditorSheetContext(
-                                personObjectID: person.objectID,
-                                recordObjectID: record.objectID,
+                                personID: person.id,
+                                recordID: record.id,
                                 defaultStart: start,
                                 defaultEnd: end
                             )
@@ -103,8 +103,8 @@ struct CalendarScreen: View {
                 handleAction(
                     .openEditor(
                         RecordEditorSheetContext(
-                            personObjectID: person.objectID,
-                            recordObjectID: nil,
+                            personID: person.id,
+                            recordID: nil,
                             defaultStart: pickerDay,
                             defaultEnd: pickerDay.addDays(5)
                         )
@@ -129,8 +129,8 @@ struct CalendarScreen: View {
                     handleAction(
                         .openEditor(
                             RecordEditorSheetContext(
-                                personObjectID: person.objectID,
-                                recordObjectID: record.objectID,
+                                personID: person.id,
+                                recordID: record.id,
                                 defaultStart: start,
                                 defaultEnd: end
                             )
@@ -141,8 +141,8 @@ struct CalendarScreen: View {
                     handleAction(
                         .openEditor(
                             RecordEditorSheetContext(
-                                personObjectID: person.objectID,
-                                recordObjectID: nil,
+                                personID: person.id,
+                                recordID: nil,
                                 defaultStart: pickerDay,
                                 defaultEnd: pickerDay.addDays(5)
                             )

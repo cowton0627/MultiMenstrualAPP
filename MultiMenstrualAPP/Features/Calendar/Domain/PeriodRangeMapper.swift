@@ -22,7 +22,7 @@ struct PeriodRangeMapper {
             let end = (record.endDate ?? start.addDays(ongoingFallbackDays)).stripTime()
             guard end >= start else { return nil }
 
-            return PeriodRange(personId: person.personID,
+            return PeriodRange(personId: person.personUUID,
                                personName: person.displayName,
                                color: color,
                                start: start,
@@ -40,7 +40,7 @@ struct PeriodRangeMapper {
 
         return [
             PredictedWindow(
-                personId: person.personID,
+                personId: person.personUUID,
                 color: Color(hex: person.colorHex),
                 range: next.addDays(-2).stripTime()...next.addDays(2).stripTime()
             )

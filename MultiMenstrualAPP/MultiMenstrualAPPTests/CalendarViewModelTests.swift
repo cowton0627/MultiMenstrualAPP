@@ -68,7 +68,7 @@ final class CalendarViewModelTests: XCTestCase {
         guard case .openEditor(let context) = captured else {
             return XCTFail("expected .openEditor, got \(String(describing: captured))")
         }
-        XCTAssertNil(context.recordObjectID)
+        XCTAssertNil(context.recordID)
         XCTAssertEqual(context.defaultStart, day("2026-03-10"))
         XCTAssertEqual(context.defaultEnd, day("2026-03-15"))
     }
@@ -91,7 +91,7 @@ final class CalendarViewModelTests: XCTestCase {
         guard case .openEditor(let editorCtx) = captured else {
             return XCTFail("expected .openEditor, got \(String(describing: captured))")
         }
-        XCTAssertEqual(editorCtx.recordObjectID, record.objectID)
+        XCTAssertEqual(editorCtx.recordID, PeriodRecordID(record.objectID))
         XCTAssertEqual(editorCtx.defaultStart, day("2026-03-01"))
         XCTAssertEqual(editorCtx.defaultEnd, day("2026-03-06"))
     }
@@ -119,7 +119,8 @@ final class CalendarViewModelTests: XCTestCase {
             return XCTFail("expected .presentRecordPicker, got \(String(describing: captured))")
         }
         XCTAssertEqual(pickerDay, day("2026-04-10"))
-        XCTAssertEqual(Set(records.map(\.objectID)), Set([r1.objectID, r2.objectID]))
+        XCTAssertEqual(Set(records.map(\.id)),
+                       Set([PeriodRecordID(r1.objectID), PeriodRecordID(r2.objectID)]))
     }
 
     // MARK: - misc

@@ -9,18 +9,16 @@ import Foundation
 import CoreData
 
 struct PersonSummary: Identifiable, Equatable {
-    let objectID: NSManagedObjectID
+    let id: PersonID
     let displayName: String
     let colorHex: String
     let recordCount: Int
     let latestStartDate: Date?
-
-    var id: NSManagedObjectID { objectID }
 }
 
 struct PersonProfile: Equatable {
-    let objectID: NSManagedObjectID
-    let personID: UUID
+    let id: PersonID
+    let personUUID: UUID
     let displayName: String
     let colorHex: String
 }
@@ -29,7 +27,7 @@ extension PersonSummary {
     init(person: Person) {
         let records = person.records as? Set<PeriodRecord> ?? []
 
-        self.objectID = person.objectID
+        self.id = PersonID(person.objectID)
         self.displayName = person.name ?? "未命名"
         self.colorHex = person.colorHex ?? Person.defaultColorHex
         self.recordCount = records.count
@@ -42,8 +40,8 @@ extension PersonSummary {
 
 extension PersonProfile {
     init(person: Person) {
-        self.objectID = person.objectID
-        self.personID = person.id ?? UUID()
+        self.id = PersonID(person.objectID)
+        self.personUUID = person.id ?? UUID()
         self.displayName = person.name ?? "未命名"
         self.colorHex = person.colorHex ?? Person.defaultColorHex
     }

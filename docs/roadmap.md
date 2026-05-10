@@ -25,12 +25,6 @@ Splash dismissal 已改用 `.task / Task.sleep`（c8edfca）；其餘：
 - `CherryBlossom` Lottie 在 dark mode 下的對比檢查
 - App Store icon / launch image / 隱私問卷（如需送審）
 
-### Domain model 細部（P1-1 剩下）
-
-read model 已到位（`PersonProfile` / `PersonSummary` / `PeriodRecordSnapshot`），write input 也對稱了（`PersonAttributes` 4fe7df3 / `PeriodRecordInput`）。剩下：
-
-- 評估是否引入 `PersonID` / `PeriodRecordID` newtype 包住 `NSManagedObjectID`，避免 view layer 直接看到 Core Data 型別（低優先）
-
 ---
 
 ## 想到再做
@@ -75,6 +69,7 @@ read model 已到位（`PersonProfile` / `PersonSummary` / `PeriodRecordSnapshot
 
 - Stylised sakura app icon（程式產生，37 個尺寸）：`546899e`
 - CalendarScreen 多筆紀錄改用 List sheet（threshold 5）：`5124eec`
+- `PersonID` / `PeriodRecordID` newtype 取代 `NSManagedObjectID` 在 view / route / read model 的曝光（最新一筆，hash 用 `git log` 查）
 - 3-tab 首頁 + JSON 匯入匯出：`b55ba56`
 - AppRootView 拆成 Insights / Backup / SettingsPanel：`c567db3`
 - ProfilesVM 改用 NSFetchedResultsController + 拿掉 reload-token 補丁：`187ffe7`

@@ -63,7 +63,7 @@ final class PersonSettingsViewModelTests: XCTestCase {
 
         try vm.save()
 
-        let updated = repository.fetchProfile(objectID: person.objectID)
+        let updated = repository.fetchProfile(id: PersonID(person.objectID))
         XCTAssertEqual(updated?.displayName, "Mei",
                        "Repository trims whitespace before persisting")
         XCTAssertEqual(updated?.colorHex, "#34C759")

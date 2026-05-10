@@ -60,8 +60,8 @@ final class CalendarViewModel: NSObject, ObservableObject {
                 onAction?(
                     .openEditor(
                         RecordEditorSheetContext(
-                            personObjectID: person.objectID,
-                            recordObjectID: nil,
+                            personID: person.id,
+                            recordID: nil,
                             defaultStart: day.stripTime(),
                             defaultEnd: day.stripTime().addDays(5)
                         )
@@ -78,7 +78,7 @@ final class CalendarViewModel: NSObject, ObservableObject {
     private func configureFRC() {
         let req: NSFetchRequest<PeriodRecord> = PeriodRecord.fetchRequest()
         req.sortDescriptors = [NSSortDescriptor(key: "startDate", ascending: true)]
-        guard let managedPerson = try? context.existingObject(with: person.objectID) as? Person else {
+        guard let managedPerson = try? context.existingObject(with: person.id.raw) as? Person else {
             frc = NSFetchedResultsController(fetchRequest: req,
                                              managedObjectContext: context,
                                              sectionNameKeyPath: nil,
@@ -117,8 +117,8 @@ final class CalendarViewModel: NSObject, ObservableObject {
 
         return .openEditor(
             RecordEditorSheetContext(
-                personObjectID: person.objectID,
-                recordObjectID: record.objectID,
+                personID: person.id,
+                recordID: record.id,
                 defaultStart: start,
                 defaultEnd: end
             )
