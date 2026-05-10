@@ -176,7 +176,6 @@
 		919708062E67CB790098A613 /* Records */ = {
 			isa = PBXGroup;
 			children = (
-				91D7A0022FB2AA1100A513EF /* PeriodRecordRepository.swift */,
 				919708072E67CB790098A613 /* RecordPeriodView.swift */,
 				91D7A0042FB2AA1200A513EF /* RecordPeriodViewModel.swift */,
 			);
@@ -372,6 +371,7 @@
 			isa = PBXGroup;
 			children = (
 				91C5E3DF2E6A7A3300247655 /* PersonRepository.swift */,
+				91D7A0022FB2AA1100A513EF /* PeriodRecordRepository.swift */,
 			);
 			path = Persistence;
 			sourceTree = "<group>";
