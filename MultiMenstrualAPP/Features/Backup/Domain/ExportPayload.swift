@@ -107,6 +107,18 @@ struct ExportProfile: Codable {
     let createdAt: String?
     let periodRecords: [ExportPeriodRecord]
 
+    init(id: String,
+         name: String,
+         colorHex: String,
+         createdAt: String?,
+         periodRecords: [ExportPeriodRecord]) {
+        self.id = id
+        self.name = name
+        self.colorHex = colorHex
+        self.createdAt = createdAt
+        self.periodRecords = periodRecords
+    }
+
     init(person: Person) {
         let records = (person.records as? Set<PeriodRecord> ?? [])
             .sorted { lhs, rhs in

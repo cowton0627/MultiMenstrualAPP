@@ -53,6 +53,9 @@
 		91F000C42FFC100100A513EF /* SettingsHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F000B42FFC100100A513EF /* SettingsHomeView.swift */; };
 		91F000C52FFC100100A513EF /* ErrorAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F000B52FFC100100A513EF /* ErrorAlert.swift */; };
 		91F000C62FFC100100A513EF /* CalendarViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F000B62FFC100100A513EF /* CalendarViewModelTests.swift */; };
+		91F000C72FFC100100A513EF /* AddPersonViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F000B72FFC100100A513EF /* AddPersonViewModelTests.swift */; };
+		91F000C82FFC100100A513EF /* RecordPeriodViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F000B82FFC100100A513EF /* RecordPeriodViewModelTests.swift */; };
+		91F000C92FFC100100A513EF /* ExportPayloadTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F000B92FFC100100A513EF /* ExportPayloadTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -115,6 +118,9 @@
 		91F000B42FFC100100A513EF /* SettingsHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsHomeView.swift; sourceTree = "<group>"; };
 		91F000B52FFC100100A513EF /* ErrorAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorAlert.swift; sourceTree = "<group>"; };
 		91F000B62FFC100100A513EF /* CalendarViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewModelTests.swift; sourceTree = "<group>"; };
+		91F000B72FFC100100A513EF /* AddPersonViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPersonViewModelTests.swift; sourceTree = "<group>"; };
+		91F000B82FFC100100A513EF /* RecordPeriodViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordPeriodViewModelTests.swift; sourceTree = "<group>"; };
+		91F000B92FFC100100A513EF /* ExportPayloadTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportPayloadTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -174,6 +180,9 @@
 				91D7A00E2FB2DFD400A513EF /* PeriodRangeMapperTests.swift */,
 				91D7A00F2FB2DFD400A513EF /* TestCoreDataFactory.swift */,
 				91F000B62FFC100100A513EF /* CalendarViewModelTests.swift */,
+				91F000B72FFC100100A513EF /* AddPersonViewModelTests.swift */,
+				91F000B82FFC100100A513EF /* RecordPeriodViewModelTests.swift */,
+				91F000B92FFC100100A513EF /* ExportPayloadTests.swift */,
 			);
 			path = MultiMenstrualAPPTests;
 			sourceTree = "<group>";
@@ -537,6 +546,9 @@
 				91D7A0102FB2DFD400A513EF /* PeriodRangeMapperTests.swift in Sources */,
 				91D7A0112FB2DFD400A513EF /* TestCoreDataFactory.swift in Sources */,
 				91F000C62FFC100100A513EF /* CalendarViewModelTests.swift in Sources */,
+				91F000C72FFC100100A513EF /* AddPersonViewModelTests.swift in Sources */,
+				91F000C82FFC100100A513EF /* RecordPeriodViewModelTests.swift in Sources */,
+				91F000C92FFC100100A513EF /* ExportPayloadTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
