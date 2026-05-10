@@ -1,122 +1,119 @@
 # MultiMenstrualAPP
 
-`MultiMenstrualAPP` 是一個以 SwiftUI 與 Core Data 實作的 iOS 經期追蹤 App，支援在同一支裝置中管理多個人物 profile，為每個人記錄經期區間、在月曆上顯示紀錄，並依最近週期做簡單預測。
+A SwiftUI + Core Data iOS menstrual-cycle tracker built around managing **multiple profiles on a single device**, fully offline.
 
-## 目前產品定位
+---
 
-這個專案目前不是 camera 或 media app，而是「多人經期管理」產品。核心使用流程是：
+## 產品定位
 
-1. 新增人物 profile
-2. 進入個人的月曆畫面
-3. 新增、編輯、刪除經期紀錄
-4. 依歷史紀錄估算下一次週期視窗
+「多人經期管理」的離線小工具。三個分頁：
+
+- **首頁**：人物清單 → 個人月曆 → 新增 / 編輯經期紀錄
+- **總覽**：跨人物統計（人數、紀錄數、即將來潮預測、最近紀錄）
+- **設定**：JSON 匯出 / 匯入備份（schema v1）
+
+人物用顏色區分；每人獨立週期、獨立預測（取最近 3 次週期平均推算下一次起始日 ±2 天的視窗）。
 
 ## 已完成功能
 
-- Splash 進入流程
-- 多人 profile 列表
-- 新增人物
-- 個人月曆畫面
-- 新增 / 編輯經期紀錄
-- 編輯 / 刪除人物
-- 經期區間映射
-- 點選日期命中紀錄判斷
-- 簡單週期預測
+- Splash 進入動畫（櫻花 Lottie）
+- 多人 profile 列表 + 新增 / 編輯 / 刪除
+- 個人月曆：已記錄區間 + 預測視窗
+- 經期紀錄新增 / 編輯（含「尚未結束」狀態）
+- 跨人物統計與下次預測（總覽分頁）
+- JSON 全量備份匯出 / 匯入
+- 自製櫻花 app icon（程式產生，37 個尺寸）
+- 共用錯誤 alert / 卡片樣式 / `AppTheme` design tokens
+- GitHub Actions CI（push / PR 自動跑 build + test）
 
-## 技術架構
+## 資料夾結構
 
-目前程式碼正從「畫面直接驅動流程」整理成較清楚的分層：
+```
+MultiMenstrualAPP/
+├── APP/                    # @main entry + Core Data persistence
+├── Features/
+│   ├── Profiles/           # 人物清單與新增
+│   ├── Calendar/           # 月曆 + view model + domain logic
+│   ├── Records/            # 經期紀錄編輯
+│   ├── PersonSettings/     # 個人設定（編輯 / 刪除）
+│   ├── Insights/           # 總覽分頁
+│   └── Backup/             # JSON 匯出 / 匯入
+├── Shared/
+│   ├── UI/                 # RootView, AppRootView, AppTheme, modifiers, alerts
+│   ├── Persistence/        # 跨 feature 共用 repository
+│   ├── Extensions/
+│   └── Services/
+├── Resources/              # Assets / 字型 / Lottie
+└── MultiMenstrualAPPTests/ # 單元測試
+```
 
-- `MultiMenstrualAPP/APP`
-  - App entry
-  - Core Data persistence
-- `MultiMenstrualAPP/Shared`
-  - `RootView`
-  - `AppRootView`
-  - shared UI / utilities
-- `MultiMenstrualAPP/Features/Profiles`
-  - profile list
-  - add person
-  - profile repository / models
-- `MultiMenstrualAPP/Features/Calendar`
-  - calendar UI
-  - calendar view model
-  - domain logic
-- `MultiMenstrualAPP/Records`
-  - record editor
-  - record repository
-- `MultiMenstrualAPP/Person`
-  - person settings
+每個 feature 內部分 `UI / Presentation / Domain` 三層；read model（`PersonProfile` / `PersonSummary` / `PeriodRecordSnapshot`）跨層使用，view 不接觸 Core Data entity。
 
-### 目前重要檔案
+架構選擇的理由見 [`DECISIONS.md`](./DECISIONS.md)。
 
-- `MultiMenstrualAPP/APP/MultiMenstrualApp.swift`
-- `MultiMenstrualAPP/Shared/UI/RootView.swift`
-- `MultiMenstrualAPP/Shared/UI/AppRootView.swift`
-- `MultiMenstrualAPP/Features/Profiles/UI/MultiProfilesView.swift`
-- `MultiMenstrualAPP/Features/Calendar/UI/CalendarScreen.swift`
-- `MultiMenstrualAPP/Records/RecordPeriodView.swift`
+## 重要檔案
+
+- `MultiMenstrualAPP/APP/MultiMenstrualApp.swift` — `@main`
+- `MultiMenstrualAPP/Shared/UI/RootView.swift` — splash → AppRootView 切換
+- `MultiMenstrualAPP/Shared/UI/AppRootView.swift` — TabView 路由 + sheet 入口
+- `MultiMenstrualAPP/Features/Calendar/UI/CalendarScreen.swift` — 月曆主畫面
+- `MultiMenstrualAPP/Features/Records/RecordPeriodView.swift` — 經期紀錄編輯
+- `MultiMenstrualAPP/Shared/Persistence/PersonRepository.swift`
+- `MultiMenstrualAPP/Shared/Persistence/PeriodRecordRepository.swift`
 
 ## 資料模型
 
-目前 Core Data 主要有兩個 entity：
+Core Data 兩個 entity：
 
-- `Person`
-  - `id`
-  - `name`
-  - `colorHex`
-  - `createdAt`
-- `PeriodRecord`
-  - `id`
-  - `startDate`
-  - `endDate`
-  - `notes`
-  - `person`
+- `Person`: `id`, `name`, `colorHex`, `createdAt`
+- `PeriodRecord`: `id`, `startDate`, `endDate`, `notes`, `person`
 
-## 近期重構進度
+刪除 `Person` 時其 `records` 會 cascade。
 
-最近一輪已經完成：
+## Build & Test
 
-- app flow 改成由 `AppRootView` 統一協調
-- 新增 `AppRoute` / `AppSheet`
-- `CalendarScreen` 不再自己持有 editor sheet
-- `CalendarViewModel` 改成輸出 action
-- 補齊 calendar domain 單元測試
-- 開始把 UI 對 Core Data entity 的直接依賴往下壓
-- 將 git repository 根目錄整理到專案外層，納入 `.xcodeproj`
-
-## 測試
-
-目前已補上的核心單元測試：
-
-- `CyclePredictorTests`
-- `RecordHitResolverTests`
-- `PeriodRangeMapperTests`
-
-Build for testing：
+Deployment target iOS 15+，Swift 5.0。
 
 ```bash
-xcodebuild -project MultiMenstrualAPP.xcodeproj \
+# Build
+xcodebuild build \
+  -project MultiMenstrualAPP.xcodeproj \
   -scheme MultiMenstrualAPP \
-  -destination 'generic/platform=iOS Simulator' \
-  build-for-testing
+  -destination 'generic/platform=iOS Simulator'
+
+# 跑全部測試（52 cases）
+xcodebuild test \
+  -project MultiMenstrualAPP.xcodeproj \
+  -scheme MultiMenstrualAPP \
+  -destination 'platform=iOS Simulator,name=iPhone 15'
 ```
 
-## 下一步
+每次 push 到 `main` 與每個 PR 都會由 `.github/workflows/ci.yml` 自動跑 `xcodebuild test`。
 
-下一輪整理方向已放在：
+目前測試分布：
 
-- `docs/ROADMAP.md`
-- `.github/ISSUE_TEMPLATE/`
+- `CyclePredictorTests` / `RecordHitResolverTests` / `PeriodRangeMapperTests` — 純 domain logic
+- `CalendarViewModelTests` / `AddPersonViewModelTests` / `RecordPeriodViewModelTests` / `PersonSettingsViewModelTests` / `ProfilesViewModelTests` — view models（用 in-memory Core Data container）
+- `ExportPayloadTests` — JSON 備份 round-trip
+- `TestCoreDataFactory` — 共用 in-memory container 與 entity factory
 
-主要會繼續處理：
+## 重新產 App Icon
 
-- repository / domain model 分層
-- calendar flow 與 entity coupling 收斂
-- README / repo 管理規格化
+`scripts/gen_app_icon.py` 用 Pillow + numpy 產整套 37 個尺寸的櫻花 icon。改色或調花瓣形狀後重跑：
+
+```bash
+pip install --user Pillow numpy
+python3 scripts/gen_app_icon.py
+```
+
+輸出會直接覆寫 `MultiMenstrualAPP/Resources/Assets.xcassets/AppIcon.appiconset/`。
+
+## 知識文件
+
+- [`DECISIONS.md`](./DECISIONS.md) — 架構選擇的「為什麼」
+- [`docs/ROADMAP.md`](./docs/ROADMAP.md) — 後續整理規劃
+- `.github/ISSUE_TEMPLATE/` — issue 模板
 
 ## Repository
 
-GitHub repository:
-
-- `https://github.com/cowton0627/MultiMenstrualAPP`
+`https://github.com/cowton0627/MultiMenstrualAPP`
