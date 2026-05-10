@@ -35,7 +35,6 @@ read model 已到位（`PersonProfile` / `PersonSummary` / `PeriodRecordSnapshot
 
 ## 想到再做
 
-- `CalendarScreen` 的 confirmationDialog 在紀錄 ≥ 5 筆時改用 List sheet
 - 匯出 JSON 升 schemaVersion 2（向下相容 v1）
 - WidgetKit 顯示下次預測
 - iPad layout 適配（目前 swatch grid 在 iPad 顯太鬆）
@@ -75,6 +74,7 @@ read model 已到位（`PersonProfile` / `PersonSummary` / `PeriodRecordSnapshot
 ### Bonus（不在原 ROADMAP 內、session 過程完成）
 
 - Stylised sakura app icon（程式產生，37 個尺寸）：`546899e`
+- CalendarScreen 多筆紀錄改用 List sheet（threshold 5）：`5124eec`
 - 3-tab 首頁 + JSON 匯入匯出：`b55ba56`
 - AppRootView 拆成 Insights / Backup / SettingsPanel：`c567db3`
 - ProfilesVM 改用 NSFetchedResultsController + 拿掉 reload-token 補丁：`187ffe7`

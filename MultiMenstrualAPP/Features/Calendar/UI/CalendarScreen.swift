@@ -14,8 +14,11 @@ struct CalendarScreen: View {
     @StateObject private var vm: CalendarViewModel
     @State private var pickerDay = Date().stripTime()
     @State private var pickerRecords: [PeriodRecordSnapshot] = []
+    @State private var pickerSheetRecords: [PeriodRecordSnapshot] = []
     private let onTapEditPerson: () -> Void
     private let onRequestRecordEditor: (RecordEditorSheetContext) -> Void
+
+    private let pickerSheetThreshold = 5
 
     init(person: PersonProfile,
          context: NSManagedObjectContext,
@@ -113,16 +116,57 @@ struct CalendarScreen: View {
                 pickerRecords = []
             }
         }
+        .sheet(isPresented: Binding(
+            get: { !pickerSheetRecords.isEmpty },
+            set: { if !$0 { pickerSheetRecords = [] } }
+        )) {
+            RecordPickerSheet(
+                day: pickerDay,
+                records: pickerSheetRecords,
+                onSelect: { record in
+                    let start = record.startDate ?? pickerDay
+                    let end = record.endDate ?? start.addDays(5)
+                    handleAction(
+                        .openEditor(
+                            RecordEditorSheetContext(
+                                personObjectID: person.objectID,
+                                recordObjectID: record.objectID,
+                                defaultStart: start,
+                                defaultEnd: end
+                            )
+                        )
+                    )
+                },
+                onTapAdd: {
+                    handleAction(
+                        .openEditor(
+                            RecordEditorSheetContext(
+                                personObjectID: person.objectID,
+                                recordObjectID: nil,
+                                defaultStart: pickerDay,
+                                defaultEnd: pickerDay.addDays(5)
+                            )
+                        )
+                    )
+                },
+                onCancel: { pickerSheetRecords = [] }
+            )
+        }
     }
 
     private func handleAction(_ action: CalendarViewModel.Action) {
         switch action {
         case .openEditor(let context):
             pickerRecords = []
+            pickerSheetRecords = []
             onRequestRecordEditor(context)
         case .presentRecordPicker(let day, let records):
             pickerDay = day
-            pickerRecords = records
+            if records.count >= pickerSheetThreshold {
+                pickerSheetRecords = records
+            } else {
+                pickerRecords = records
+            }
         }
     }
 
@@ -253,4 +297,89 @@ struct CalendarTheme {
     var fontDay = Font.system(.subheadline, design: .rounded).weight(.semibold)
     var fontMonth = Font.system(.title2, design: .rounded).weight(.bold)
     var fontWeekday = Font.system(.caption2, design: .rounded).weight(.semibold)
+}
+
+private struct RecordPickerSheet: View {
+    let day: Date
+    let records: [PeriodRecordSnapshot]
+    let onSelect: (PeriodRecordSnapshot) -> Void
+    let onTapAdd: () -> Void
+    let onCancel: () -> Void
+
+    var body: some View {
+        NavigationView {
+            List {
+                Section("編輯既有紀錄") {
+                    ForEach(records) { record in
+                        Button {
+                            onSelect(record)
+                        } label: {
+                            recordRow(record)
+                        }
+                        .buttonStyle(.plain)
+                    }
+                }
+
+                Section {
+                    Button(action: onTapAdd) {
+                        Label("在這天新增紀錄", systemImage: "plus.circle.fill")
+                            .foregroundColor(AppTheme.accent)
+                    }
+                }
+            }
+            .navigationTitle(dayTitle)
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button("取消", action: onCancel)
+                }
+            }
+        }
+        .navigationViewStyle(.stack)
+    }
+
+    private var dayTitle: String {
+        "\(Self.headerFormatter.string(from: day)) 的紀錄"
+    }
+
+    private func recordRow(_ record: PeriodRecordSnapshot) -> some View {
+        VStack(alignment: .leading, spacing: 4) {
+            Text(rangeText(record))
+                .font(.system(.subheadline, design: .rounded).weight(.semibold))
+                .foregroundColor(.primary)
+            if !record.notes.isEmpty {
+                Text(record.notes)
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+                    .lineLimit(1)
+            }
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding(.vertical, 2)
+    }
+
+    private func rangeText(_ record: PeriodRecordSnapshot) -> String {
+        let start = record.startDate ?? day
+        if let end = record.endDate {
+            return "\(Self.rowFormatter.string(from: start)) - \(Self.rowFormatter.string(from: end))"
+        } else {
+            return "\(Self.rowFormatter.string(from: start)) 開始（進行中）"
+        }
+    }
+
+    private static let headerFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.calendar = Calendar(identifier: .gregorian)
+        formatter.locale = Locale(identifier: "zh_Hant_TW")
+        formatter.dateFormat = "M 月 d 日"
+        return formatter
+    }()
+
+    private static let rowFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.calendar = Calendar(identifier: .gregorian)
+        formatter.locale = Locale(identifier: "zh_Hant_TW")
+        formatter.dateFormat = "M/d"
+        return formatter
+    }()
 }
