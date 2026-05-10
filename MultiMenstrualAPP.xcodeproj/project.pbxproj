@@ -47,6 +47,10 @@
 		91D7A00D2FB2DF8600A513EF /* RecordHitResolverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91D7A00B2FB2DF8600A513EF /* RecordHitResolverTests.swift */; };
 		91D7A0102FB2DFD400A513EF /* PeriodRangeMapperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91D7A00E2FB2DFD400A513EF /* PeriodRangeMapperTests.swift */; };
 		91D7A0112FB2DFD400A513EF /* TestCoreDataFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91D7A00F2FB2DFD400A513EF /* TestCoreDataFactory.swift */; };
+		91F000C12FFC100100A513EF /* SettingsPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F000B12FFC100100A513EF /* SettingsPanel.swift */; };
+		91F000C22FFC100100A513EF /* InsightsHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F000B22FFC100100A513EF /* InsightsHomeView.swift */; };
+		91F000C32FFC100100A513EF /* ExportPayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F000B32FFC100100A513EF /* ExportPayload.swift */; };
+		91F000C42FFC100100A513EF /* SettingsHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F000B42FFC100100A513EF /* SettingsHomeView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -103,6 +107,10 @@
 		91D7A00B2FB2DF8600A513EF /* RecordHitResolverTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordHitResolverTests.swift; sourceTree = "<group>"; };
 		91D7A00E2FB2DFD400A513EF /* PeriodRangeMapperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeriodRangeMapperTests.swift; sourceTree = "<group>"; };
 		91D7A00F2FB2DFD400A513EF /* TestCoreDataFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCoreDataFactory.swift; sourceTree = "<group>"; };
+		91F000B12FFC100100A513EF /* SettingsPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsPanel.swift; sourceTree = "<group>"; };
+		91F000B22FFC100100A513EF /* InsightsHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsightsHomeView.swift; sourceTree = "<group>"; };
+		91F000B32FFC100100A513EF /* ExportPayload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportPayload.swift; sourceTree = "<group>"; };
+		91F000B42FFC100100A513EF /* SettingsHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsHomeView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -235,6 +243,8 @@
 				919708172E67CB790098A613 /* Calendar */,
 				919708062E67CB790098A613 /* Records */,
 				9197080F2E67CB790098A613 /* PersonSettings */,
+				91F000A12FFC100100A513EF /* Insights */,
+				91F000A32FFC100100A513EF /* Backup */,
 			);
 			path = Features;
 			sourceTree = "<group>";
@@ -281,6 +291,7 @@
 				9198F1092E85212E00A513EF /* RootView.swift */,
 				9198F10B2E85214E00A513EF /* SplashView.swift */,
 				9198F1122E8524D300A513EF /* LottieView.swift */,
+				91F000B12FFC100100A513EF /* SettingsPanel.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -363,6 +374,47 @@
 				91C5E3DF2E6A7A3300247655 /* PersonRepository.swift */,
 			);
 			path = Data;
+			sourceTree = "<group>";
+		};
+		91F000A12FFC100100A513EF /* Insights */ = {
+			isa = PBXGroup;
+			children = (
+				91F000A22FFC100100A513EF /* UI */,
+			);
+			path = Insights;
+			sourceTree = "<group>";
+		};
+		91F000A22FFC100100A513EF /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				91F000B22FFC100100A513EF /* InsightsHomeView.swift */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		91F000A32FFC100100A513EF /* Backup */ = {
+			isa = PBXGroup;
+			children = (
+				91F000A42FFC100100A513EF /* Domain */,
+				91F000A52FFC100100A513EF /* UI */,
+			);
+			path = Backup;
+			sourceTree = "<group>";
+		};
+		91F000A42FFC100100A513EF /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				91F000B32FFC100100A513EF /* ExportPayload.swift */,
+			);
+			path = Domain;
+			sourceTree = "<group>";
+		};
+		91F000A52FFC100100A513EF /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				91F000B42FFC100100A513EF /* SettingsHomeView.swift */,
+			);
+			path = UI;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -517,6 +569,10 @@
 				91C5E3DE2E6A7A0900247655 /* ProfilesViewModel.swift in Sources */,
 				919708392E67CB790098A613 /* Color+Hex.swift in Sources */,
 				9198F1082E8520DC00A513EF /* MultiProfilesView.swift in Sources */,
+				91F000C12FFC100100A513EF /* SettingsPanel.swift in Sources */,
+				91F000C22FFC100100A513EF /* InsightsHomeView.swift in Sources */,
+				91F000C32FFC100100A513EF /* ExportPayload.swift in Sources */,
+				91F000C42FFC100100A513EF /* SettingsHomeView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
