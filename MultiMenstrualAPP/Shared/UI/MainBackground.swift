@@ -36,6 +36,24 @@ enum AppTheme {
     })
 
     static let softShadow = Color.black.opacity(0.06)
+
+    static let cardCornerRadius: CGFloat = 8
+}
+
+extension View {
+    /// Standard card surface: regularMaterial fill, 8-pt corner, subtle stroke.
+    func cardSurface() -> some View {
+        let shape = RoundedRectangle(cornerRadius: AppTheme.cardCornerRadius,
+                                     style: .continuous)
+        return background(.regularMaterial, in: shape)
+            .overlay(shape.stroke(AppTheme.subtleStroke, lineWidth: 1))
+    }
+
+    /// Card surface with the soft drop shadow used on top-level rows.
+    func elevatedCardSurface() -> some View {
+        cardSurface()
+            .shadow(color: AppTheme.softShadow, radius: 14, x: 0, y: 8)
+    }
 }
 
 /// App-wide soft background with a warmer system feel.

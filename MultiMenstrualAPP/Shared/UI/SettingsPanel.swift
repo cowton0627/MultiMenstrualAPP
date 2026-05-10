@@ -19,11 +19,7 @@ struct SettingsPanel<Content: View>: View {
             VStack(spacing: 0) {
                 content
             }
-            .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 8, style: .continuous))
-            .overlay(
-                RoundedRectangle(cornerRadius: 8, style: .continuous)
-                    .stroke(AppTheme.subtleStroke, lineWidth: 1)
-            )
+            .cardSurface()
         }
     }
 }

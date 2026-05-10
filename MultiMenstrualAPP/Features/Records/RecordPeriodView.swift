@@ -67,11 +67,7 @@ struct RecordPeriodView: View {
                         .background(AppTheme.fieldBackground, in: RoundedRectangle(cornerRadius: 8, style: .continuous))
                     }
                     .padding(16)
-                    .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 8, style: .continuous))
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 8, style: .continuous)
-                            .stroke(AppTheme.subtleStroke, lineWidth: 1)
-                    )
+                    .cardSurface()
 
                     VStack(alignment: .leading, spacing: 12) {
                         Label("備註", systemImage: "note.text")
@@ -84,11 +80,7 @@ struct RecordPeriodView: View {
                             .background(AppTheme.fieldBackground, in: RoundedRectangle(cornerRadius: 8, style: .continuous))
                     }
                     .padding(16)
-                    .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 8, style: .continuous))
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 8, style: .continuous)
-                            .stroke(AppTheme.subtleStroke, lineWidth: 1)
-                    )
+                    .cardSurface()
                 }
                 .padding(16)
             }

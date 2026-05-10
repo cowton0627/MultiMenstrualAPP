@@ -146,11 +146,7 @@ private struct DashboardStatCard: View {
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(16)
-        .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 8, style: .continuous))
-        .overlay(
-            RoundedRectangle(cornerRadius: 8, style: .continuous)
-                .stroke(AppTheme.subtleStroke, lineWidth: 1)
-        )
+        .cardSurface()
     }
 }
 
@@ -310,10 +306,6 @@ private struct InfoPanel: View {
             Spacer()
         }
         .padding(16)
-        .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 8, style: .continuous))
-        .overlay(
-            RoundedRectangle(cornerRadius: 8, style: .continuous)
-                .stroke(AppTheme.subtleStroke, lineWidth: 1)
-        )
+        .cardSurface()
     }
 }

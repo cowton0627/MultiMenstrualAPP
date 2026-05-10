@@ -172,12 +172,7 @@ private struct CalendarSummaryHeader: View {
             }
         }
         .padding(16)
-        .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 8, style: .continuous))
-        .overlay(
-            RoundedRectangle(cornerRadius: 8, style: .continuous)
-                .stroke(AppTheme.subtleStroke, lineWidth: 1)
-        )
-        .shadow(color: AppTheme.softShadow, radius: 14, x: 0, y: 8)
+        .elevatedCardSurface()
     }
 
     private var summaryTitle: String {
