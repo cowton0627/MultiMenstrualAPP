@@ -24,7 +24,7 @@ final class CalendarViewModel: NSObject, ObservableObject {
 
     enum Action {
         case openEditor(RecordEditorSheetContext)
-        case presentRecordPicker(day: Date, records: [PeriodRecord])
+        case presentRecordPicker(day: Date, records: [PeriodRecordSnapshot])
     }
 
     // MARK: - DI
@@ -51,10 +51,9 @@ final class CalendarViewModel: NSObject, ObservableObject {
         case .appear:
             recompute() // 初次載入
         case .tapDay(let day):
-            let recs = records(on: day)
+            let recs = records(on: day).map(PeriodRecordSnapshot.init(record:))
             if recs.count == 1 {
-                let r = recs[0]
-                onAction?(openEditorContext(for: r, fallbackDay: day))
+                onAction?(openEditorContext(for: recs[0], fallbackDay: day))
             } else if recs.count > 1 {
                 onAction?(.presentRecordPicker(day: day.stripTime(), records: recs))
             } else {
@@ -111,10 +110,10 @@ final class CalendarViewModel: NSObject, ObservableObject {
                                                                  person: person)
     }
 
-    private func openEditorContext(for record: PeriodRecord,
+    private func openEditorContext(for record: PeriodRecordSnapshot,
                                    fallbackDay: Date) -> Action {
-        let start = (record.startDate ?? fallbackDay).stripTime()
-        let end = (record.endDate ?? start.addDays(5)).stripTime()
+        let start = record.startDate ?? fallbackDay.stripTime()
+        let end = record.endDate ?? start.addDays(5)
 
         return .openEditor(
             RecordEditorSheetContext(

@@ -13,7 +13,7 @@ struct CalendarScreen: View {
     private let person: PersonProfile
     @StateObject private var vm: CalendarViewModel
     @State private var pickerDay = Date().stripTime()
-    @State private var pickerRecords: [PeriodRecord] = []
+    @State private var pickerRecords: [PeriodRecordSnapshot] = []
     private let onTapEditPerson: () -> Void
     private let onRequestRecordEditor: (RecordEditorSheetContext) -> Void
 
@@ -81,13 +81,15 @@ struct CalendarScreen: View {
                             titleVisibility: .visible) {
             ForEach(pickerRecords) { record in
                 Button(recordTitle(for: record)) {
+                    let start = record.startDate ?? pickerDay
+                    let end = record.endDate ?? start.addDays(5)
                     handleAction(
                         .openEditor(
                             RecordEditorSheetContext(
                                 personObjectID: person.objectID,
                                 recordObjectID: record.objectID,
-                                defaultStart: (record.startDate ?? pickerDay).stripTime(),
-                                defaultEnd: (record.endDate ?? (record.startDate ?? pickerDay).addDays(5)).stripTime()
+                                defaultStart: start,
+                                defaultEnd: end
                             )
                         )
                     )
@@ -124,9 +126,9 @@ struct CalendarScreen: View {
         }
     }
 
-    private func recordTitle(for record: PeriodRecord) -> String {
-        let start = record.startDate?.stripTime() ?? pickerDay
-        let end = (record.endDate ?? start).stripTime()
+    private func recordTitle(for record: PeriodRecordSnapshot) -> String {
+        let start = record.startDate ?? pickerDay
+        let end = record.endDate ?? start
         let formatter = DateFormatter()
         formatter.dateFormat = "M/d"
         return "\(formatter.string(from: start)) - \(formatter.string(from: end))"

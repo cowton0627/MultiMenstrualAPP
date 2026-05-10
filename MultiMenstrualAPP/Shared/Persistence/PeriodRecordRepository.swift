@@ -13,11 +13,13 @@ struct PeriodRecordInput {
     let notes: String
 }
 
-struct PeriodRecordSnapshot: Equatable {
+struct PeriodRecordSnapshot: Identifiable, Equatable {
     let objectID: NSManagedObjectID
     let startDate: Date?
     let endDate: Date?
     let notes: String
+
+    var id: NSManagedObjectID { objectID }
 
     init(record: PeriodRecord) {
         self.objectID = record.objectID
