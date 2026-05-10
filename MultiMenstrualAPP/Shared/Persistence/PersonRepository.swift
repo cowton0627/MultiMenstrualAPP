@@ -18,11 +18,16 @@ enum RepositoryError: LocalizedError {
     }
 }
 
+struct PersonAttributes {
+    let name: String
+    let colorHex: String
+}
+
 protocol PersonRepositoryProtocol {
     func fetchAllSummaries() -> [PersonSummary]
     func fetchProfile(objectID: NSManagedObjectID) -> PersonProfile?
-    func add(name: String, colorHex: String) throws
-    func update(objectID: NSManagedObjectID, name: String, colorHex: String) throws
+    func add(_ attributes: PersonAttributes) throws
+    func update(objectID: NSManagedObjectID, attributes: PersonAttributes) throws
     func delete(objectID: NSManagedObjectID) throws
 }
 
@@ -45,21 +50,21 @@ final class PersonRepository: PersonRepositoryProtocol {
         fetchPerson(objectID: objectID).map(PersonProfile.init(person:))
     }
 
-    func add(name: String, colorHex: String) throws {
+    func add(_ attributes: PersonAttributes) throws {
         let person = Person(context: context)
         person.id = UUID()
-        person.name = name.trimmingCharacters(in: .whitespacesAndNewlines)
-        person.colorHex = colorHex
+        person.name = attributes.name.trimmingCharacters(in: .whitespacesAndNewlines)
+        person.colorHex = attributes.colorHex
         person.createdAt = Date()
         try context.save()
     }
 
-    func update(objectID: NSManagedObjectID, name: String, colorHex: String) throws {
+    func update(objectID: NSManagedObjectID, attributes: PersonAttributes) throws {
         guard let person = fetchPerson(objectID: objectID) else {
             throw RepositoryError.notFound
         }
-        person.name = name.trimmingCharacters(in: .whitespacesAndNewlines)
-        person.colorHex = colorHex
+        person.name = attributes.name.trimmingCharacters(in: .whitespacesAndNewlines)
+        person.colorHex = attributes.colorHex
         try context.save()
     }
 

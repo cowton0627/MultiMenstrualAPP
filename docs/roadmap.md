@@ -27,10 +27,9 @@ Splash dismissal 已改用 `.task / Task.sleep`（c8edfca）；其餘：
 
 ### Domain model 細部（P1-1 剩下）
 
-read model 已到位（`PersonProfile` / `PersonSummary` / `PeriodRecordSnapshot`）。剩下優先序低：
+read model 已到位（`PersonProfile` / `PersonSummary` / `PeriodRecordSnapshot`），write input 也對稱了（`PersonAttributes` 4fe7df3 / `PeriodRecordInput`）。剩下：
 
-- 把 `PersonRepository.add(name:colorHex:)` / `update(objectID:, name:, colorHex:)` 的散參數收進 `PersonAttributes` struct（對齊 `PeriodRecordInput` 的風格）
-- 評估是否引入 `PersonID` / `PeriodRecordID` newtype 包住 `NSManagedObjectID`，避免 view layer 直接看到 Core Data 型別
+- 評估是否引入 `PersonID` / `PeriodRecordID` newtype 包住 `NSManagedObjectID`，避免 view layer 直接看到 Core Data 型別（低優先）
 
 ---
 

@@ -28,8 +28,8 @@ final class PersonSettingsViewModel: ObservableObject {
 
     func save() throws {
         try repository.update(objectID: objectID,
-                              name: name,
-                              colorHex: color.toHexString())
+                              attributes: PersonAttributes(name: name,
+                                                           colorHex: color.toHexString()))
     }
 
     func delete() throws {

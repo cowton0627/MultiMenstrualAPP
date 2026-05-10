@@ -56,7 +56,7 @@ final class AddPersonViewModel: ObservableObject {
 
     func save() throws {
         guard canSave else { return }
-        try repository.add(name: name, colorHex: colorHex)
+        try repository.add(PersonAttributes(name: name, colorHex: colorHex))
     }
 
     private func normalizeHex(_ raw: String) -> String {
