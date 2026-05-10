@@ -92,7 +92,7 @@
 		91C5E3DD2E6A7A0900247655 /* ProfilesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilesViewModel.swift; sourceTree = "<group>"; };
 		91C5E3DF2E6A7A3300247655 /* PersonRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonRepository.swift; sourceTree = "<group>"; };
 		91C5E3E12E6A7E5200247655 /* AddPersonViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPersonViewModel.swift; sourceTree = "<group>"; };
-		91E000042FFB100200A513EF /* PersonSummary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiMenstrualAPP/Features/Profiles/Domain/PersonSummary.swift; sourceTree = SOURCE_ROOT; };
+		91E000042FFB100200A513EF /* PersonSummary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonSummary.swift; sourceTree = "<group>"; };
 		91C5E4062E70263300247655 /* CalendarBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarBackground.swift; sourceTree = "<group>"; };
 		91D7A0002FB2AA1000A513EF /* PersonSettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonSettingsViewModel.swift; sourceTree = "<group>"; };
 		91D7A0022FB2AA1100A513EF /* PeriodRecordRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeriodRecordRepository.swift; sourceTree = "<group>"; };
@@ -147,8 +147,6 @@
 				91C5E3D22E67D8E900247655 /* Info.plist */,
 				919708082E67CB790098A613 /* APP */,
 				919708162E67CB790098A613 /* Features */,
-				9197080F2E67CB790098A613 /* Person */,
-				919708062E67CB790098A613 /* Records */,
 				919708202E67CB790098A613 /* Shared */,
 				919708112E67CB790098A613 /* Resources */,
 				91D7A0122FB2E07300A513EF /* MultiMenstrualAPPTests */,
@@ -203,13 +201,13 @@
 			path = Persistence;
 			sourceTree = "<group>";
 		};
-		9197080F2E67CB790098A613 /* Person */ = {
+		9197080F2E67CB790098A613 /* PersonSettings */ = {
 			isa = PBXGroup;
 			children = (
 				919708102E67CB790098A613 /* PersonSettingsView.swift */,
 				91D7A0002FB2AA1000A513EF /* PersonSettingsViewModel.swift */,
 			);
-			path = Person;
+			path = PersonSettings;
 			sourceTree = "<group>";
 		};
 		919708112E67CB790098A613 /* Resources */ = {
@@ -235,6 +233,8 @@
 			children = (
 				9197081D2E67CB790098A613 /* Profiles */,
 				919708172E67CB790098A613 /* Calendar */,
+				919708062E67CB790098A613 /* Records */,
+				9197080F2E67CB790098A613 /* PersonSettings */,
 			);
 			path = Features;
 			sourceTree = "<group>";
@@ -245,9 +245,6 @@
 				91C5E3D32E6A6C4200247655 /* UI */,
 				91C5E3D42E6A6C5000247655 /* Presentation */,
 				91C5E3D52E6A6C5B00247655 /* Domain */,
-				91C5E3D62E6A6C6500247655 /* Data */,
-				9197081B2E67CB790098A613 /* PeriodRange.swift */,
-				9197081A2E67CB790098A613 /* CyclePredictor.swift */,
 			);
 			path = Calendar;
 			sourceTree = "<group>";
@@ -257,7 +254,7 @@
 			children = (
 				91C5E3D92E6A798400247655 /* UI */,
 				91C5E3DA2E6A798800247655 /* Presentation */,
-				91C5E3DB2E6A799700247655 /* Domin */,
+				91C5E3DB2E6A799700247655 /* Domain */,
 				91C5E3DC2E6A79A500247655 /* Data */,
 			);
 			path = Profiles;
@@ -328,15 +325,10 @@
 			children = (
 				91D7A0082FB2AA1400A513EF /* PeriodRangeMapper.swift */,
 				91D7A0062FB2AA1300A513EF /* RecordHitResolver.swift */,
+				9197081B2E67CB790098A613 /* PeriodRange.swift */,
+				9197081A2E67CB790098A613 /* CyclePredictor.swift */,
 			);
 			path = Domain;
-			sourceTree = "<group>";
-		};
-		91C5E3D62E6A6C6500247655 /* Data */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Data;
 			sourceTree = "<group>";
 		};
 		91C5E3D92E6A798400247655 /* UI */ = {
@@ -357,12 +349,12 @@
 			path = Presentation;
 			sourceTree = "<group>";
 		};
-		91C5E3DB2E6A799700247655 /* Domin */ = {
+		91C5E3DB2E6A799700247655 /* Domain */ = {
 			isa = PBXGroup;
 			children = (
 				91E000042FFB100200A513EF /* PersonSummary.swift */,
 			);
-			path = Domin;
+			path = Domain;
 			sourceTree = "<group>";
 		};
 		91C5E3DC2E6A79A500247655 /* Data */ = {
