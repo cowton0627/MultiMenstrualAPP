@@ -13,6 +13,20 @@ struct PeriodRecordInput {
     let notes: String
 }
 
+struct PeriodRecordSnapshot: Equatable {
+    let objectID: NSManagedObjectID
+    let startDate: Date?
+    let endDate: Date?
+    let notes: String
+
+    init(record: PeriodRecord) {
+        self.objectID = record.objectID
+        self.startDate = record.startDate?.stripTime()
+        self.endDate = record.endDate?.stripTime()
+        self.notes = record.notes ?? ""
+    }
+}
+
 final class PeriodRecordRepository {
     private let context: NSManagedObjectContext
 
@@ -22,8 +36,12 @@ final class PeriodRecordRepository {
 
     @discardableResult
     func save(input: PeriodRecordInput,
-              for person: Person,
-              editing: PeriodRecord? = nil) throws -> PeriodRecord {
+              personObjectID: NSManagedObjectID,
+              editingObjectID: NSManagedObjectID? = nil) throws -> PeriodRecord {
+        guard let person = try? context.existingObject(with: personObjectID) as? Person else {
+            throw RepositoryError.notFound
+        }
+        let editing = editingObjectID.flatMap { fetchRecord(objectID: $0) }
         let record = editing ?? PeriodRecord(context: context)
         if editing == nil {
             record.id = UUID()
@@ -40,5 +58,9 @@ final class PeriodRecordRepository {
 
     func fetchRecord(objectID: NSManagedObjectID) -> PeriodRecord? {
         try? context.existingObject(with: objectID) as? PeriodRecord
+    }
+
+    func fetchSnapshot(objectID: NSManagedObjectID) -> PeriodRecordSnapshot? {
+        fetchRecord(objectID: objectID).map(PeriodRecordSnapshot.init(record:))
     }
 }

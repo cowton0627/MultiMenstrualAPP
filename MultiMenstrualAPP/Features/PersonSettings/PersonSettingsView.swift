@@ -12,13 +12,11 @@ import CoreData
 struct PersonSettingsView: View {
     @Environment(\.dismiss) private var dismiss
 
-    @ObservedObject var person: Person
     @StateObject private var vm: PersonSettingsViewModel
     @State private var showDeleteAlert = false
 
-    init(person: Person, context: NSManagedObjectContext) {
-        self.person = person
-        _vm = StateObject(wrappedValue: PersonSettingsViewModel(person: person,
+    init(profile: PersonProfile, context: NSManagedObjectContext) {
+        _vm = StateObject(wrappedValue: PersonSettingsViewModel(profile: profile,
                                                                 context: context))
     }
 

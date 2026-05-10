@@ -12,14 +12,14 @@ final class PersonSettingsViewModel: ObservableObject {
     @Published var name: String
     @Published var color: Color
 
-    private let person: Person
+    private let objectID: NSManagedObjectID
     private let repository: PersonRepository
 
-    init(person: Person, context: NSManagedObjectContext) {
-        self.person = person
+    init(profile: PersonProfile, context: NSManagedObjectContext) {
+        self.objectID = profile.objectID
         self.repository = PersonRepository(context: context)
-        self.name = person.name ?? ""
-        self.color = Color(hex: person.colorHex ?? Person.defaultColorHex)
+        self.name = profile.displayName
+        self.color = Color(hex: profile.colorHex)
     }
 
     var canSave: Bool {
@@ -27,12 +27,12 @@ final class PersonSettingsViewModel: ObservableObject {
     }
 
     func save() throws {
-        try repository.update(person,
+        try repository.update(objectID: objectID,
                               name: name,
                               colorHex: color.toHexString())
     }
 
     func delete() throws {
-        try repository.delete(person)
+        try repository.delete(objectID: objectID)
     }
 }

@@ -7,6 +7,17 @@
 
 import CoreData
 
+enum RepositoryError: LocalizedError {
+    case notFound
+
+    var errorDescription: String? {
+        switch self {
+        case .notFound:
+            return "找不到資料"
+        }
+    }
+}
+
 final class PersonRepository {
     private let context: NSManagedObjectContext
 
@@ -55,9 +66,23 @@ final class PersonRepository {
         try context.save()
     }
 
+    func update(objectID: NSManagedObjectID, name: String, colorHex: String) throws {
+        guard let person = fetchPerson(objectID: objectID) else {
+            throw RepositoryError.notFound
+        }
+        try update(person, name: name, colorHex: colorHex)
+    }
+
     func delete(_ person: Person) throws {
         context.delete(person)
         try context.save()
+    }
+
+    func delete(objectID: NSManagedObjectID) throws {
+        guard let person = fetchPerson(objectID: objectID) else {
+            throw RepositoryError.notFound
+        }
+        try delete(person)
     }
 
     func delete(offsets: IndexSet, from people: [Person]) throws {

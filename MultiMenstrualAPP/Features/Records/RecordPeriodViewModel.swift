@@ -14,24 +14,24 @@ final class RecordPeriodViewModel: ObservableObject {
     @Published var inProgress: Bool
     @Published var notes: String
 
-    private let person: Person
-    private let editing: PeriodRecord?
+    private let personObjectID: NSManagedObjectID
+    private let editingObjectID: NSManagedObjectID?
     private let repository: PeriodRecordRepository
 
-    init(person: Person,
+    init(person: PersonProfile,
          defaultStart: Date,
          defaultEnd: Date,
-         editing: PeriodRecord? = nil,
+         editing: PeriodRecordSnapshot? = nil,
          context: NSManagedObjectContext) {
-        self.person = person
-        self.editing = editing
+        self.personObjectID = person.objectID
+        self.editingObjectID = editing?.objectID
         self.repository = PeriodRecordRepository(context: context)
 
-        if let record = editing {
-            self.startDate = record.startDate?.stripTime() ?? defaultStart.stripTime()
-            self.endDate = (record.endDate ?? defaultEnd).stripTime()
-            self.inProgress = record.endDate == nil
-            self.notes = record.notes ?? ""
+        if let snapshot = editing {
+            self.startDate = snapshot.startDate ?? defaultStart.stripTime()
+            self.endDate = snapshot.endDate ?? defaultEnd.stripTime()
+            self.inProgress = snapshot.endDate == nil
+            self.notes = snapshot.notes
         } else {
             self.startDate = defaultStart.stripTime()
             self.endDate = defaultEnd.stripTime()
@@ -44,15 +44,15 @@ final class RecordPeriodViewModel: ObservableObject {
         inProgress || endDate.stripTime() >= startDate.stripTime()
     }
 
-    func save() throws -> PeriodRecord {
+    func save() throws {
         try repository.save(
             input: PeriodRecordInput(
                 startDate: startDate,
                 endDate: inProgress ? nil : endDate,
                 notes: notes
             ),
-            for: person,
-            editing: editing
+            personObjectID: personObjectID,
+            editingObjectID: editingObjectID
         )
     }
 }

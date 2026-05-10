@@ -13,14 +13,14 @@ struct RecordPeriodView: View {
     @Environment(\.dismiss) private var dismiss
 
     @StateObject private var vm: RecordPeriodViewModel
-    private let onSaved: (_ start: Date, _ end: Date?) -> Void
-    
-    init(person: Person,
+    private let onSaved: () -> Void
+
+    init(person: PersonProfile,
          context: NSManagedObjectContext,
          defaultStart: Date,
          defaultEnd: Date,
-         editing: PeriodRecord? = nil,
-         onSaved: @escaping (_ start: Date, _ end: Date?) -> Void = { _,_  in }) {
+         editing: PeriodRecordSnapshot? = nil,
+         onSaved: @escaping () -> Void = {}) {
         self.onSaved = onSaved
         _vm = StateObject(wrappedValue: RecordPeriodViewModel(person: person,
                                                               defaultStart: defaultStart,
@@ -105,8 +105,8 @@ struct RecordPeriodView: View {
     
     private func save() {
         do {
-            let record = try vm.save()
-            onSaved(record.startDate!, record.endDate)
+            try vm.save()
+            onSaved()
             dismiss()
         } catch {
             assertionFailure("Save record failed: \(error)")

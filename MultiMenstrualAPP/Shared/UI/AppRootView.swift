@@ -173,8 +173,8 @@ private struct CalendarFlowView: View {
     private var settingsDestination: some View {
         switch route {
         case .personSettings(let personID):
-            if let person = repository.fetchPerson(objectID: personID) {
-                PersonSettingsView(person: person, context: context)
+            if let profile = repository.fetchProfile(objectID: personID) {
+                PersonSettingsView(profile: profile, context: context)
             } else {
                 Text("找不到人物資料")
                     .font(.headline)
@@ -191,15 +191,14 @@ private struct RecordEditorSheetView: View {
     let editor: RecordEditorSheetContext
 
     var body: some View {
-        if let person = person {
+        if let profile = personProfile {
             NavigationView {
                 RecordPeriodView(
-                    person: person,
+                    person: profile,
                     context: context,
                     defaultStart: editor.defaultStart,
                     defaultEnd: editor.defaultEnd,
-                    editing: record,
-                    onSaved: { _, _ in }
+                    editing: snapshot
                 )
                 .navigationBarTitleDisplayMode(.inline)
             }
@@ -211,20 +210,20 @@ private struct RecordEditorSheetView: View {
         }
     }
 
-    private var repository: PersonRepository {
+    private var personRepo: PersonRepository {
         PersonRepository(context: context)
     }
 
-    private var recordRepository: PeriodRecordRepository {
+    private var recordRepo: PeriodRecordRepository {
         PeriodRecordRepository(context: context)
     }
 
-    private var person: Person? {
-        repository.fetchPerson(objectID: editor.personObjectID)
+    private var personProfile: PersonProfile? {
+        personRepo.fetchProfile(objectID: editor.personObjectID)
     }
 
-    private var record: PeriodRecord? {
+    private var snapshot: PeriodRecordSnapshot? {
         guard let objectID = editor.recordObjectID else { return nil }
-        return recordRepository.fetchRecord(objectID: objectID)
+        return recordRepo.fetchSnapshot(objectID: objectID)
     }
 }
