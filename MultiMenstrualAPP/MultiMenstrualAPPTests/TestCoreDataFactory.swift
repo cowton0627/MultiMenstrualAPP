@@ -17,7 +17,8 @@ enum TestCoreDataFactory {
     static func makePerson(in context: NSManagedObjectContext,
                            name: String = "Tester",
                            colorHex: String = "#FF6B6B") -> Person {
-        let person = Person(context: context)
+        let person = NSEntityDescription.insertNewObject(forEntityName: "Person",
+                                                         into: context) as! Person
         person.id = UUID()
         person.createdAt = Date()
         person.name = name
@@ -31,7 +32,8 @@ enum TestCoreDataFactory {
                            start: Date,
                            end: Date? = nil,
                            notes: String = "") -> PeriodRecord {
-        let record = PeriodRecord(context: context)
+        let record = NSEntityDescription.insertNewObject(forEntityName: "PeriodRecord",
+                                                         into: context) as! PeriodRecord
         record.id = UUID()
         record.person = person
         record.startDate = start

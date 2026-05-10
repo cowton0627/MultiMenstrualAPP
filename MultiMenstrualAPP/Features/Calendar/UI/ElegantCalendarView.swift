@@ -56,7 +56,13 @@ struct ElegantCalendarView: View {
                                               value: -1,
                                               to: pageMonth)!.startOfMonth()
                 }
-            } label: { Image(systemName: "chevron.left").font(.title3) }
+            } label: {
+                Image(systemName: "chevron.left")
+                    .font(.headline.weight(.semibold))
+                    .foregroundColor(.primary)
+                    .frame(width: 34, height: 34)
+                    .background(AppTheme.fieldBackground, in: Circle())
+            }
 
             Spacer()
 
@@ -76,11 +82,17 @@ struct ElegantCalendarView: View {
                                               value: 1,
                                               to: pageMonth)!.startOfMonth()
                 }
-            } label: { Image(systemName: "chevron.right").font(.title3) }
+            } label: {
+                Image(systemName: "chevron.right")
+                    .font(.headline.weight(.semibold))
+                    .foregroundColor(.primary)
+                    .frame(width: 34, height: 34)
+                    .background(AppTheme.fieldBackground, in: Circle())
+            }
         }
         .padding(.horizontal, theme.contentPadding)
-        .padding(.top, 8)
-        .padding(.bottom, 6)
+        .padding(.top, 16)
+        .padding(.bottom, 8)
     }
     
     private var weekdaysRow: some View {
@@ -176,7 +188,7 @@ struct ElegantCalendarView: View {
                 .onTapGesture { onDayTap?(day) }
             }
         }
-        .padding(.vertical, 10)
+                .padding(.vertical, 12)
     }
     
     
@@ -293,7 +305,7 @@ struct ElegantCalendarView: View {
                             LinearGradient(
                                 colors: blendedColors(inPeriodOverlays),
                                 startPoint: .topLeading, endPoint: .bottomTrailing
-                            ).opacity(0.28)
+                            ).opacity(0.32)
                         )
                 }
 
@@ -313,13 +325,13 @@ struct ElegantCalendarView: View {
                 // 今日細圈
                 if isToday {
                     RoundedRectangle(cornerRadius: theme.selectionCorner)
-                        .stroke(theme.todayRing, lineWidth: 1.5)
+                        .stroke(theme.todayRing, lineWidth: 1.8)
                 }
             }
             .frame(minHeight: theme.dayMinHeight)
             .background(Color.clear)
             .overlay(
-                Rectangle().frame(height: 1).foregroundColor(theme.gridSeparator),
+                Rectangle().frame(height: 1).foregroundColor(theme.gridSeparator.opacity(0.7)),
                 alignment: .bottom
             )
         }

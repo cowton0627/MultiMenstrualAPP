@@ -28,18 +28,37 @@ struct CalendarScreen: View {
     }
 
     var body: some View {
-        VStack(spacing: 0) {
-            ElegantCalendarView(
-                visibleMonth: Binding(
-                    get: { vm.state.visibleMonth },
-                    set: { vm.send(.setVisibleMonth($0)) }
-                ),
-                periodRanges: vm.state.ranges,
-                predictedWindows: vm.state.predicted,
-                theme: CalendarTheme(),
-                firstWeekday: 2
-            ) { tappedDate in
-                vm.send(.tapDay(tappedDate))
+        ZStack {
+            MainBackground()
+
+            VStack(spacing: 14) {
+                CalendarSummaryHeader(
+                    person: person,
+                    recordCount: vm.state.ranges.count,
+                    nextPrediction: vm.state.predicted.first
+                )
+                .padding(.horizontal, 16)
+                .padding(.top, 10)
+
+                ElegantCalendarView(
+                    visibleMonth: Binding(
+                        get: { vm.state.visibleMonth },
+                        set: { vm.send(.setVisibleMonth($0)) }
+                    ),
+                    periodRanges: vm.state.ranges,
+                    predictedWindows: vm.state.predicted,
+                    theme: CalendarTheme(),
+                    firstWeekday: 2
+                ) { tappedDate in
+                    vm.send(.tapDay(tappedDate))
+                }
+                .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
+                .overlay(
+                    RoundedRectangle(cornerRadius: 8, style: .continuous)
+                        .stroke(AppTheme.subtleStroke, lineWidth: 1)
+                )
+                .shadow(color: AppTheme.softShadow, radius: 18, x: 0, y: 10)
+                .padding(.horizontal, 12)
             }
         }
         .navigationTitle(vm.state.title)
@@ -114,11 +133,119 @@ struct CalendarScreen: View {
     }
 }
 
+private struct CalendarSummaryHeader: View {
+    let person: PersonProfile
+    let recordCount: Int
+    let nextPrediction: PredictedWindow?
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 14) {
+            HStack(alignment: .top, spacing: 12) {
+                ZStack {
+                    RoundedRectangle(cornerRadius: 8, style: .continuous)
+                        .fill(Color(hex: person.colorHex).opacity(0.16))
+
+                    Circle()
+                        .fill(Color(hex: person.colorHex))
+                        .frame(width: 20, height: 20)
+                }
+                .frame(width: 48, height: 48)
+
+                VStack(alignment: .leading, spacing: 4) {
+                    Text(summaryTitle)
+                        .font(.system(.headline, design: .rounded).weight(.semibold))
+                        .foregroundColor(.primary)
+
+                    Text(summarySubtitle)
+                        .font(.footnote)
+                        .foregroundColor(.secondary)
+                }
+
+                Spacer()
+            }
+
+            HStack(spacing: 10) {
+                LegendPill(title: "已記錄", color: Color(hex: person.colorHex), style: .filled)
+                LegendPill(title: "預測", color: Color.orange, style: .outlined)
+            }
+        }
+        .padding(16)
+        .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 8, style: .continuous))
+        .overlay(
+            RoundedRectangle(cornerRadius: 8, style: .continuous)
+                .stroke(AppTheme.subtleStroke, lineWidth: 1)
+        )
+        .shadow(color: AppTheme.softShadow, radius: 14, x: 0, y: 8)
+    }
+
+    private var summaryTitle: String {
+        if recordCount == 0 {
+            return "準備開始記錄"
+        }
+
+        return "\(recordCount) 段經期紀錄"
+    }
+
+    private var summarySubtitle: String {
+        guard let nextPrediction else {
+            return "累積更多紀錄後，這裡會顯示下一次預測區間。"
+        }
+
+        return "下次預測 \(Self.formatter.string(from: nextPrediction.range.lowerBound)) - \(Self.formatter.string(from: nextPrediction.range.upperBound))"
+    }
+
+    private static let formatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "zh_TW")
+        formatter.dateFormat = "M/d"
+        return formatter
+    }()
+}
+
+private struct LegendPill: View {
+    enum Style {
+        case filled
+        case outlined
+    }
+
+    let title: String
+    let color: Color
+    let style: Style
+
+    var body: some View {
+        HStack(spacing: 7) {
+            marker
+
+            Text(title)
+                .font(.caption.weight(.semibold))
+                .foregroundColor(.secondary)
+        }
+        .padding(.horizontal, 11)
+        .padding(.vertical, 7)
+        .background(AppTheme.fieldBackground, in: Capsule())
+    }
+
+    @ViewBuilder
+    private var marker: some View {
+        switch style {
+        case .filled:
+            Circle()
+                .fill(color)
+                .frame(width: 8, height: 8)
+        case .outlined:
+            Circle()
+                .stroke(style: StrokeStyle(lineWidth: 1.5, dash: [2, 2]))
+                .foregroundColor(color)
+                .frame(width: 9, height: 9)
+        }
+    }
+}
+
 struct CalendarTheme {
-    var background = Color(UIColor.systemBackground)
+    var background = AppTheme.elevatedBackground
     var monthTitleColor = Color.primary
     var weekdayColor = Color.secondary
-    var todayRing = Color.accentColor
+    var todayRing = AppTheme.accent
     var gridSeparator = Color.secondary.opacity(0.12)
     var dayText = Color.primary
     var outMonthText = Color.secondary.opacity(0.5)

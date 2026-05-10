@@ -30,20 +30,68 @@ struct RecordPeriodView: View {
     }
 
     var body: some View {
-        Form {
-            Section(header: Text("日期")) {
-                DatePicker("開始", selection: $vm.startDate, displayedComponents: .date)
-                DatePicker("結束", selection: $vm.endDate,
-                           in: vm.startDate...,
-                           displayedComponents: .date)
-                .disabled(vm.inProgress)
-                Toggle("尚未結束", isOn: $vm.inProgress)
-            }
-            Section(header: Text("備註")) {
-                TextField("可填寫症狀、用藥等", text: $vm.notes)
+        ZStack {
+            MainBackground()
+
+            ScrollView {
+                VStack(spacing: 16) {
+                    VStack(alignment: .leading, spacing: 12) {
+                        Label("日期", systemImage: "calendar")
+                            .font(.system(.headline, design: .rounded).weight(.semibold))
+                            .foregroundColor(.primary)
+
+                        VStack(spacing: 0) {
+                            DatePicker("開始", selection: $vm.startDate, displayedComponents: .date)
+                                .padding(.vertical, 12)
+
+                            Divider()
+
+                            DatePicker("結束",
+                                       selection: $vm.endDate,
+                                       in: vm.startDate...,
+                                       displayedComponents: .date)
+                            .disabled(vm.inProgress)
+                            .opacity(vm.inProgress ? 0.45 : 1)
+                            .padding(.vertical, 12)
+
+                            Divider()
+
+                            Toggle("尚未結束", isOn: $vm.inProgress)
+                                .tint(AppTheme.accent)
+                                .padding(.vertical, 12)
+                        }
+                        .padding(.horizontal, 14)
+                        .background(AppTheme.fieldBackground, in: RoundedRectangle(cornerRadius: 8, style: .continuous))
+                    }
+                    .padding(16)
+                    .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 8, style: .continuous))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 8, style: .continuous)
+                            .stroke(AppTheme.subtleStroke, lineWidth: 1)
+                    )
+
+                    VStack(alignment: .leading, spacing: 12) {
+                        Label("備註", systemImage: "note.text")
+                            .font(.system(.headline, design: .rounded).weight(.semibold))
+                            .foregroundColor(.primary)
+
+                        TextField("可填寫症狀、用藥等", text: $vm.notes)
+                            .textFieldStyle(.plain)
+                            .padding(14)
+                            .background(AppTheme.fieldBackground, in: RoundedRectangle(cornerRadius: 8, style: .continuous))
+                    }
+                    .padding(16)
+                    .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 8, style: .continuous))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 8, style: .continuous)
+                            .stroke(AppTheme.subtleStroke, lineWidth: 1)
+                    )
+                }
+                .padding(16)
             }
         }
         .navigationTitle("經期紀錄")
+        .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .cancellationAction) {
                 Button("取消") { dismiss() }
