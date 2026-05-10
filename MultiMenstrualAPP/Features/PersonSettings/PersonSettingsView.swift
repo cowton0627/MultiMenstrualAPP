@@ -14,6 +14,7 @@ struct PersonSettingsView: View {
 
     @StateObject private var vm: PersonSettingsViewModel
     @State private var showDeleteAlert = false
+    @State private var alertError: AlertError?
 
     init(profile: PersonProfile, context: NSManagedObjectContext) {
         _vm = StateObject(wrappedValue: PersonSettingsViewModel(
@@ -64,25 +65,29 @@ struct PersonSettingsView: View {
         }
         .alert(Text("確定要刪除？"), isPresented: $showDeleteAlert) {
             Button("刪除", role: .destructive) { deletePerson() }
-            Button("取消", role: .cancel) { print("什麼事也沒做") }
+            Button("取消", role: .cancel) {}
         } message: {
             Text("此人的所有經期紀錄也會一併刪除。")
             //（因為 Person.records 設為 Cascade）
         }
+        .errorAlert($alertError)
     }
 
-    
     private func savePerson() {
         do {
             try vm.save()
             dismiss()
-        } catch { print("Save error:", error) }
+        } catch {
+            alertError = AlertError(error, title: "儲存失敗")
+        }
     }
 
     private func deletePerson() {
         do {
             try vm.delete()
             dismiss()
-        } catch { print("Delete error:", error) }
+        } catch {
+            alertError = AlertError(error, title: "刪除失敗")
+        }
     }
 }

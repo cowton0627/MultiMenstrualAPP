@@ -15,7 +15,7 @@ struct SettingsHomeView: View {
     @State private var showingExportConfirmation = false
     @State private var showingImporter = false
     @State private var showingImportConfirmation = false
-    @State private var transferError: DataTransferError?
+    @State private var alertError: AlertError?
     @State private var importMessage: String?
 
     var body: some View {
@@ -72,7 +72,7 @@ struct SettingsHomeView: View {
             defaultFilename: defaultExportFilename
         ) { result in
             if case .failure(let error) = result {
-                transferError = DataTransferError(title: "匯出失敗", message: error.localizedDescription)
+                alertError = AlertError(error, title: "匯出失敗")
             }
         }
         .fileImporter(
@@ -82,14 +82,7 @@ struct SettingsHomeView: View {
         ) { result in
             importJSON(result)
         }
-        .alert(transferError?.title ?? "資料處理失敗", isPresented: Binding(
-            get: { transferError != nil },
-            set: { if !$0 { transferError = nil } }
-        )) {
-            Button("知道了", role: .cancel) { transferError = nil }
-        } message: {
-            Text(transferError?.message ?? "")
-        }
+        .errorAlert($alertError)
         .alert("匯入完成", isPresented: Binding(
             get: { importMessage != nil },
             set: { if !$0 { importMessage = nil } }
@@ -111,13 +104,13 @@ struct SettingsHomeView: View {
             encoder.outputFormatting = [.prettyPrinted, .sortedKeys]
             let data = try encoder.encode(payload)
             guard let text = String(data: data, encoding: .utf8) else {
-                transferError = DataTransferError(title: "匯出失敗", message: "無法建立 UTF-8 JSON 內容。")
+                alertError = AlertError(title: "匯出失敗", message: "無法建立 UTF-8 JSON 內容。")
                 return
             }
             exportDocument = JSONBackupDocument(text: text)
             showingExporter = true
         } catch {
-            transferError = DataTransferError(title: "匯出失敗", message: error.localizedDescription)
+            alertError = AlertError(error, title: "匯出失敗")
         }
     }
 
@@ -137,7 +130,7 @@ struct SettingsHomeView: View {
             try context.save()
             importMessage = "已匯入 \(summary.profileCount) 個人物與 \(summary.recordCount) 筆經期紀錄。"
         } catch {
-            transferError = DataTransferError(title: "匯入失敗", message: error.localizedDescription)
+            alertError = AlertError(error, title: "匯入失敗")
         }
     }
 
@@ -194,12 +187,6 @@ private struct SettingsRow: View {
         .padding(.horizontal, 14)
         .padding(.vertical, 12)
     }
-}
-
-private struct DataTransferError: Identifiable {
-    let id = UUID()
-    let title: String
-    let message: String
 }
 
 private struct JSONBackupDocument: FileDocument {

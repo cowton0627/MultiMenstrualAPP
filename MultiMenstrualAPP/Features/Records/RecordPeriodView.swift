@@ -13,6 +13,7 @@ struct RecordPeriodView: View {
     @Environment(\.dismiss) private var dismiss
 
     @StateObject private var vm: RecordPeriodViewModel
+    @State private var alertError: AlertError?
     private let onSaved: () -> Void
 
     init(person: PersonProfile,
@@ -103,15 +104,16 @@ struct RecordPeriodView: View {
                 .disabled(!vm.canSave)
             }
         }
+        .errorAlert($alertError)
     }
-    
+
     private func save() {
         do {
             try vm.save()
             onSaved()
             dismiss()
         } catch {
-            assertionFailure("Save record failed: \(error)")
+            alertError = AlertError(error, title: "儲存失敗")
         }
     }
 }

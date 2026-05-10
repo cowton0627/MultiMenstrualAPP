@@ -51,6 +51,7 @@
 		91F000C22FFC100100A513EF /* InsightsHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F000B22FFC100100A513EF /* InsightsHomeView.swift */; };
 		91F000C32FFC100100A513EF /* ExportPayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F000B32FFC100100A513EF /* ExportPayload.swift */; };
 		91F000C42FFC100100A513EF /* SettingsHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F000B42FFC100100A513EF /* SettingsHomeView.swift */; };
+		91F000C52FFC100100A513EF /* ErrorAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F000B52FFC100100A513EF /* ErrorAlert.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -111,6 +112,7 @@
 		91F000B22FFC100100A513EF /* InsightsHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsightsHomeView.swift; sourceTree = "<group>"; };
 		91F000B32FFC100100A513EF /* ExportPayload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportPayload.swift; sourceTree = "<group>"; };
 		91F000B42FFC100100A513EF /* SettingsHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsHomeView.swift; sourceTree = "<group>"; };
+		91F000B52FFC100100A513EF /* ErrorAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorAlert.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -291,6 +293,7 @@
 				9198F10B2E85214E00A513EF /* SplashView.swift */,
 				9198F1122E8524D300A513EF /* LottieView.swift */,
 				91F000B12FFC100100A513EF /* SettingsPanel.swift */,
+				91F000B52FFC100100A513EF /* ErrorAlert.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -573,6 +576,7 @@
 				91F000C22FFC100100A513EF /* InsightsHomeView.swift in Sources */,
 				91F000C32FFC100100A513EF /* ExportPayload.swift in Sources */,
 				91F000C42FFC100100A513EF /* SettingsHomeView.swift in Sources */,
+				91F000C52FFC100100A513EF /* ErrorAlert.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

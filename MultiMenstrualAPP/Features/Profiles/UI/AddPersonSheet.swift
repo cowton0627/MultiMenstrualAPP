@@ -12,6 +12,7 @@ import CoreData
 struct AddPersonSheet: View {
     @Environment(\.dismiss) private var dismiss
     @StateObject private var vm: AddPersonViewModel
+    @State private var alertError: AlertError?
 
     init(context: NSManagedObjectContext) {
         _vm = StateObject(wrappedValue: AddPersonViewModel(
@@ -91,12 +92,13 @@ struct AddPersonSheet: View {
                             try vm.save()
                             dismiss()
                         } catch {
-                            print("Save person error:", error)
+                            alertError = AlertError(error, title: "新增失敗")
                         }
                     }
                     .disabled(!vm.canSave)
                 }
             }
+            .errorAlert($alertError)
         }
     }
 }
