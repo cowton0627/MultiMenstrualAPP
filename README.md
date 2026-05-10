@@ -111,7 +111,7 @@ python3 scripts/gen_app_icon.py
 ## 知識文件
 
 - [`DECISIONS.md`](./DECISIONS.md) — 架構選擇的「為什麼」
-- [`docs/ROADMAP.md`](./docs/ROADMAP.md) — 後續整理規劃
+- [`docs/roadmap.md`](./docs/roadmap.md) — 後續整理規劃
 - `.github/ISSUE_TEMPLATE/` — issue 模板
 
 ## Repository
