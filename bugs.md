@@ -20,19 +20,19 @@
 
 - **症狀**：unit test / SwiftUI Preview 看到正式資料、測試之間互相污染
 - **根因**：早期 `MultiProfilesView.init(context: NSManagedObjectContext? = nil)` 在 `nil` 時 fallback 抓 `PersistenceController.shared`，導致沒注入 context 也能跑
-- **解法**：移除 fallback，把 `context` 改成必填，由上層（`AppRootView`）從 `@Environment(\.managedObjectContext)` 注入（commit `e27d486`）
+- **解法**：移除 fallback，把 `context` 改成必填，由上層（`AppRootView`）從 `@Environment(\.managedObjectContext)` 注入
 
 ## 4. `@ObservedObject var person: Person` 在 entity 被刪除後讀寫即 crash
 
 - **症狀**：在 PersonSettingsView 編輯到一半，他人或匯入流程把該 person 刪掉，dismiss 之後 view 讀到 dangling reference
 - **根因**：view 直接持有 `NSManagedObject`，entity 的生命週期由 context 控制，不是 view
-- **解法**：view 改吃 read model（`PersonProfile` / `PeriodRecordSnapshot`），save/delete 時 view model 用 `objectID` 走 repository 重撈，撈不到就丟 `RepositoryError.notFound`（commit `197aa9a`）
+- **解法**：view 改吃 read model（`PersonProfile` / `PeriodRecordSnapshot`），save/delete 時 view model 用 `objectID` 走 repository 重撈，撈不到就丟 `RepositoryError.notFound`
 
 ## 5. Reload-token UUID hack 抓不到 Core Data 變動
 
 - **症狀**：在 add sheet 或 import 流程新增了人物，dismiss 後 Profiles 列表沒更新
 - **根因**：`ProfilesViewModel` 沒有訂閱 Core Data 變動，靠 `AppRootView` 的 `@State profilesReloadToken = UUID()` + `onSaved` callback 通知刷新；只要有任何寫入入口忘記串 callback 就漏
-- **解法**：view model 改用 `NSFetchedResultsController` + 實作 `controllerDidChangeContent` delegate，Core Data 變動會自動 propagate 到 `@Published`，整套 callback 拆掉（commit `187ffe7`）
+- **解法**：view model 改用 `NSFetchedResultsController` + 實作 `controllerDidChangeContent` delegate，Core Data 變動會自動 propagate 到 `@Published`，整套 callback 拆掉
 
 ## 6. SourceKit 紅字但 `xcodebuild` 過
 
@@ -50,7 +50,7 @@
 
 - **症狀**：在測試裡 `ExportProfile(id: ..., name: ..., colorHex: ...)` 寫不出來，編譯說 `no exact matches in call to initializer`
 - **根因**：Swift 在 struct 提供任何自訂 init 之後，就不會再自動合成 memberwise init
-- **解法**：在 struct 內顯式補一個 memberwise init（commit `e1b1b42` 補在 `ExportProfile`）
+- **解法**：在 struct 內顯式補一個 memberwise init（已補在 `ExportProfile`）
 
 ## 9. macOS 系統 Python 不能直接 `pip install`
 

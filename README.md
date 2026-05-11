@@ -8,7 +8,7 @@ A SwiftUI + Core Data iOS menstrual-cycle tracker built around managing **multip
 
 此專案目前設計為離線使用，不包含雲端同步、第三方分析或廣告 SDK；經期資料儲存在裝置本機 Core Data。JSON 匯出會包含人物名稱、經期日期與備註，請視為敏感私人資料。詳細說明見 [`PRIVACY.md`](./PRIVACY.md)。
 
-專案原始碼與自有資產預設保留所有權利，未授權自由重散布或商用；第三方套件與字型授權見 [`LICENSE`](./LICENSE) 與 [`THIRD_PARTY_LICENSES.md`](./THIRD_PARTY_LICENSES.md)。
+專案原始碼採 [MIT License](./LICENSE) 授權，可自由使用 / 修改 / 散布 / 商用，需保留 copyright 與 license 文字。第三方套件、字型、Lottie 動畫依各自授權，見 [`THIRD_PARTY_LICENSES.md`](./THIRD_PARTY_LICENSES.md)。
 
 ---
 
@@ -87,13 +87,15 @@ Deployment target iOS 15+，Swift 5.0。
 xcodebuild build \
   -project MultiMenstrualAPP.xcodeproj \
   -scheme MultiMenstrualAPP \
-  -destination 'generic/platform=iOS Simulator'
+  -destination 'generic/platform=iOS Simulator' \
+  CODE_SIGNING_ALLOWED=NO
 
 # 跑全部測試（52 cases）
 xcodebuild test \
   -project MultiMenstrualAPP.xcodeproj \
   -scheme MultiMenstrualAPP \
-  -destination 'platform=iOS Simulator,name=iPhone 15'
+  -destination 'platform=iOS Simulator,name=iPhone 15' \
+  CODE_SIGNING_ALLOWED=NO
 ```
 
 每次 push 到 `main` 與每個 PR 都會由 `.github/workflows/ci.yml` 自動跑 `xcodebuild test`。
@@ -105,12 +107,19 @@ xcodebuild test \
 - `ExportPayloadTests` — JSON 備份 round-trip
 - `TestCoreDataFactory` — 共用 in-memory container 與 entity factory
 
+## 在自己的環境執行 / fork 後設定
+
+repo 內 `PRODUCT_BUNDLE_IDENTIFIER` 設為 `cowton0627.MultiMenstrualAPP`、`DEVELOPMENT_TEAM` 為空。clone 下來後：
+
+- **只在模擬器跑 / 跑測試**：上面的 `xcodebuild` 指令已帶 `CODE_SIGNING_ALLOWED=NO`，不需要任何 Apple Developer 帳號設定。
+- **要在實機跑或上架**：在 Xcode 開啟專案 → 選 `MultiMenstrualAPP` target → **Signing & Capabilities** → 把 Team 改成你自己的 Apple Developer Team，並把 Bundle Identifier 改成你自己的 reverse-domain（例如 `com.yourname.MultiMenstrualAPP`），否則會撞別人的 Bundle ID。
+
 ## 重新產 App Icon
 
 `scripts/gen_app_icon.py` 用 Pillow + numpy 產整套 37 個尺寸的櫻花 icon。改色或調花瓣形狀後重跑：
 
 ```bash
-pip install --user Pillow numpy
+pip install --user --break-system-packages Pillow numpy
 python3 scripts/gen_app_icon.py
 ```
 

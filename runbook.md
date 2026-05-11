@@ -2,6 +2,8 @@
 
 操作流程速查。新流程請追加，不要刪舊的。
 
+這份是 maintainer 個人操作筆記，內含的 bundle ID、GitHub URL、scheme 名稱對應目前 repo 設定；fork 者可以參考，但路徑與 URL 須自行替換為自己的。
+
 ---
 
 ## Build & run on simulator
