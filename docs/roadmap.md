@@ -21,7 +21,6 @@
 
 Splash dismissal 已改用 `.task / Task.sleep`（c8edfca）；其餘：
 
-- jf-openhuninn 字型授權確認與 bundle 大小評估
 - `CherryBlossom` Lottie 在 dark mode 下的對比檢查
 - App Store icon / launch image / 隱私問卷（如需送審）
 

@@ -4,6 +4,14 @@ A SwiftUI + Core Data iOS menstrual-cycle tracker built around managing **multip
 
 ---
 
+## 隱私與授權
+
+此專案目前設計為離線使用，不包含雲端同步、第三方分析或廣告 SDK；經期資料儲存在裝置本機 Core Data。JSON 匯出會包含人物名稱、經期日期與備註，請視為敏感私人資料。詳細說明見 [`PRIVACY.md`](./PRIVACY.md)。
+
+專案原始碼與自有資產預設保留所有權利，未授權自由重散布或商用；第三方套件與字型授權見 [`LICENSE`](./LICENSE) 與 [`THIRD_PARTY_LICENSES.md`](./THIRD_PARTY_LICENSES.md)。
+
+---
+
 ## 產品定位
 
 「多人經期管理」的離線小工具。三個分頁：
