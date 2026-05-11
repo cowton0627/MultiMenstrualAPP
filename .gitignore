@@ -1,4 +1,25 @@
+# macOS
 .DS_Store
+
+# Xcode user state
 *.xcuserstate
 xcuserdata/
 **/xcuserdata/
+
+# Xcode build artefacts
+build/
+DerivedData/
+*.ipa
+*.dSYM.zip
+
+# Swift Package Manager local
+.swiftpm/
+
+# Secrets / signing
+.env
+.env.*
+*.key
+*.pem
+*.p12
+*.mobileprovision
+*.cer
