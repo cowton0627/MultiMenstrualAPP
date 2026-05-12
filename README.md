@@ -103,7 +103,7 @@ xcodebuild build \
   -destination 'generic/platform=iOS Simulator' \
   CODE_SIGNING_ALLOWED=NO
 
-# 跑全部測試（52 cases）
+# 跑全部測試（68 cases）
 xcodebuild test \
   -project MultiMenstrualAPP.xcodeproj \
   -scheme MultiMenstrualAPP \
