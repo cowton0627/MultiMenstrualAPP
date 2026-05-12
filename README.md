@@ -72,10 +72,6 @@ MultiMenstrualAPP/
 └── MultiMenstrualAPPTests/ # 單元測試
 ```
 
-每個 feature 內部分 `UI / Presentation / Domain` 三層；read model（`PersonProfile` / `PersonSummary` / `PeriodRecordSnapshot`）跨層使用，view 不接觸 Core Data entity。
-
-架構選擇的理由見 [`DECISIONS.md`](./DECISIONS.md)。
-
 ## 重要檔案
 
 - `MultiMenstrualAPP/APP/MultiMenstrualApp.swift` — `@main`

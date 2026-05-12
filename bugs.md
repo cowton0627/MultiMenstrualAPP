@@ -8,7 +8,7 @@
 
 - **症狀**：在 Xcode 或 SourceKit 看到 `Cannot find type 'X' in scope`，但檔案在資料夾內存在
 - **根因**：檔案沒被加進 `MultiMenstrualAPP.xcodeproj/project.pbxproj`，Xcode 不知道要編譯它
-- **解法**：在 pbxproj 手動 4 處編輯（`PBXBuildFile`、`PBXFileReference`、parent `PBXGroup` children、target `Sources` phase），或在 Xcode 內直接拖檔進 navigator 讓 IDE 自己處理。對應 `runbook.md` 的「Add a new Swift file」段
+- **解法**：在 pbxproj 手動 4 處編輯（`PBXBuildFile`、`PBXFileReference`、parent `PBXGroup` children、target `Sources` phase），或在 Xcode 內直接拖檔進 navigator 讓 IDE 自己處理。對應 `runbook.md` 的「加新 `.swift` 檔到專案」段
 
 ## 2. GitHub push 被 `workflow scope` 擋下
 
