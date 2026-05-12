@@ -17,7 +17,6 @@ final class CalendarViewModel: NSObject, ObservableObject {
     }
 
     enum Intent {
-        case appear
         case tapDay(Date)
         case setVisibleMonth(Date)
     }
@@ -28,7 +27,7 @@ final class CalendarViewModel: NSObject, ObservableObject {
     }
 
     // MARK: - DI
-    let context: NSManagedObjectContext
+    private let context: NSManagedObjectContext
     private let person: PersonProfile
     private let recordHitResolver = RecordHitResolver()
     private let periodRangeMapper = PeriodRangeMapper()
@@ -44,12 +43,11 @@ final class CalendarViewModel: NSObject, ObservableObject {
         super.init()
         state.title = person.displayName
         configureFRC()
+        recompute()
     }
 
     func send(_ intent: Intent) {
         switch intent {
-        case .appear:
-            recompute() // 初次載入
         case .tapDay(let day):
             let recs = records(on: day).map(PeriodRecordSnapshot.init(record:))
             if recs.count == 1 {
@@ -78,14 +76,15 @@ final class CalendarViewModel: NSObject, ObservableObject {
     private func configureFRC() {
         let req: NSFetchRequest<PeriodRecord> = PeriodRecord.fetchRequest()
         req.sortDescriptors = [NSSortDescriptor(key: "startDate", ascending: true)]
-        guard let managedPerson = try? context.existingObject(with: person.id.raw) as? Person else {
-            frc = NSFetchedResultsController(fetchRequest: req,
-                                             managedObjectContext: context,
-                                             sectionNameKeyPath: nil,
-                                             cacheName: nil)
-            return
+
+        if let managedPerson = try? context.existingObject(with: person.id.raw) as? Person {
+            req.predicate = NSPredicate(format: "person == %@", managedPerson)
+        } else {
+            // person 撈不到（race / 已被刪除）— 用永不匹配的 predicate，
+            // 避免 fallback 成「顯示所有人紀錄」。
+            req.predicate = NSPredicate(value: false)
         }
-        req.predicate = NSPredicate(format: "person == %@", managedPerson)
+
         frc = NSFetchedResultsController(fetchRequest: req,
                                          managedObjectContext: context,
                                          sectionNameKeyPath: nil,
