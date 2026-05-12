@@ -43,13 +43,21 @@ final class PeriodRecordRepository: PeriodRecordRepositoryProtocol {
 
     func save(input: PeriodRecordInput,
               personID: PersonID,
-              editingID: PeriodRecordID? = nil) throws {
+              editingID: PeriodRecordID?) throws {
         guard let person = try? context.existingObject(with: personID.raw) as? Person else {
             throw RepositoryError.notFound
         }
-        let editing = editingID.flatMap { fetchRecord(objectID: $0.raw) }
-        let record = editing ?? PeriodRecord(context: context)
-        if editing == nil {
+
+        let record: PeriodRecord
+        if let editingID {
+            // Editing flow: refuse to silently create a new record when the
+            // original is gone (matches PersonRepository.update behaviour).
+            guard let existing = fetchRecord(objectID: editingID.raw) else {
+                throw RepositoryError.notFound
+            }
+            record = existing
+        } else {
+            record = PeriodRecord(context: context)
             record.id = UUID()
             record.person = person
         }

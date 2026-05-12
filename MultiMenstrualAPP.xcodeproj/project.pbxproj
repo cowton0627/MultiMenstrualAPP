@@ -59,6 +59,8 @@
 		91F000CA2FFC100100A513EF /* PersonSettingsViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F000BA2FFC100100A513EF /* PersonSettingsViewModelTests.swift */; };
 		91F000CB2FFC100100A513EF /* ProfilesViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F000BB2FFC100100A513EF /* ProfilesViewModelTests.swift */; };
 		91F000CC2FFC100100A513EF /* EntityIDs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F000BC2FFC100100A513EF /* EntityIDs.swift */; };
+		91F00E012FFC100100A513EF /* PersonRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F00E002FFC100100A513EF /* PersonRepositoryTests.swift */; };
+		91F00E032FFC100100A513EF /* PeriodRecordRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F00E022FFC100100A513EF /* PeriodRecordRepositoryTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -127,6 +129,8 @@
 		91F000BA2FFC100100A513EF /* PersonSettingsViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonSettingsViewModelTests.swift; sourceTree = "<group>"; };
 		91F000BB2FFC100100A513EF /* ProfilesViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilesViewModelTests.swift; sourceTree = "<group>"; };
 		91F000BC2FFC100100A513EF /* EntityIDs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityIDs.swift; sourceTree = "<group>"; };
+		91F00E002FFC100100A513EF /* PersonRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonRepositoryTests.swift; sourceTree = "<group>"; };
+		91F00E022FFC100100A513EF /* PeriodRecordRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeriodRecordRepositoryTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -396,6 +400,8 @@
 				91F000B92FFC100100A513EF /* ExportPayloadTests.swift */,
 				91F000BA2FFC100100A513EF /* PersonSettingsViewModelTests.swift */,
 				91F000BB2FFC100100A513EF /* ProfilesViewModelTests.swift */,
+				91F00E002FFC100100A513EF /* PersonRepositoryTests.swift */,
+				91F00E022FFC100100A513EF /* PeriodRecordRepositoryTests.swift */,
 			);
 			path = MultiMenstrualAPPTests;
 			sourceTree = "<group>";
@@ -605,6 +611,8 @@
 				91F000C92FFC100100A513EF /* ExportPayloadTests.swift in Sources */,
 				91F000CA2FFC100100A513EF /* PersonSettingsViewModelTests.swift in Sources */,
 				91F000CB2FFC100100A513EF /* ProfilesViewModelTests.swift in Sources */,
+				91F00E012FFC100100A513EF /* PersonRepositoryTests.swift in Sources */,
+				91F00E032FFC100100A513EF /* PeriodRecordRepositoryTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
