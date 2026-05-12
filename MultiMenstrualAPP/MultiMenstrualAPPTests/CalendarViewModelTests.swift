@@ -32,7 +32,7 @@ final class CalendarViewModelTests: XCTestCase {
         XCTAssertEqual(vm.state.title, "Aiko")
     }
 
-    func testAppearComputesRangesFromExistingRecords() {
+    func testInitImmediatelyComputesRangesWithoutNeedingAppear() {
         let person = TestCoreDataFactory.makePerson(in: context, colorHex: "#AABBCC")
         TestCoreDataFactory.makeRecord(in: context, person: person,
                                        start: day("2026-01-01"),
@@ -43,12 +43,49 @@ final class CalendarViewModelTests: XCTestCase {
         try! context.save()
 
         let vm = CalendarViewModel(ctx: context, person: PersonProfile(person: person))
-        vm.send(.appear)
 
         XCTAssertEqual(vm.state.ranges.count, 2)
         XCTAssertEqual(vm.state.ranges.map(\.start), [day("2026-01-01"), day("2026-02-01")])
         XCTAssertEqual(vm.state.predicted.count, 1,
                        "Two start dates is enough for the predictor to project a window")
+    }
+
+    func testFRCPropagatesNewRecordsWithoutManualRefresh() throws {
+        let person = TestCoreDataFactory.makePerson(in: context)
+        try context.save()
+
+        let vm = CalendarViewModel(ctx: context, person: PersonProfile(person: person))
+        XCTAssertTrue(vm.state.ranges.isEmpty)
+
+        TestCoreDataFactory.makeRecord(in: context, person: person,
+                                       start: day("2026-05-01"),
+                                       end: day("2026-05-05"))
+        try context.save()
+
+        XCTAssertEqual(vm.state.ranges.count, 1,
+                       "FRC delegate should push the new record into state.ranges")
+        XCTAssertEqual(vm.state.ranges[0].start, day("2026-05-01"))
+    }
+
+    func testInitWithMissingPersonDoesNotLeakOtherPeoplesRecords() throws {
+        // Seed another person with records, then build a profile whose objectID
+        // points at a now-deleted person to simulate the race window.
+        let other = TestCoreDataFactory.makePerson(in: context, name: "Other")
+        TestCoreDataFactory.makeRecord(in: context, person: other,
+                                       start: day("2026-06-01"),
+                                       end: day("2026-06-05"))
+        let ghost = TestCoreDataFactory.makePerson(in: context, name: "Ghost")
+        try context.save()
+        let ghostProfile = PersonProfile(person: ghost)
+        context.delete(ghost)
+        try context.save()
+
+        let vm = CalendarViewModel(ctx: context, person: ghostProfile)
+
+        XCTAssertTrue(vm.state.ranges.isEmpty,
+                      "missing person must not fall back to fetching everyone's records")
+        XCTAssertEqual(vm.state.title, "Ghost",
+                       "title still reflects the profile passed in")
     }
 
     // MARK: - tap day
@@ -58,7 +95,6 @@ final class CalendarViewModelTests: XCTestCase {
         try! context.save()
 
         let vm = CalendarViewModel(ctx: context, person: PersonProfile(person: person))
-        vm.send(.appear)
 
         var captured: CalendarViewModel.Action?
         vm.onAction = { captured = $0 }
@@ -81,7 +117,6 @@ final class CalendarViewModelTests: XCTestCase {
         try! context.save()
 
         let vm = CalendarViewModel(ctx: context, person: PersonProfile(person: person))
-        vm.send(.appear)
 
         var captured: CalendarViewModel.Action?
         vm.onAction = { captured = $0 }
@@ -108,7 +143,6 @@ final class CalendarViewModelTests: XCTestCase {
         try! context.save()
 
         let vm = CalendarViewModel(ctx: context, person: PersonProfile(person: person))
-        vm.send(.appear)
 
         var captured: CalendarViewModel.Action?
         vm.onAction = { captured = $0 }

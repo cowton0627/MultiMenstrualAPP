@@ -74,7 +74,6 @@ struct CalendarScreen: View {
         }
         .onAppear {
             vm.onAction = handleAction
-            vm.send(.appear)
         }
         .confirmationDialog("選擇紀錄",
                             isPresented: Binding(
