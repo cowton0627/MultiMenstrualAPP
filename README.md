@@ -34,6 +34,23 @@ A SwiftUI + Core Data iOS menstrual-cycle tracker built around managing **multip
 - 共用錯誤 alert / 卡片樣式 / `AppTheme` design tokens
 - GitHub Actions CI（push / PR 自動跑 build + test）
 
+## 技術 / 架構
+
+**技術棧**：SwiftUI · Core Data · iOS 15+ · Swift 5.0 · Lottie (`airbnb/lottie-ios`) · XCTest · GitHub Actions CI
+
+**Design pattern**：
+
+- **MVVM**：view ↔ `@Published` VM ↔ repository
+- **Feature-first 結構**：每個 feature 分 `UI / Presentation / Domain` 三層
+- **Read model (DTO)**：view / VM 不接觸 `NSManagedObject`，只用 `PersonProfile` / `PersonSummary` / `PeriodRecordSnapshot`
+- **Repository + protocol**：VM 收 protocol，測試可 inject fake
+- **Typed ID newtype**：`PersonID` / `PeriodRecordID` 包住 `NSManagedObjectID`，view layer 看不到 Core Data 型別
+- **NSFetchedResultsController**：列表自動跟著 Core Data 變動 propagate，不靠手動 reload token
+- **Design tokens**：`AppTheme` + `.cardSurface()` / `.elevatedCardSurface()` modifier
+- **統一錯誤處理**：VM 拋 → `.errorAlert($alertError)` modifier
+
+每項背後的取捨理由見 [`DECISIONS.md`](./DECISIONS.md)。
+
 ## 資料夾結構
 
 ```
