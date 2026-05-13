@@ -23,3 +23,6 @@ DerivedData/
 *.p12
 *.mobileprovision
 *.cer
+
+# Claude Code
+CLAUDE.md
