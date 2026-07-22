@@ -1,6 +1,31 @@
-# MultiMenstrualAPP
+# 羽時 — 多人經期管理
 
-A SwiftUI + Core Data iOS menstrual-cycle tracker built around managing **multiple profiles on a single device**, fully offline.
+一款以 SwiftUI + Core Data 打造的離線 iOS 經期管理 App，核心特色是能在同一台裝置上管理多位人物，同時保留每個人的獨立週期與預測。
+
+> Portfolio project · iOS 15+ · SwiftUI · MVVM · Core Data · 69 tests
+
+## 30 秒看懂羽時
+
+- **多人管理**：為家人、伴侶或照護情境建立獨立人物與顏色。
+- **月曆紀錄**：新增、編輯經期區間，支援尚未結束的紀錄與備註。
+- **週期預測**：以最近 3 次週期間隔平均值，呈現下一次開始日 ±2 天視窗。
+- **跨人物總覽**：集中查看近期紀錄與即將到來的預測。
+- **隱私優先**：資料預設只存在裝置本機，不含帳號、廣告與第三方分析。
+- **可攜備份**：使用具 schema version 的 JSON 完整匯出與匯入。
+
+## Demo
+
+實機展示不使用真實健康資料。進入 **設定 → 作品展示 → 載入展示資料**，即可建立 3 位虛構人物與 12 筆相對於當天的週期紀錄；重複載入會先清除舊資料，操作前會明確提醒匯出備份。
+
+建議展示動線：
+
+1. 首頁快速瀏覽三位人物，點入「小羽」。
+2. 在月曆比較已記錄區間與預測視窗。
+3. 新增一筆「尚未結束」的經期，再返回月曆確認畫面更新。
+4. 切換到總覽，說明跨人物預測與最近紀錄。
+5. 到設定展示 JSON 備份，以及一鍵重建安全的虛構資料。
+
+錄製作品影片時可直接使用 [`docs/demo-script.md`](./docs/demo-script.md) 的 60–90 秒腳本。影片與截圖完成後，建議把它們放在 `docs/media/`，並在本節最上方加入影片連結與 3 張代表性畫面。
 
 ---
 
@@ -18,7 +43,7 @@ A SwiftUI + Core Data iOS menstrual-cycle tracker built around managing **multip
 
 - **首頁**：人物清單 → 個人月曆 → 新增 / 編輯經期紀錄
 - **總覽**：跨人物統計（人數、紀錄數、即將來潮預測、最近紀錄）
-- **設定**：JSON 匯出 / 匯入備份（schema v1）
+- **設定**：JSON 匯出 / 匯入備份（schema v1）與虛構 Demo Data
 
 人物用顏色區分；每人獨立週期、獨立預測（取最近 3 次週期平均推算下一次起始日 ±2 天的視窗）。
 
@@ -30,6 +55,7 @@ A SwiftUI + Core Data iOS menstrual-cycle tracker built around managing **multip
 - 經期紀錄新增 / 編輯（含「尚未結束」狀態）
 - 跨人物統計與下次預測（總覽分頁）
 - JSON 全量備份匯出 / 匯入
+- 一鍵建立相對於當天的虛構展示資料（3 人 / 12 筆紀錄）
 - 自製櫻花 app icon（程式產生，37 個尺寸）
 - 共用錯誤 alert / 卡片樣式 / `AppTheme` design tokens
 - GitHub Actions CI（push / PR 自動跑 build + test）
@@ -103,7 +129,7 @@ xcodebuild build \
   -destination 'generic/platform=iOS Simulator' \
   CODE_SIGNING_ALLOWED=NO
 
-# 跑全部測試（68 cases）
+# 跑全部測試（69 cases）
 xcodebuild test \
   -project MultiMenstrualAPP.xcodeproj \
   -scheme MultiMenstrualAPP \

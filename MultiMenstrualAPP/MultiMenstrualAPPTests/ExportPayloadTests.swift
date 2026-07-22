@@ -9,6 +9,41 @@ import CoreData
 
 final class ExportPayloadTests: XCTestCase {
 
+    func testDemoDataSeederReplacesExistingDataWithStableShowcaseDataset() throws {
+        let container = TestCoreDataFactory.makeContainer()
+        let context = container.viewContext
+        _ = TestCoreDataFactory.makePerson(in: context, name: "Private data")
+        try context.save()
+        let profilesViewModel = ProfilesViewModel(context: context)
+
+        let summary = try DemoDataSeeder.replaceAll(
+            in: context,
+            today: day("2026-07-21")
+        )
+
+        XCTAssertEqual(summary, DemoDataSummary(profileCount: 3, recordCount: 12))
+        XCTAssertEqual(profilesViewModel.people.count, 3)
+        XCTAssertTrue(profilesViewModel.people.allSatisfy { !$0.id.raw.isTemporaryID })
+
+        let people = try context.fetch(Person.fetchRequest()) as! [Person]
+        XCTAssertEqual(Set(people.compactMap(\.name)), Set(["小羽", "安然", "米亞"]))
+        XCTAssertFalse(people.contains { $0.name == "Private data" })
+
+        let records = try context.fetch(PeriodRecord.fetchRequest()) as! [PeriodRecord]
+        XCTAssertEqual(records.count, 12)
+        XCTAssertTrue(records.allSatisfy { $0.person != nil })
+
+        for summary in profilesViewModel.people {
+            guard let profile = PersonRepository(context: context).fetchProfile(id: summary.id) else {
+                XCTFail("A seeded profile must remain addressable from its list route")
+                continue
+            }
+            let calendarViewModel = CalendarViewModel(ctx: context, person: profile)
+            XCTAssertEqual(calendarViewModel.state.ranges.count, 4)
+            XCTAssertEqual(calendarViewModel.state.predicted.count, 1)
+        }
+    }
+
     // MARK: - round trip
 
     func testRoundTripPreservesProfilesAndRecords() throws {
