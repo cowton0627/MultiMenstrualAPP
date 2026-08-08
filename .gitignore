@@ -26,3 +26,6 @@ DerivedData/
 
 # Claude Code
 CLAUDE.md
+
+# Local signing settings (Team ID stays off git)
+Config/Signing.local.xcconfig
