@@ -67,3 +67,11 @@ VM 拋的錯誤由 view 用 `@State alertError: AlertError?` 接住，套 `.erro
 
 - **為什麼**：Apple framework 的限制，無法解。
 - **影響**：VM 的 init 必須先 `super.init()` 再 configure FRC，不能用 stored property 預設值。
+
+## 9. UI smoke test 納入 shared scheme 與 CI
+
+新增 `MultiMenstrualAPPUITests` target，先以啟動流程 smoke test 驗證 App 進入「經期管理」畫面；並將 UI test target 加入 `MultiMenstrualAPP` shared scheme 的 Test Action。
+
+- **為什麼**：Unit Test 能覆蓋 domain / repository / view model，但無法驗證 App 是否能成功啟動並呈現主要入口；smoke test 可用低維護成本捕捉啟動或 wiring 退化。
+- **CI 整合**：`.github/workflows/ci.yml` 的 `xcodebuild test` 使用 shared scheme，因此同一個 CI job 會同時執行 Unit Test 與 UI Test；失敗時保留 `TestResults.xcresult`。
+- **目前範圍**：先驗證啟動後主要畫面存在，尚未涵蓋完整新增人物、記錄經期等互動流程。

@@ -61,10 +61,18 @@
 		91F000CC2FFC100100A513EF /* EntityIDs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F000BC2FFC100100A513EF /* EntityIDs.swift */; };
 		91F00E012FFC100100A513EF /* PersonRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F00E002FFC100100A513EF /* PersonRepositoryTests.swift */; };
 		91F00E032FFC100100A513EF /* PeriodRecordRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F00E022FFC100100A513EF /* PeriodRecordRepositoryTests.swift */; };
+		920000012FFB100000A513EF /* MultiMenstrualAPPUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 920000002FFB100000A513EF /* MultiMenstrualAPPUITests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
 		91D7A0142FB2E08900A513EF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 919707BA2E5ECBBD0098A613 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 919707C12E5ECBBD0098A613;
+			remoteInfo = MultiMenstrualAPP;
+		};
+		920000032FFB100000A513EF /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 919707BA2E5ECBBD0098A613 /* Project object */;
 			proxyType = 1;
@@ -114,6 +122,8 @@
 		91D7A00E2FB2DFD400A513EF /* PeriodRangeMapperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeriodRangeMapperTests.swift; sourceTree = "<group>"; };
 		91D7A00F2FB2DFD400A513EF /* TestCoreDataFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCoreDataFactory.swift; sourceTree = "<group>"; };
 		91D7A0132FB2E08900A513EF /* MultiMenstrualAPPTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MultiMenstrualAPPTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		920000002FFB100000A513EF /* MultiMenstrualAPPUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiMenstrualAPPUITests.swift; sourceTree = "<group>"; };
+		920000022FFB100000A513EF /* MultiMenstrualAPPUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MultiMenstrualAPPUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		91E000002FFB100000A513EF /* AppRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRootView.swift; sourceTree = "<group>"; };
 		91E000022FFB100100A513EF /* AppRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRoute.swift; sourceTree = "<group>"; };
 		91E000042FFB100200A513EF /* PersonSummary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonSummary.swift; sourceTree = "<group>"; };
@@ -151,6 +161,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		920000052FFB100000A513EF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -167,6 +184,7 @@
 			children = (
 				919707C22E5ECBBD0098A613 /* MultiMenstrualAPP.app */,
 				91D7A0132FB2E08900A513EF /* MultiMenstrualAPPTests.xctest */,
+				920000022FFB100000A513EF /* MultiMenstrualAPPUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -180,6 +198,7 @@
 				919708202E67CB790098A613 /* Shared */,
 				919708112E67CB790098A613 /* Resources */,
 				91D7A0122FB2E07300A513EF /* MultiMenstrualAPPTests */,
+				920000042FFB100000A513EF /* MultiMenstrualAPPUITests */,
 			);
 			path = MultiMenstrualAPP;
 			sourceTree = "<group>";
@@ -408,6 +427,14 @@
 			path = MultiMenstrualAPPTests;
 			sourceTree = "<group>";
 		};
+		920000042FFB100000A513EF /* MultiMenstrualAPPUITests */ = {
+			isa = PBXGroup;
+			children = (
+				920000002FFB100000A513EF /* MultiMenstrualAPPUITests.swift */,
+			);
+			path = MultiMenstrualAPPUITests;
+			sourceTree = "<group>";
+		};
 		91F000A12FFC100100A513EF /* Insights */ = {
 			isa = PBXGroup;
 			children = (
@@ -501,6 +528,26 @@
 			productReference = 91D7A0132FB2E08900A513EF /* MultiMenstrualAPPTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		920000092FFB100000A513EF /* MultiMenstrualAPPUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 920000102FFB100000A513EF /* Build configuration list for PBXNativeTarget "MultiMenstrualAPPUITests" */;
+			buildPhases = (
+				920000062FFB100000A513EF /* Sources */,
+				920000052FFB100000A513EF /* Frameworks */,
+				920000082FFB100000A513EF /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				920000072FFB100000A513EF /* PBXTargetDependency */,
+			);
+			name = MultiMenstrualAPPUITests;
+			packageProductDependencies = (
+			);
+			productName = MultiMenstrualAPPUITests;
+			productReference = 920000022FFB100000A513EF /* MultiMenstrualAPPUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -515,6 +562,10 @@
 						CreatedOnToolsVersion = 15.2;
 					};
 					91D7A0152FB2E08900A513EF = {
+						CreatedOnToolsVersion = 15.2;
+						TestTargetID = 919707C12E5ECBBD0098A613;
+					};
+					920000092FFB100000A513EF = {
 						CreatedOnToolsVersion = 15.2;
 						TestTargetID = 919707C12E5ECBBD0098A613;
 					};
@@ -538,6 +589,7 @@
 			targets = (
 				919707C12E5ECBBD0098A613 /* MultiMenstrualAPP */,
 				91D7A0152FB2E08900A513EF /* MultiMenstrualAPPTests */,
+				920000092FFB100000A513EF /* MultiMenstrualAPPUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -554,6 +606,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		91D7A0182FB2E08900A513EF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		920000082FFB100000A513EF /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -627,6 +686,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		920000062FFB100000A513EF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				920000012FFB100000A513EF /* MultiMenstrualAPPUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -634,6 +701,11 @@
 			isa = PBXTargetDependency;
 			target = 919707C12E5ECBBD0098A613 /* MultiMenstrualAPP */;
 			targetProxy = 91D7A0142FB2E08900A513EF /* PBXContainerItemProxy */;
+		};
+		920000072FFB100000A513EF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 919707C12E5ECBBD0098A613 /* MultiMenstrualAPP */;
+			targetProxy = 920000032FFB100000A513EF /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -783,7 +855,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = cowton0627.MultiMenstrualAPP;
+				PRODUCT_BUNDLE_IDENTIFIER = example.MultiMenstrualAPP;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -815,7 +887,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = cowton0627.MultiMenstrualAPP;
+				PRODUCT_BUNDLE_IDENTIFIER = example.MultiMenstrualAPP;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -871,6 +943,39 @@
 			};
 			name = Release;
 		};
+		9200000A2FFB100000A513EF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				PRODUCT_BUNDLE_IDENTIFIER = example.MultiMenstrualAPPUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = MultiMenstrualAPP;
+			};
+			name = Debug;
+		};
+		9200000B2FFB100000A513EF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				PRODUCT_BUNDLE_IDENTIFIER = example.MultiMenstrualAPPUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = MultiMenstrualAPP;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -897,6 +1002,15 @@
 			buildConfigurations = (
 				91D7A01B2FB2E08900A513EF /* Debug */,
 				91D7A01C2FB2E08900A513EF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		920000102FFB100000A513EF /* Build configuration list for PBXNativeTarget "MultiMenstrualAPPUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9200000A2FFB100000A513EF /* Debug */,
+				9200000B2FFB100000A513EF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
