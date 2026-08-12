@@ -175,3 +175,10 @@ python3 scripts/gen_app_icon.py
 ## Repository
 
 `https://github.com/cowton0627/MultiMenstrualAPP`
+
+## License
+
+MIT — see [LICENSE](LICENSE).
+
+Third-party components included in this repository remain governed by their own
+licenses; see [THIRD_PARTY_LICENSES.md](THIRD_PARTY_LICENSES.md) for details.
